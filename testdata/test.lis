@@ -1,0 +1,18 @@
+00000000                                     1  * Test 68000 simulator program
+00000000                                     2  
+00000000  =00000006                          3  WRCHAR  EQU     6                       Trap # for write D1.B char to screen
+00000000                                     4  
+00001000                                     5          ORG $1000
+00001000                                     6  
+00001000  41FA 0012                          7          LEA      MESSAGE(PC),A0         Point A0 to start of message
+00001004  1218                               8  NEXT    MOVE.B  (A0)+,D1                Get character, increment pointer
+00001006  6708                               9          BEQ.S   FINISH                  Exit if end
+00001008  103C 0006                         10          MOVE.B  #WRCHAR,D0              Set up trap to write to screen
+0000100C  4E4F                              11          TRAP    #15                     Write char. to screen
+0000100E  60F4                              12          BRA.S   NEXT                    ..and loop back
+00001010  4E72 2700                         13  FINISH  STOP    #$2700                  Halt
+00001014  54 68 69 73 20 69 73 20 74 ...    14  MESSAGE DC.B    'This is the message',$0D,$0A,0
+0000102A                                    15  
+0000102A                                    16          END     $1000
+No errors detected
+No warnings generated

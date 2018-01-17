@@ -1,0 +1,23 @@
+00000000                                     1  *       68Sample.x68
+00000000                                     2  *       By Greg Colley
+00000000                                     3  *       Program which adds 3 numbers together and subtracts another.
+00000000  =00002000                          4  LOC1    EQU     $2000
+00000000  =00002002                          5  LOC2    EQU     $2002
+00000000  =00002004                          6  LOC3    EQU     $2004
+00000000                                     7  
+00000000  =00002006                          8  RESULT  EQU     $2006   Answer Location
+00000000                                     9  
+00001000                                    10          ORG     $1000
+00001000                                    11  
+00001000                                    12  *       Main Program
+00001000  3038 2000                         13          MOVE.W  LOC1,D0
+00001004  D078 2002                         14          ADD.W   LOC2,D0
+00001008  D078 2004                         15          ADD.W   LOC3,D0
+0000100C  0440 01F0                         16          SUB.W   #$1F0,D0
+00001010  31C0 2006                         17          MOVE.W  D0,RESULT
+00001014  4E72 2700                         18          STOP    #$2700
+00001018                                    19  
+00001018                                    20          END     $1000
+
+No errors detected
+No warnings generated
