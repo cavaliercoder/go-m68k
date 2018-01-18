@@ -9,30 +9,38 @@ An: Address Register Direct Mode
 */
 package m68k
 
-import "fmt"
-
-type Register uint32
-
-// See 1.1.4
-type ConditionCodeRegister Register
-
-type RegisterBank struct {
-	D0, D1, D2, D3, D4, D5, D6, D7 Register // Data registers
-	A0, A1, A2, A3, A4, A5, A6     Register // Address registers
-	A7                             Register // Program Counter
-	CCR                            ConditionCodeRegister
+type Processor struct {
+	D      [8]uint32 // Data registers
+	A      [8]uint32 // Address registers
+	CCR    uint32    // Condition Code Register
+	Memory Memory
 }
 
-type Microprocessor struct {
-	RegisterBank
+func (c *Processor) Reset() {
+	for i := 0; i < len(c.D); i++ {
+		c.D[i] = 0
+		c.A[i] = 0
+	}
+	c.CCR = 0
+	c.Jump(0x1000)
+	if c.Memory == nil {
+		c.Memory = NewMemory(0x2000)
+	} else {
+		// c.Memory.Reset()
+	}
 }
 
-func (c *Microprocessor) Run(b []byte) {
-	for i := 0; i < len(b); i++ {
-		if b[i]&0xD0 == 0xD0 {
-			fmt.Printf("%04d ADD %08b\n", i, b[i])
-		} else {
-			// fmt.Printf("%04d Unknown: %08b\n", i, b[i])
+func (c *Processor) Jump(addr int) error {
+	c.A[7] = uint32(addr)
+	return nil
+}
+
+func (c *Processor) Run() error {
+	ins := make([]byte, 16)
+	for {
+		if _, err := c.Memory.Read(int(c.A[7]), ins[0:2]); err != nil {
+			return err
 		}
+		c.A[7] += 2
 	}
 }
