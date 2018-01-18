@@ -1,3 +1,5 @@
+package m68k
+
 /*
 Manual: http://www.easy68k.com/paulrsm/doc/68kprm.pdf
 
@@ -7,7 +9,6 @@ EA: Effective Address - Addressing mode and location
 Dn: Data Register Direct Mode
 An: Address Register Direct Mode
 */
-package m68k
 
 type Processor struct {
 	D      [8]uint32 // Data registers

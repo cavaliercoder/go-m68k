@@ -1,4 +1,7 @@
-package m68k
+/*
+Package srec providers decoding of the Motorola S-Record file format.
+*/
+package srec
 
 import (
 	"bufio"
@@ -6,21 +9,23 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/cavaliercoder/go-m68k/m68k"
 )
 
 var (
 	ErrInvalidChecksum = errors.New("checksum validation failed")
 )
 
-type SRecord struct {
+type Record struct {
 	b []byte
 }
 
-func ReadSRecords(r io.Reader) ([]*SRecord, error) {
-	v := make([]*SRecord, 0)
+func Read(r io.Reader) ([]*Record, error) {
+	v := make([]*Record, 0)
 	s := bufio.NewScanner(r)
 	for s.Scan() {
-		sr, err := ParseSRecord(s.Bytes())
+		sr, err := Parse(s.Bytes())
 		if err != nil {
 			return nil, err
 		}
@@ -32,8 +37,8 @@ func ReadSRecords(r io.Reader) ([]*SRecord, error) {
 	return v, nil
 }
 
-func ParseSRecord(b []byte) (*SRecord, error) {
-	s := &SRecord{}
+func Parse(b []byte) (*Record, error) {
+	s := &Record{}
 	s.b = make([]byte, len(b)/2+1)
 	s.b[0] = 'S'
 	s.b[1] = b[1] - '0'
@@ -54,7 +59,7 @@ func ParseSRecord(b []byte) (*SRecord, error) {
 }
 
 // Load copies the data from a data record into the given Memory.
-func (s *SRecord) Load(m Memory) (err error) {
+func (s *Record) Load(m m68k.Memory) (err error) {
 	if !s.IsData() {
 		return errors.New("s-record is not a data record")
 	}
@@ -62,7 +67,7 @@ func (s *SRecord) Load(m Memory) (err error) {
 	return
 }
 
-func (s *SRecord) addressWidth() int {
+func (s *Record) addressWidth() int {
 	if s.b[1] == 4 || s.b[1] > 9 {
 		panic("unrecognized s-record type")
 	}
@@ -80,15 +85,15 @@ func (s *SRecord) addressWidth() int {
 	}[s.b[1]]
 }
 
-func (s *SRecord) Type() string {
+func (s *Record) Type() string {
 	return string(s.b[:2])
 }
 
-func (s *SRecord) IsData() bool {
+func (s *Record) IsData() bool {
 	return s.b[1] > 0 && s.b[1] < 4
 }
 
-func (s *SRecord) Address() int {
+func (s *Record) Address() int {
 	addr := 0
 	w := s.addressWidth()
 	for i := 0; i < w; i++ {
@@ -97,15 +102,15 @@ func (s *SRecord) Address() int {
 	return addr
 }
 
-func (s *SRecord) Data() []byte {
+func (s *Record) Data() []byte {
 	return s.b[3+s.addressWidth() : len(s.b)-1]
 }
 
-func (s *SRecord) Checksum() byte {
+func (s *Record) Checksum() byte {
 	return s.b[len(s.b)-1]
 }
 
-func (s *SRecord) String() string {
+func (s *Record) String() string {
 	if s.b[1] > 9 {
 		return "unknown"
 	}

@@ -1,11 +1,13 @@
-package m68k
+package srec
 
 import (
 	"strings"
 	"testing"
+
+	"github.com/cavaliercoder/go-m68k/m68k"
 )
 
-func TestSRecord(t *testing.T) {
+func TestDecode(t *testing.T) {
 	tests := []struct {
 		Input   string
 		Expect  string
@@ -23,12 +25,12 @@ S9030000FC
 	}
 
 	for _, test := range tests {
-		srecords, err := ReadSRecords(strings.NewReader(test.Input))
+		records, err := Read(strings.NewReader(test.Input))
 		if err != nil {
 			t.Fatal(err)
 		}
-		m := NewMemory(0x2000)
-		for _, s := range srecords {
+		m := m68k.NewMemory(0x2000)
+		for _, s := range records {
 			if s.IsData() {
 				if err := s.Load(m); err != nil {
 					t.Fatal(err)
