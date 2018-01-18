@@ -3,7 +3,7 @@ all: check
 testdata:
 	cd testdata/; make
 
-check: testdata
+check:
 	go test -v -cover ./...
 
 .PHONY: all testdata check
