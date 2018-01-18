@@ -1,5 +1,5 @@
 /*
-Package srec providers decoding of the Motorola S-Record file format.
+Package srec provides decoding of the Motorola S-Record file format.
 */
 package srec
 
