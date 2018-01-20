@@ -30,12 +30,8 @@ S9030000FC
 			t.Fatal(err)
 		}
 		m := m68k.NewMemory(0x2000)
-		for _, s := range records {
-			if s.IsData() {
-				if err := s.Load(m); err != nil {
-					t.Fatal(err)
-				}
-			}
+		if err := Load(m, records); err != nil {
+			t.Fatal(err)
 		}
 		b := make([]byte, 19)
 		m.Read(0x1014, b)

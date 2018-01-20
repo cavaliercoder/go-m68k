@@ -1,12 +1,14 @@
-package m68k
+package m68k_test
 
 import (
 	"bytes"
 	"testing"
+
+	"github.com/cavaliercoder/go-m68k/m68k"
 )
 
 func TestMemory(t *testing.T) {
-	m := NewMemory(16)
+	m := m68k.NewMemory(16)
 	data := []byte("0123456789ABCDEF")
 
 	// TODO: test init state is 0x00000000...

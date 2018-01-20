@@ -9,16 +9,23 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/cavaliercoder/go-m68k/m68k"
 )
 
 var (
 	ErrInvalidChecksum = errors.New("checksum validation failed")
 )
 
+// A Record is a single record from a Motorola 68000 S-Record encoded file. This
+// format is used to share 68000 programs in plain text and is detailed in
+// Appendix C of the M68000 Family Programmer's Reference Manual.
 type Record struct {
 	b []byte
 }
 
+// Read reads and parses S-Records from the given Reader. Records are delimited
+// by line breaks.
 func Read(r io.Reader) ([]*Record, error) {
 	v := make([]*Record, 0)
 	s := bufio.NewScanner(r)
@@ -35,6 +42,8 @@ func Read(r io.Reader) ([]*Record, error) {
 	return v, nil
 }
 
+// Parse decodes the given byte array into a Record struct. The input is
+// expected to be a heximdecimal encoded record with the 'S' prefix.
 func Parse(b []byte) (*Record, error) {
 	s := &Record{}
 	s.b = make([]byte, len(b)/2+1)
@@ -56,6 +65,20 @@ func Parse(b []byte) (*Record, error) {
 	return s, nil
 }
 
+// Load copies all data from the given slice of records into a 68000 memory
+// bank.
+func Load(m m68k.Memory, records []*Record) error {
+	for _, s := range records {
+		if s.IsData() {
+			_, err := m.Write(s.Address(), s.Data())
+			if err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
 func (s *Record) addressWidth() int {
 	if s.b[1] == 4 || s.b[1] > 9 {
 		panic("unrecognized s-record type")
@@ -74,14 +97,18 @@ func (s *Record) addressWidth() int {
 	}[s.b[1]]
 }
 
+// Type returns the type of the Record. E.g. "S1".
 func (s *Record) Type() string {
 	return string(s.b[:2])
 }
 
+// IsData returns true if the Record contains code or data.
 func (s *Record) IsData() bool {
 	return s.b[1] > 0 && s.b[1] < 4
 }
 
+// Address specifies the destination memory address where data will be loaded
+// for a data record.
 func (s *Record) Address() int {
 	addr := 0
 	w := s.addressWidth()
@@ -91,14 +118,17 @@ func (s *Record) Address() int {
 	return addr
 }
 
+// Data return the raw data section of the Record.
 func (s *Record) Data() []byte {
 	return s.b[3+s.addressWidth() : len(s.b)-1]
 }
 
+// Checksum returns the checksum byte for the Record.
 func (s *Record) Checksum() byte {
 	return s.b[len(s.b)-1]
 }
 
+// String returns a string represenation of the Record.
 func (s *Record) String() string {
 	if s.b[1] > 9 {
 		return "unknown"
