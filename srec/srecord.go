@@ -9,8 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-
-	"github.com/cavaliercoder/go-m68k/m68k"
 )
 
 var (
@@ -56,15 +54,6 @@ func Parse(b []byte) (*Record, error) {
 		return nil, ErrInvalidChecksum
 	}
 	return s, nil
-}
-
-// Load copies the data from a data record into the given Memory.
-func (s *Record) Load(m m68k.Memory) (err error) {
-	if !s.IsData() {
-		return errors.New("s-record is not a data record")
-	}
-	_, err = m.Write(s.Address(), s.Data())
-	return
 }
 
 func (s *Record) addressWidth() int {
