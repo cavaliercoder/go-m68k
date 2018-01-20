@@ -1,0 +1,22 @@
+00000000                                     1  		* tests for addi
+00001000                                     2  		org $1000
+00001000                                     3  
+00001000                                     4  		* add byte
+00001000  0600 00FF                          5  		addi.b #$FF,D0					; add 0xFF to D0
+00001004  0600 00FF                          6  		addi.b #$FF,D0				; overflow D0 to 0x01
+00001008                                     7  
+00001008                                     8  		* add word
+00001008  0641 FFFF                          9  		addi.w #$FFFF,D1			; add 0xFFFF to D1
+0000100C  0641 FFFF                         10  		addi.w #$FFFF,D1			; overflow D1 to 0x0001
+00001010                                    11  
+00001010                                    12  		* add long
+00001010  0682 FFFFFFFF                     13  		addi.l   #$FFFFFFFF,D2	; add 0xFFFFFFFF to D2
+00001016  0682 FFFFFFFF                     14  		addi.l   #$FFFFFFFF,D2	; overflow D2 to $0x00000001
+0000101C                                    15  
+0000101C                                    16  		* ensure no overflow
+0000101C  0603 00FF                         17  		addi.b	#$FF,D3					; add 0xFF to D3
+00001020  0643 FF00                         18  		addi.w	#$FF00,D3				; add 0xFF00 to D3
+00001024  0683 FFFF0000                     19  		addi.l	#$FFFF0000,D3		; add 0xFFFF0000
+
+No errors detected
+No warnings generated
