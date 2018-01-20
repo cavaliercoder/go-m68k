@@ -67,7 +67,7 @@ func Dump(w io.Writer, m Memory) {
 		}
 		if bytesZero(b) {
 			if !elip {
-				fmt.Fprintf(w, "%08X  ...\n", i)
+				fmt.Fprint(w, "*\n")
 				elip = true
 			}
 			continue

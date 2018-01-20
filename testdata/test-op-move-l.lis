@@ -1,0 +1,8 @@
+00000000                                     1  		* tests for move.l
+00001000                                     2  		org $1000
+00001000                                     3  
+00001000                                     4  		* register immediate to direct
+00001000  2E3C 000000D7                      5      move.l #$D7,D7
+
+No errors detected
+No warnings generated

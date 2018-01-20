@@ -105,3 +105,9 @@ func TestAddi(t *testing.T) {
 	assertDataRegister(t, p, 2, 0xFFFFFFFE)
 	assertDataRegister(t, p, 3, 0xFFFFFFFF)
 }
+
+func TestMovel(t *testing.T) {
+	p := load("test-op-move-l.h68")
+	assertRun(t, p)
+	assertDataRegister(t, p, 7, 0xD7)
+}

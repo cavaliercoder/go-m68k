@@ -4,7 +4,6 @@
 #                                                                              #
 # To obtain a copy of the 68kasm compiler, see: https://github.com/BSVC/bsvc   #
 ################################################################################
-
 SOURCES = $(wildcard *.x68)
 PROGRAMS = $(patsubst %.x68, %.h68, $(SOURCES))
 LISTFILES = $(patsubst %.x68, %.lis, $(SOURCES))
