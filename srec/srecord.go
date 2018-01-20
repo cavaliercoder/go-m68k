@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/cavaliercoder/go-m68k/m68k"
+	"github.com/cavaliercoder/go-m68k"
 )
 
 var (

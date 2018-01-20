@@ -31,7 +31,7 @@ func (c *Processor) Reset() {
 	c.CCR = 0
 	c.Jump(0x1000)
 	if c.M == nil {
-		c.M = NewMemory(0x4000) // 16KB
+		c.M = NewRAM(0x4000) // 16KB
 	}
 	// TODO: c.Memory.Reset()
 }

@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cavaliercoder/go-m68k/m68k"
+	"github.com/cavaliercoder/go-m68k"
 	"github.com/cavaliercoder/go-m68k/srec"
 )
 
@@ -19,7 +19,7 @@ func testProc() *m68k.Processor {
 
 func load(path string) *m68k.Processor {
 	p := testProc()
-	f, err := os.Open("../testdata/" + path)
+	f, err := os.Open("./testdata/" + path)
 	if err != nil {
 		panic(err)
 	}

@@ -5,22 +5,27 @@ import (
 	"io"
 )
 
+// Memory is an interface for any IO device that is addressable via memory
+// mapping. This interface will be satisfied by random access memory, a virtual
+// memory manager, peripheral devices, etc.
 type Memory interface {
 	Read(addr int, p []byte) (n int, err error)
 	Write(addr int, p []byte) (n int, err error)
 }
 
-type memory struct {
+type ram struct {
 	b []byte
 }
 
-func NewMemory(size uint32) Memory {
-	return &memory{
+// NewRAM returns Random Access Memory initialized to the given size. This
+// memory can used to load program and data for a 68000 processor.
+func NewRAM(size uint32) Memory {
+	return &ram{
 		b: make([]byte, size),
 	}
 }
 
-func (m *memory) Read(addr int, p []byte) (n int, err error) {
+func (m *ram) Read(addr int, p []byte) (n int, err error) {
 	if addr >= len(m.b) {
 		return 0, io.EOF
 	}
@@ -28,7 +33,7 @@ func (m *memory) Read(addr int, p []byte) (n int, err error) {
 	return
 }
 
-func (m *memory) Write(addr int, p []byte) (n int, err error) {
+func (m *ram) Write(addr int, p []byte) (n int, err error) {
 	n = copy(m.b[addr:], p)
 	return
 }
@@ -42,7 +47,7 @@ func bytesZero(b []byte) bool {
 	return true
 }
 
-// Dump prints the content of a Memory bank to the given writer in hexidecimal
+// Dump prints the content of a Memory device to the given writer in hexidecimal
 // format.
 func Dump(w io.Writer, m Memory) {
 	b := make([]byte, 16)
