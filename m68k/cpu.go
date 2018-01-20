@@ -17,6 +17,8 @@ type Processor struct {
 	CCR uint32    // Condition Code Register
 	M   Memory
 
+	TraceWriter io.Writer
+
 	op  [16]byte
 	err error
 }
@@ -71,7 +73,10 @@ func (c *Processor) Run() error {
 }
 
 func (c *Processor) trace(format string, a ...interface{}) {
-	fmt.Printf(format, a...)
+	if c.TraceWriter == nil {
+		return
+	}
+	fmt.Fprintf(c.TraceWriter, format, a...)
 }
 
 func (c *Processor) opcode00() error {
@@ -108,7 +113,7 @@ func (c *Processor) opcode00() error {
 		c.A[7] += sz
 
 	default:
-		c.trace("%04X Opcode: %04X (%0X)\n", addr, c.op[:2], c.op[0]&0xF0)
+		c.trace("%04X Unknown opcode: %04X (%0X)\n", addr, c.op[:2], c.op[0]&0xF0)
 	}
 	return nil
 }

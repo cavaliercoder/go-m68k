@@ -9,10 +9,16 @@ import (
 	"github.com/cavaliercoder/go-m68k/srec"
 )
 
-func load(path string) *m68k.Processor {
-	p := &m68k.Processor{}
+func testProc() *m68k.Processor {
+	p := &m68k.Processor{
+		TraceWriter: os.Stderr,
+	}
 	p.Reset()
+	return p
+}
 
+func load(path string) *m68k.Processor {
+	p := testProc()
 	f, err := os.Open("../testdata/" + path)
 	if err != nil {
 		panic(err)
