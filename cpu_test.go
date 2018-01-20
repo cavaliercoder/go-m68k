@@ -65,16 +65,13 @@ func TestReset(t *testing.T) {
 		p.A[i], p.D[i] = 0xFFFFFFFF, 0xFFFFFFFF
 	}
 	p.CCR = 0xFFFFFFFF
+	p.PC = 0xFFFFFFFF
 	p.M.Write(0x1000, []byte{0xFF, 0xFF, 0xFF, 0xFF})
 
 	// reset and test
 	p.Reset()
 	for i := 0; i < 8; i++ {
-		expect := uint32(0)
-		if i == 7 {
-			expect = 0x1000
-		}
-		if p.A[i] != expect {
+		if p.A[i] != 0 {
 			t.Errorf("Address register %d was not reset", i)
 		}
 		if p.D[i] != 0 {
@@ -83,6 +80,9 @@ func TestReset(t *testing.T) {
 	}
 	if p.CCR != 0 {
 		t.Error("Condition code register was not reset")
+	}
+	if p.PC != 0x1000 {
+		t.Error("Program counter not reset")
 	}
 	b := make([]byte, 4)
 	_, err := p.M.Read(0x1000, b)

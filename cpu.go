@@ -15,6 +15,7 @@ type Processor struct {
 	D   [8]uint32 // Data registers
 	A   [8]uint32 // Address registers
 	CCR uint32    // Condition Code Register
+	PC  uint32    // Program Counter
 	M   Memory    // System memory controller
 
 	// TraceWriter specifies where trace log output should be written to. If
@@ -58,7 +59,7 @@ func clearMemory(m Memory) {
 
 // Jump sets the value of the program counter to the given memory address.
 func (c *Processor) Jump(addr uint32) error {
-	c.A[7] = uint32(addr)
+	c.PC = addr
 	return nil
 }
 
@@ -70,7 +71,7 @@ func (c *Processor) Run() error {
 	}
 	for c.err == nil {
 		// read from program pointer into op
-		if _, c.err = c.M.Read(int(c.A[7]), c.buf[0:2]); c.err != nil {
+		if _, c.err = c.M.Read(int(c.PC), c.buf[0:2]); c.err != nil {
 			return c.err
 		}
 		c.op = uint16(c.buf[0])<<8 + uint16(c.buf[1])
@@ -88,8 +89,8 @@ func (c *Processor) Run() error {
 		case 0xD000:
 			c.opcodeD0()
 		default:
-			c.err = fmt.Errorf("Unregistered opcode @0x%04X: 0x%04X", c.A[7], c.op&0xF000)
-			c.A[7] += 2
+			c.err = fmt.Errorf("Unregistered opcode @0x%04X: 0x%04X", c.PC, c.op&0xF000)
+			c.PC += 2
 		}
 	}
 	return c.err
@@ -108,8 +109,8 @@ func (c *Processor) trace(format string, a ...interface{}) {
 }
 
 func (c *Processor) opcode00() {
-	addr := c.A[7]
-	c.A[7] += 2
+	addr := c.PC
+	c.PC += 2
 	switch c.op & 0x0F00 {
 	case 0x0600: // addi
 		// compute immediate value size
@@ -119,7 +120,7 @@ func (c *Processor) opcode00() {
 
 		// read immediate value
 		b := make([]byte, sz)
-		c.read(c.A[7], b)
+		c.read(c.PC, b)
 
 		// decode value
 		v := uint32(b[0]) // immediate value
@@ -138,7 +139,7 @@ func (c *Processor) opcode00() {
 		case 0x02: // address register indirect
 			// ...
 		}
-		c.A[7] += sz
+		c.PC += sz
 
 	default:
 		c.trace("%04X Unknown opcode: %04X (%0X)\n", addr, c.op, c.op&0xF000)
@@ -147,8 +148,8 @@ func (c *Processor) opcode00() {
 
 // opcode 0x20 is always MOVE.L. See section 4-116.
 func (c *Processor) opcode20() {
-	addr := c.A[7]
-	c.A[7] += 2
+	addr := c.PC
+	c.PC += 2
 
 	dm := (c.op & 0x01C0) >> 6 // dest mode
 	dr := (c.op & 0x0E00) >> 9 // dest register
@@ -184,8 +185,8 @@ func (c *Processor) opcode20() {
 }
 
 func (c *Processor) opcodeD0() {
-	addr := c.A[7]
-	c.A[7] += 2
+	addr := c.PC
+	c.PC += 2
 
 	mod := (c.op & 0xFF) >> 4
 	reg := c.op & 0x0007
@@ -237,10 +238,10 @@ func (c *Processor) opcodeD0() {
 //     2 - long
 func (c *Processor) imm(n uint16) uint32 {
 	sz := []uint32{1, 2, 4}[n]
-	if _, c.err = c.M.Read(int(c.A[7]), c.buf[:sz]); c.err != nil {
+	if _, c.err = c.M.Read(int(c.PC), c.buf[:sz]); c.err != nil {
 		return 0 // TODO: handle error
 	}
-	c.A[7] += sz
+	c.PC += sz
 	v := uint32(c.buf[0])
 	for i := uint32(1); i < sz; i++ {
 		v <<= 8
