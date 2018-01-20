@@ -58,6 +58,45 @@ func assertDataRegister(t *testing.T, p *m68k.Processor, r int, v uint32) {
 	}
 }
 
+func TestReset(t *testing.T) {
+	// init dirty processor
+	p := testProc()
+	for i := 0; i < 8; i++ {
+		p.A[i], p.D[i] = 0xFFFFFFFF, 0xFFFFFFFF
+	}
+	p.CCR = 0xFFFFFFFF
+	p.M.Write(0x1000, []byte{0xFF, 0xFF, 0xFF, 0xFF})
+
+	// reset and test
+	p.Reset()
+	for i := 0; i < 8; i++ {
+		expect := uint32(0)
+		if i == 7 {
+			expect = 0x1000
+		}
+		if p.A[i] != expect {
+			t.Errorf("Address register %d was not reset", i)
+		}
+		if p.D[i] != 0 {
+			t.Errorf("Data register %d was not reset", i)
+		}
+	}
+	if p.CCR != 0 {
+		t.Error("Condition code register was not reset")
+	}
+	b := make([]byte, 4)
+	_, err := p.M.Read(0x1000, b)
+	if err != nil {
+		panic(err)
+	}
+	for i := 0; i < len(b); i++ {
+		if b[i] != 0 {
+			t.Error("Memory was not zeroed")
+			break
+		}
+	}
+}
+
 func TestAddi(t *testing.T) {
 	p := load("test-op-addi.h68")
 	assertRun(t, p)

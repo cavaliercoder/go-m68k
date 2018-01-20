@@ -18,7 +18,7 @@ type ram struct {
 }
 
 // NewRAM returns Random Access Memory initialized to the given size. This
-// memory can used to load program and data for a 68000 processor.
+// memory can used to load programs and data for a 68000 processor.
 func NewRAM(size uint32) Memory {
 	return &ram{
 		b: make([]byte, size),
@@ -35,6 +35,10 @@ func (m *ram) Read(addr int, p []byte) (n int, err error) {
 
 func (m *ram) Write(addr int, p []byte) (n int, err error) {
 	n = copy(m.b[addr:], p)
+	// TODO: raise exception vector instead of returning errors?
+	if n < len(p) {
+		return n, io.ErrShortWrite
+	}
 	return
 }
 

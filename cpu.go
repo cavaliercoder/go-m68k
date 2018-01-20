@@ -10,30 +10,47 @@ var (
 	ErrNoProgram = errors.New("No program loaded or memory device attached")
 )
 
-// A Processor emulate the Motorola 68000 microprocessor.
+// A Processor emulates the Motorola 68000 microprocessor.
 type Processor struct {
 	D   [8]uint32 // Data registers
 	A   [8]uint32 // Address registers
 	CCR uint32    // Condition Code Register
-	M   Memory
+	M   Memory    // System memory controller
 
+	// TraceWriter specifies where trace log output should be written to. If
+	// TraceWriter is nil, no logging is performed.
 	TraceWriter io.Writer
 
 	op  [16]byte
 	err error
 }
 
+// Reset resets all processor and memory state.
 func (c *Processor) Reset() {
-	for i := 0; i < len(c.D); i++ {
-		c.D[i] = 0
-		c.A[i] = 0
-	}
-	c.CCR = 0
+	*c = Processor{}
 	c.Jump(0x1000)
 	if c.M == nil {
 		c.M = NewRAM(0x4000) // 16KB
 	}
-	// TODO: c.Memory.Reset()
+	clearMemory(c.M)
+}
+
+func clearMemory(m Memory) {
+	if m == nil {
+		return
+	}
+	addr := 0
+	zero := [32]byte{}
+	for {
+		n, err := m.Write(addr, zero[:])
+		if err == io.ErrShortWrite {
+			break
+		}
+		if err != nil {
+			panic(err)
+		}
+		addr += n
+	}
 }
 
 // Jump sets the value of the program counter to the given memory address.

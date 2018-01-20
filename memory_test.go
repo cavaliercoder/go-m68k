@@ -38,7 +38,7 @@ func TestMemory(t *testing.T) {
 	})
 
 	t.Run("WriteWithOffset", func(t *testing.T) {
-		n, err := m.Write(8, data)
+		n, err := m.Write(8, data[:8])
 		if err != nil {
 			t.Errorf("error writing to memory: %v", err)
 		}
