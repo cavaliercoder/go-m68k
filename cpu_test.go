@@ -54,7 +54,26 @@ func assertRun(t *testing.T, p *m68k.Processor) {
 
 func assertDataRegister(t *testing.T, p *m68k.Processor, r int, v uint32) {
 	if p.D[r] != v {
-		t.Errorf("expected value 0x%08X in D%d, got 0x%08X", v, r, p.D[r])
+		t.Errorf("expected data value 0x%08X in D%d, got 0x%08X", v, r, p.D[r])
+	}
+}
+
+func assertAddressRegister(t *testing.T, p *m68k.Processor, r int, v uint32) {
+	if p.A[r] != v {
+		t.Errorf("expected address value 0x%08X in A%d, got 0x%08X", v, r, p.A[r])
+	}
+}
+
+func assertLong(t *testing.T, p *m68k.Processor, addr uint32, v uint32) {
+	b := make([]byte, 4)
+	_, err := p.M.Read(int(addr), b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	actual := uint32(b[3]) | uint32(b[2])<<8 | uint32(b[1])<<16 | uint32(b[0])<<24
+	if actual != v {
+		t.Errorf("expected value 0x%08X at 0x%08X, got 0x%08X", v, addr, actual)
+		m68k.Dump(os.Stdout, p.M)
 	}
 }
 
@@ -106,8 +125,34 @@ func TestAddi(t *testing.T) {
 	assertDataRegister(t, p, 3, 0xFFFFFFFF)
 }
 
-func TestMovel(t *testing.T) {
+func TestMoveL(t *testing.T) {
 	p := load("test-op-move-l.h68")
 	assertRun(t, p)
-	assertDataRegister(t, p, 7, 0xD7)
+
+	// source: data register
+	assertDataRegister(t, p, 1, 0x44304430)
+	assertAddressRegister(t, p, 1, 0x44304430)
+	assertLong(t, p, 0x2000, 0x44304430)
+	assertLong(t, p, 0x2004, 0x44314431)
+	assertLong(t, p, 0x2008, 0x44324432)
+	assertLong(t, p, 0x200C, 0x44334433)
+	assertLong(t, p, 0x12000, 0x44334433)
+
+	// source: address register
+	assertDataRegister(t, p, 2, 0x41304130)
+	assertAddressRegister(t, p, 2, 0x41304130)
+	assertLong(t, p, 0x3000, 0x41304130)
+	assertLong(t, p, 0x3004, 0x41314131)
+	assertLong(t, p, 0x3008, 0x41324132)
+	assertLong(t, p, 0x300C, 0x41334133)
+	assertLong(t, p, 0x13000, 0x41334133)
+
+	// source: immediate
+	assertDataRegister(t, p, 3, 0x49304930)
+	assertAddressRegister(t, p, 3, 0x49304930)
+	assertLong(t, p, 0xF000, 0x49304930)
+	assertLong(t, p, 0xF004, 0x49314931)
+	assertLong(t, p, 0xF008, 0x49324932)
+	assertLong(t, p, 0xF00C, 0x49334933)
+	assertLong(t, p, 0x1F000, 0x49334933)
 }
