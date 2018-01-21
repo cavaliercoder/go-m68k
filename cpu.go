@@ -259,12 +259,18 @@ func (c *Processor) opcode20() {
 		c.writeLong(c.A[dr], v)
 		ds = fmt.Sprintf("-(A%d)", dr)
 
+	case 0x05: // memory address with displacement
+		disp := c.readImm(0x01)
+		addr := disp + c.A[dr]
+		c.writeLong(addr, v)
+		ds = fmt.Sprintf("(%d,A%d)", disp, c.A[dr])
+
 	case 0x07: // other
 		switch dr {
 		case 0x00: // absolute word
 			addr := c.readImm(0x01)
 			c.writeLong(addr, v)
-			ds = fmt.Sprintf("$%X", addr)
+			ds = fmt.Sprintf("%X", addr)
 
 		case 0x01: // absolute long
 			addr := c.readImm(0x02)

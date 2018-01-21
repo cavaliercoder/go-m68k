@@ -20,7 +20,10 @@
 		move.l D0,-(A0)						* to indirect with pre-decrement
 
 		move.l #$44334433,D0
-		move.l D0,$200C						* to absolute short
+		move.l D0,4(A0)						* to indirect with displacement
+
+		move.l #$44344434,D0
+		move.l D0,$2010						* to absolute short
 		move.l D0,$12000					* immediate to absolute long
 
 		*
