@@ -185,7 +185,9 @@ func (c *Processor) opcode00() {
 	}
 }
 
-// opcode 0x20 is always MOVE.L. See section 4-116.
+// opcode 0x20 implements:
+// - move.l		section 4-116
+// - movea.l	section 4-119
 func (c *Processor) opcode20() {
 	addr := c.PC
 	c.PC += 2
