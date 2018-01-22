@@ -89,22 +89,16 @@ func (c *Processor) Step() error {
 		return c.err
 	}
 
-	switch c.op & 0xF000 {
-	case 0x0000:
-		c.opcode00()
-		// case 0x1000 // move.w
-	case 0x2000: // move.l
-		c.opcode20()
-	case 0xD000:
-		c.opcodeD0()
-	default:
+	f := c.mapFn(c.op)
+	if f == nil {
 		c.err = fmt.Errorf("Unregistered opcode @0x%04X: 0x%04X", c.PC, c.op&0xF000)
-		c.PC += 2
+	} else {
+		f()
 	}
 	return c.err
 }
 
-func (c *Processor) trace(format string, a ...interface{}) {
+func (c *Processor) tracef(format string, a ...interface{}) {
 	if c.TraceWriter == nil {
 		return
 	}
@@ -147,188 +141,26 @@ func (c *Processor) readImm(n uint16) uint32 {
 	return v
 }
 
-func (c *Processor) opcode00() {
-	addr := c.PC
-	c.PC += 2
-	switch c.op & 0x0F00 {
-	case 0x0600: // addi
-		// compute immediate value size
-		szid := (c.op & 0x00C0) >> 6
-		sz := []uint32{2, 2, 4}[szid]
-		mask := []uint32{0xFF, 0xFFFF, 0xFFFFFFFF}[szid]
-
-		// read immediate value
-		b := make([]byte, sz)
-		c.read(c.PC, b)
-
-		// decode value
-		v := uint32(b[0]) // immediate value
-		for i := uint32(1); i < sz; i++ {
-			v <<= 8
-			v += uint32(b[i])
-		}
-
-		// compute destination
-		d := c.op & 0x0007
-		switch c.op & 0x0038 {
-		case 0x00: // data register direct
-			c.D[d] = (c.D[d] + v) & mask // add
-			c.trace("%04X addi.%c #$%04X,D%d\n", addr, []byte{'b', 'w', 'l'}[szid], v, d)
-
-		case 0x02: // address register indirect
-			// ...
-		}
-		c.PC += sz
-
-	default:
-		c.trace("%04X Unknown opcode: %04X (%0X)\n", addr, c.op, c.op&0xF000)
+func (c *Processor) readImmByte() byte {
+	if _, c.err = c.M.Read(int(c.PC), c.buf[:1]); c.err != nil {
+		return 0 // TODO: handle error
 	}
+	c.PC++
+	return c.buf[0]
 }
 
-// opcode 0x20 implements:
-// - move.l		section 4-116
-// - movea.l	section 4-119
-func (c *Processor) opcode20() {
-	addr := c.PC
+func (c *Processor) readImmWord() uint16 {
+	if _, c.err = c.M.Read(int(c.PC), c.buf[:2]); c.err != nil {
+		return 0 // TODO: handle error
+	}
 	c.PC += 2
-
-	ops := "move"
-
-	dm := (c.op & 0x01C0) >> 6 // dest mode
-	dr := (c.op & 0x0E00) >> 9 // dest register
-	ds := "?"
-
-	sm := (c.op & 0x0038) >> 3 // source mode
-	sr := c.op & 0x0007        // source register
-	ss := "?"
-
-	// read source value
-	var v uint32
-	switch sm {
-	case 0x00: // data register
-		v = c.D[sr]
-		ss = fmt.Sprintf("D%d", sr)
-
-	case 0x01: // address register
-		v = c.A[sr]
-		ss = fmt.Sprintf("A%d", sr)
-
-	case 0x02: // memory address
-		v = c.readLong(c.A[sr])
-		ss = fmt.Sprintf("(A%d)", sr)
-
-	case 0x07:
-		switch sr {
-		case 0x00: // absolute word
-		case 0x01: // absolute long
-			v = c.readImm(0x02)
-			ss = fmt.Sprintf("$%X", v)
-
-		case 0x04: // immediate
-			v = c.readImm(0x02)
-			ss = fmt.Sprintf("#$%X", v)
-		}
-
-	default:
-		panic("TODO")
-	}
-
-	// write to destination
-	switch dm {
-	case 0x00: // data register
-		c.D[dr] = v
-		ds = fmt.Sprintf("D%d", dr)
-
-	case 0x01: // address register
-		// TODO: move.l to An is illegal but supported by assemblers
-		c.A[dr] = v
-		ds = fmt.Sprintf("A%d", dr)
-		ops = "movea"
-
-	case 0x02: // memory address
-		c.writeLong(c.A[dr], v)
-		ds = fmt.Sprintf("(A%d)", dr)
-
-	case 0x03: // memory address with post-increment
-		c.writeLong(c.A[dr], v)
-		c.A[dr] += 4
-		ds = fmt.Sprintf("(A%d)+", dr)
-
-	case 0x04: // memory address with pre-decrement
-		c.A[dr] -= 4
-		c.writeLong(c.A[dr], v)
-		ds = fmt.Sprintf("-(A%d)", dr)
-
-	case 0x05: // memory address with displacement
-		disp := c.readImm(0x01)
-		addr := disp + c.A[dr]
-		c.writeLong(addr, v)
-		ds = fmt.Sprintf("(%d,A%d)", disp, c.A[dr])
-
-	case 0x07: // other
-		switch dr {
-		case 0x00: // absolute word
-			addr := c.readImm(0x01)
-			c.writeLong(addr, v)
-			ds = fmt.Sprintf("%X", addr)
-
-		case 0x01: // absolute long
-			addr := c.readImm(0x02)
-			c.writeLong(addr, v)
-			ds = fmt.Sprintf("$%X", addr)
-		}
-
-	default:
-		panic(dm)
-	}
-
-	c.trace("%04X %s.l %s,%s\n", addr, ops, ss, ds)
+	return uint16(c.buf[0])<<8 | uint16(c.buf[1])
 }
 
-func (c *Processor) opcodeD0() {
-	addr := c.PC
-	c.PC += 2
-
-	mod := (c.op & 0xFF) >> 4
-	reg := c.op & 0x0007
-	if mod == 0x07 {
-		// now mode is:
-		// 0x07 absolute word
-		// 0x08 absolute long
-		// 0x0B immediate
-		mod += reg
+func (c *Processor) readImmLong() uint32 {
+	if _, c.err = c.M.Read(int(c.PC), c.buf[:4]); c.err != nil {
+		return 0 // TODO: handle error
 	}
-
-	// opmode := c.op[1] & 0xE0
-
-	switch mod {
-	case 0x00: // Direct data register
-		c.trace("D%d", reg)
-	case 0x01: // Direct address register
-		c.trace("A%d", reg)
-	case 0x02: // Indirect register address
-		c.trace("(A%d)", reg)
-	case 0x03: // Address with postincrement
-		c.trace("(A%d)+", reg)
-	case 0x04: // Address with predecrement
-		c.trace("-(A%d)", reg)
-	case 0x05: // Address with displacement
-		c.trace("(d₁₆,A%d)", reg)
-	case 0x06: // Address Register Indirect with Index
-		c.trace("(d₈,A%d,Xn)", reg) // TODO: 8-bit vs. Base displacement
-	case 0x07: // absolute word
-		c.trace("(xxx).w")
-	case 0x08: // absolute long
-		c.trace("(xxx).l")
-	case 0x0B: // immediate
-		szid := (c.op & 0x00C0) >> 6
-		v := c.readImm(szid)
-		m := []uint32{0xFF, 0xFFFF, 0xFFFFFFFF}[szid]
-		d := c.op & 0x0E00
-		c.D[d] += v
-		c.D[d] &= m
-		c.trace("%04X add.w #$%04X,D%d\n", addr, v, d)
-	}
-
-	// c.trace("ADD? %s - %d\n", addrMode(c.op[1]), mod)
+	c.PC += 4
+	return uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 }
