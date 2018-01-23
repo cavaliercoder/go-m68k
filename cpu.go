@@ -166,3 +166,11 @@ func (c *Processor) readImmLong() uint32 {
 	c.PC += 4
 	return uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 }
+
+// DumpState prints the state of of a 68000 processor to the given writer in
+// hexidecimal format.
+func DumpState(w io.Writer, p *Processor) {
+	for i := 0; i < len(p.D); i++ {
+		fmt.Fprintf(w, "D%d: %08X A%d: %08X\n", i, p.D[i], i, p.A[i])
+	}
+}

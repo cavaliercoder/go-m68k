@@ -14,32 +14,49 @@ import (
 	"io"
 )
 
-var (
-	ErrInvalidOperandSize              = errors.New("invalid operand size")
-	ErrInvalidEffectiveAddressMode     = errors.New("invalid effective address mode")
-	ErrInvalidEffectiveAddressRegister = errors.New("invalid effective address register")
+const (
+	S_Byte = 0x00
+	S_Word = 0x01
+	S_Long = 0x02
 )
+
+var (
+	errNotImplemented = errors.New("not implemented")
+	errInvalidOpSize  = errors.New("invalid operand size")
+	errInvalidAddress = errors.New("invalid effect address")
+)
+
+type genFunc func(uint16) (string, error)
 
 // Generate writes Go code to the given Writer which implements all supported
 // 68000 operation codes.
 func Generate(w io.Writer) error {
 	printFileHdr(w)
 
-	funcs := []uint16{}
+	funcs := []genFunc{
+		genORI, genMove,
+	}
+	opcodes := []uint16{}
 	for op := uint16(0x0000); op < 0xFFFF; op++ {
-		fn, err := genMove(op)
-		if err != nil {
+		for _, fn := range funcs {
+			s, err := fn(op)
+			if err == errNotImplemented {
+				continue
+			}
+			if err == nil {
+				w.Write([]byte(s))
+				opcodes = append(opcodes, op)
+				break
+			}
+			// TODO: handle error
 			// fmt.Fprintf(os.Stderr, "Opcode %04X: %v\n", op, err)
-		} else {
-			w.Write([]byte(fn))
-			funcs = append(funcs, op)
 		}
 	}
 
 	fmt.Fprintf(w, "func (c *Processor) mapFn(op uint16) func() {\n")
 	fmt.Fprintf(w, "	table := map[uint16]func(){\n")
-	for i := 0; i < len(funcs); i++ {
-		fmt.Fprintf(w, "		0x%04X: c.op%04X,\n", funcs[i], funcs[i])
+	for i := 0; i < len(opcodes); i++ {
+		fmt.Fprintf(w, "		0x%04X: c.op%04X,\n", opcodes[i], opcodes[i])
 	}
 	fmt.Fprintf(w, "	}\n")
 	fmt.Fprintf(w, "	return table[op]\n")
@@ -75,8 +92,9 @@ func printOpFuncFtr(w io.Writer, t *traceMessage) {
 }
 
 type traceMessage struct {
-	op, sz, src, dst string
-	args             []string
+	op, src, dst string
+	sz           uint16
+	args         []string
 }
 
 func (t *traceMessage) String() string {
@@ -84,13 +102,14 @@ func (t *traceMessage) String() string {
 	for i := 0; i < len(t.args); i++ {
 		fmt.Fprintf(b, ", %s", t.args[i])
 	}
+	sz := []string{"b", "w", "l"}[t.sz]
 	// TODO: improve tracing such that it doesn't cause variables to escape to heap.
-	return fmt.Sprintf("c.tracef(\"%%04X %s.%s %s,%s\\n\", pc%s)", t.op, t.sz, t.src, t.dst, b)
+	return fmt.Sprintf("c.tracef(\"%%04X %s.%s %s,%s\\n\", pc%s)", t.op, sz, t.src, t.dst, b)
 }
 
-func printReadMem(w io.Writer, addr string, sz uint16) {
-	buflen := []int{1, 2, 4}[sz]
-	fmt.Fprintf(w, "_, c.err = c.M.Read(int(%s), c.buf[:%d])\n", addr, buflen)
+func printReadMem(w io.Writer, name, addr string, sz uint16) {
+	n := []int{1, 2, 4}[sz]
+	fmt.Fprintf(w, "_, c.err = c.M.Read(int(%s), c.buf[:%d])\n", addr, n)
 	fmt.Fprintln(w, "if c.err != nil {")
 	fmt.Fprintln(w, "	return")
 	fmt.Fprintln(w, "}")
@@ -99,10 +118,49 @@ func printReadMem(w io.Writer, addr string, sz uint16) {
 		fmt.Fprintln(w, "v := c.buf[0]")
 	case 1:
 		fmt.Fprintln(w, "v := uint16(c.buf[0])<<8 | uint16(c.buf[1])")
-	case 0x02:
+	case 2:
 		fmt.Fprintln(w, "v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24")
 	}
 }
+
+func printReadImm(w io.Writer, name string, sz uint16) {
+	n := []int{1, 2, 4}[sz]
+	fmt.Fprintf(w, "_, c.err = c.M.Read(int(c.PC), c.buf[:%d])\n", n)
+	fmt.Fprintln(w, "if c.err != nil {")
+	fmt.Fprintln(w, "	return")
+	fmt.Fprintln(w, "}")
+	fmt.Fprintf(w, "c.PC += %d\n", n)
+	switch sz {
+	case 0: // byte
+		fmt.Fprintln(w, name, ":= c.buf[0]")
+	case 1: // word
+		fmt.Fprintln(w, name, ":= uint16(c.buf[0])<<8 | uint16(c.buf[1])")
+	case 2: // long
+		fmt.Fprintln(w, name, ":= uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])")
+	}
+}
+
+// func printWriteMem(w io.Writer, addr string, sz uint16) {
+// 	n := []int{1, 2, 4}[sz]
+// 	switch sz {
+// 	case 0: // byte
+// 		fmt.Println(w, "c.buf[0] = byte(v)")
+
+// 	case 1: // word
+// 		fmt.Println(w, "c.buf[0] = byte(v >> 8)")
+// 		fmt.Println(w, "c.buf[1] = byte(v)")
+
+// 	case 2: // long
+// 		fmt.Println(w, "c.buf[0] = byte(v >> 24)")
+// 		fmt.Println(w, "c.buf[1] = byte(v >> 16)")
+// 		fmt.Println(w, "c.buf[2] = byte(v >> 8)")
+// 		fmt.Println(w, "c.buf[3] = byte(v)")
+// 	}
+// 	fmt.Fprintf(w, "_, c.err = c.M.Write(int(%s), c.buf[:%d]\n", addr, n)
+// 	fmt.Fprintln(w, "if c.err != nil {")
+// 	fmt.Fprintln(w, "	return")
+// 	fmt.Fprintln(w, "}")
+// }
 
 func printSourceRead(w io.Writer, ea byte, opsize uint16, t *traceMessage) (err error) {
 	mod := ea & 0x38 >> 3
@@ -110,7 +168,7 @@ func printSourceRead(w io.Writer, ea byte, opsize uint16, t *traceMessage) (err 
 
 	switch mod {
 	default:
-		return errors.New("invalid effective address source mode")
+		return errInvalidAddress
 
 	case 0x00: // data register
 		fmt.Fprintf(w, "v := c.D[%d]\n", reg)
@@ -121,21 +179,21 @@ func printSourceRead(w io.Writer, ea byte, opsize uint16, t *traceMessage) (err 
 		t.src = fmt.Sprintf("A%d", reg)
 
 	case 0x02: // memory address
-		printReadMem(w, fmt.Sprintf("c.A[%d]", reg), opsize)
+		printReadMem(w, "v", fmt.Sprintf("c.A[%d]", reg), opsize)
 		t.src = fmt.Sprintf("(A%d)", reg)
 
 	case 0x07:
 		switch reg {
 		default:
-			return errors.New("invalid source register")
+			return errInvalidAddress
 
 		case 0x00, 0x01: // absolute short/long
-			fmt.Fprintf(w, "v := c.readImm(0x02)\n")
+			printReadImm(w, "v", opsize)
 			t.src = "$%X"
 			t.args = append(t.args, "v")
 
 		case 0x04: // immediate
-			fmt.Fprintf(w, "v := c.readImm(0x02)\n")
+			printReadImm(w, "v", opsize)
 			t.src = "#$%X"
 			t.args = append(t.args, "v")
 		}
@@ -148,14 +206,14 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		return errors.New("invalid destination mode")
+		return errInvalidAddress
 
 	case 0x00: // data register
+		// TODO: sign extension
 		fmt.Fprintf(w, "c.D[%d] = uint32(v)\n", reg)
 		t.dst = fmt.Sprintf("D%d", reg)
 
 	case 0x01: // address register
-		// TODO: move.l to An is illegal but supported by assemblers
 		fmt.Fprintf(w, "c.A[%d] = uint32(v)\n", reg)
 		t.dst = fmt.Sprintf("A%d", reg)
 		t.op = "movea"
@@ -175,8 +233,8 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 		t.dst = fmt.Sprintf("-(A%d)", reg)
 
 	case 0x05: // memory address with displacement
-		fmt.Fprint(w, "disp := c.readImm(0x01)\n")
-		fmt.Fprintf(w, "addr := disp + c.A[%d]\n", reg)
+		printReadImm(w, "disp", S_Word)
+		fmt.Fprintf(w, "addr := uint32(disp) + c.A[%d]\n", reg)
 		fmt.Fprint(w, "c.writeLong(addr, uint32(v))\n")
 		t.dst = fmt.Sprintf("(%%d,A%d)", reg)
 		t.args = append(t.args, "disp")
@@ -184,16 +242,16 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			return errors.New("invalid destination register")
+			return errInvalidAddress
 
 		case 0x00: // absolute word
-			fmt.Fprint(w, "addr := c.readImm(0x01)\n")
-			fmt.Fprint(w, "c.writeLong(addr, uint32(v))\n")
+			printReadImm(w, "addr", S_Word)
+			fmt.Fprint(w, "c.writeLong(uint32(addr), uint32(v))\n")
 			t.dst = "$%X"
 			t.args = append(t.args, "addr")
 
 		case 0x01: // absolute long
-			fmt.Fprint(w, "addr := c.readImm(0x02)\n")
+			printReadImm(w, "addr", S_Long)
 			fmt.Fprint(w, "c.writeLong(addr, uint32(v))\n")
 			t.dst = "$%X"
 			t.args = append(t.args, "addr")
@@ -204,17 +262,25 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 
 func genMove(op uint16) (fn string, err error) {
 	if op&0xC000 != 0 {
-		return "", errors.New("invalid move operation")
+		err = errNotImplemented
+		return
 	}
 	src := byte(op & 0x003F)
 	dst := byte((op&0x01C0)>>3 | (op&0x0E00)>>9)
 	sz := (op & 0x3000) >> 12 // operand size
 	if sz == 0x03 {
-		return "", ErrInvalidOperandSize
+		err = errInvalidOpSize
+		return
 	}
 	t := &traceMessage{
 		op: "move",
-		sz: []string{"b", "w", "l"}[sz],
+		sz: sz,
+	}
+	if src&0x38 == 0x08 && dst&0x20 == 0x20 {
+		t.op = "movep"
+	}
+	if dst&0x38 == 0x08 {
+		t.op = "movea"
 	}
 	w := bufWriter()
 	printOpFuncHdr(w, op)
@@ -230,79 +296,52 @@ func genMove(op uint16) (fn string, err error) {
 	return w.String(), nil
 }
 
-func genORI(op uint16) (string, error) {
-	w := &bytes.Buffer{}
-
-	ins := "ori"
-	opl := "#$%X"
-	opr := "?"
-	szid := (op & 0xC0) >> 6
+func genORI(op uint16) (fn string, err error) {
+	if op&0xFF00 != 0 {
+		err = errNotImplemented
+		return
+	}
 	mod := (op & 0x38) >> 3
-	reg := (op & 0x07)
-
-	fmt.Fprintf(w, "func (c *Processor) op%04X() {\n", op)
-
-	// read immediate value
-	switch szid {
-	case 0x00: // byte
-		fmt.Fprintf(w, "	v := c.readImmByte()\n")
-		switch mod {
-		case 0x00: // data register
-			opr = fmt.Sprintf("D%d", reg)
-			fmt.Fprintf(w, "	c.D[%d] = uint32(byte(c.D[%d]) ^ v)\n", reg, reg)
-
-		case 0x07: // other
-			switch reg {
-			case 0x04: // CCR
-				opr = "CCR"
-				fmt.Fprintf(w, "	c.CCR = (c.CCR ^ uint32(v)) & 0xFF\n")
-
-			default:
-				return "", ErrInvalidEffectiveAddressRegister
-			}
-
-		default:
-			return "", ErrInvalidEffectiveAddressMode
-		}
-
-	case 0x01: // word
-		fmt.Fprintf(w, "	v := c.readImmWord()\n")
-		switch mod {
-		case 0x00: // data register
-			opr = fmt.Sprintf("D%d", reg)
-			fmt.Fprintf(w, "	c.D[%d] = uint32(uint16(c.D[%d]) ^ v)\n", reg, reg)
-
-		case 0x07: // other
-			switch reg {
-			case 0x04: // SP
-				opr = "SP"
-				fmt.Fprintf(w, "	c.A[7] = (c.A[7] & 0xFF) ^ uint32(v)\n")
-
-			default:
-				return "", ErrInvalidEffectiveAddressRegister
-			}
-
-		default:
-			return "", ErrInvalidEffectiveAddressMode
-		}
-
-	case 0x02: // long
-		fmt.Fprintf(w, "	v := c.readImmLong()\n")
-		switch mod {
-		case 0x00: // data register
-			opr = fmt.Sprintf("D%d", reg)
-			fmt.Fprintf(w, "	c.D[%d] = c.D[%d] ^ v\n", reg, reg)
-
-		default:
-			return "", ErrInvalidEffectiveAddressMode
-		}
-
-	default:
-		return "", ErrInvalidOperandSize
+	reg := op & 0x07
+	sz := (op & 0xC0) >> 6
+	if sz == 0x03 {
+		err = errNotImplemented
+		return
+	}
+	t := &traceMessage{
+		op:   "ori",
+		sz:   sz,
+		src:  "#$%X",
+		args: []string{"v"},
 	}
 
-	szs := []byte{'b', 'w', 'l', '?'}[szid]
-	fmt.Fprintf(w, "	c.tracef(\"%%04X %s.%c %s,%s\\n\", addr, v)\n", ins, szs, opl, opr)
-	fmt.Fprintf(w, "}\n\n")
+	w := bufWriter()
+	printOpFuncHdr(w, op)
+	w.Increment(1)
+
+	// source is always immediate
+	printReadImm(w, "v", sz)
+
+	// dest could be EA, CCR or SR
+	if mod == 0x07 && reg == 0x04 { // ORI to CCR or to SR
+		switch sz {
+		default:
+			err = errNotImplemented
+			return
+
+		case 0x00: // byte to CCR
+			t.dst = "CCR"
+
+		case 0x01: // word to SR
+			t.dst = "SR"
+		}
+	} else {
+		if err = printDestWrite(w, byte(op), t); err != nil {
+			return
+		}
+	}
+
+	w.Decrement(1)
+	printOpFuncFtr(w, t)
 	return w.String(), nil
 }

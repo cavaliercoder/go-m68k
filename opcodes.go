@@ -8,743 +8,2238 @@ package m68k
 func (c *Processor) op0000() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D0,D0\n", pc)
+	c.tracef("%04X ori.b #$%X,D0\n", pc, v)
 }
 
 func (c *Processor) op0001() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[1]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D1,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.D[1] = uint32(v)
+	c.tracef("%04X ori.b #$%X,D1\n", pc, v)
 }
 
 func (c *Processor) op0002() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[2]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D2,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.D[2] = uint32(v)
+	c.tracef("%04X ori.b #$%X,D2\n", pc, v)
 }
 
 func (c *Processor) op0003() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[3]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D3,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.D[3] = uint32(v)
+	c.tracef("%04X ori.b #$%X,D3\n", pc, v)
 }
 
 func (c *Processor) op0004() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[4]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D4,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.D[4] = uint32(v)
+	c.tracef("%04X ori.b #$%X,D4\n", pc, v)
 }
 
 func (c *Processor) op0005() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[5]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D5,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.D[5] = uint32(v)
+	c.tracef("%04X ori.b #$%X,D5\n", pc, v)
 }
 
 func (c *Processor) op0006() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[6]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D6,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.D[6] = uint32(v)
+	c.tracef("%04X ori.b #$%X,D6\n", pc, v)
 }
 
 func (c *Processor) op0007() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[7]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b D7,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.D[7] = uint32(v)
+	c.tracef("%04X ori.b #$%X,D7\n", pc, v)
 }
 
 func (c *Processor) op0008() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A0,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[0] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A0\n", pc, v)
 }
 
 func (c *Processor) op0009() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[1]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A1,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[1] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A1\n", pc, v)
 }
 
 func (c *Processor) op000A() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[2]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A2,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[2] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A2\n", pc, v)
 }
 
 func (c *Processor) op000B() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[3]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A3,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[3] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A3\n", pc, v)
 }
 
 func (c *Processor) op000C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[4]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A4,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[4] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A4\n", pc, v)
 }
 
 func (c *Processor) op000D() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[5]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A5,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[5] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A5\n", pc, v)
 }
 
 func (c *Processor) op000E() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[6]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A6,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[6] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A6\n", pc, v)
 }
 
 func (c *Processor) op000F() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[7]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b A7,D0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[7] = uint32(v)
+	c.tracef("%04X movea.b #$%X,A7\n", pc, v)
 }
 
 func (c *Processor) op0010() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[0]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A0),D0\n", pc)
+	c.writeLong(c.A[0], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A0)\n", pc, v)
 }
 
 func (c *Processor) op0011() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[1]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A1),D0\n", pc)
+	c.writeLong(c.A[1], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A1)\n", pc, v)
 }
 
 func (c *Processor) op0012() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[2]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A2),D0\n", pc)
+	c.writeLong(c.A[2], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A2)\n", pc, v)
 }
 
 func (c *Processor) op0013() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[3]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A3),D0\n", pc)
+	c.writeLong(c.A[3], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A3)\n", pc, v)
 }
 
 func (c *Processor) op0014() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[4]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A4),D0\n", pc)
+	c.writeLong(c.A[4], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A4)\n", pc, v)
 }
 
 func (c *Processor) op0015() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[5]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A5),D0\n", pc)
+	c.writeLong(c.A[5], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A5)\n", pc, v)
 }
 
 func (c *Processor) op0016() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[6]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A6),D0\n", pc)
+	c.writeLong(c.A[6], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A6)\n", pc, v)
 }
 
 func (c *Processor) op0017() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[7]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
 	if c.err != nil {
 		return
 	}
+	c.PC += 1
 	v := c.buf[0]
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b (A7),D0\n", pc)
+	c.writeLong(c.A[7], uint32(v))
+	c.tracef("%04X ori.b #$%X,(A7)\n", pc, v)
+}
+
+func (c *Processor) op0018() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[0], uint32(v))
+	c.A[0] += 4
+	c.tracef("%04X ori.b #$%X,(A0)+\n", pc, v)
+}
+
+func (c *Processor) op0019() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[1], uint32(v))
+	c.A[1] += 4
+	c.tracef("%04X ori.b #$%X,(A1)+\n", pc, v)
+}
+
+func (c *Processor) op001A() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[2], uint32(v))
+	c.A[2] += 4
+	c.tracef("%04X ori.b #$%X,(A2)+\n", pc, v)
+}
+
+func (c *Processor) op001B() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[3], uint32(v))
+	c.A[3] += 4
+	c.tracef("%04X ori.b #$%X,(A3)+\n", pc, v)
+}
+
+func (c *Processor) op001C() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[4], uint32(v))
+	c.A[4] += 4
+	c.tracef("%04X ori.b #$%X,(A4)+\n", pc, v)
+}
+
+func (c *Processor) op001D() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[5], uint32(v))
+	c.A[5] += 4
+	c.tracef("%04X ori.b #$%X,(A5)+\n", pc, v)
+}
+
+func (c *Processor) op001E() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[6], uint32(v))
+	c.A[6] += 4
+	c.tracef("%04X ori.b #$%X,(A6)+\n", pc, v)
+}
+
+func (c *Processor) op001F() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.writeLong(c.A[7], uint32(v))
+	c.A[7] += 4
+	c.tracef("%04X ori.b #$%X,(A7)+\n", pc, v)
+}
+
+func (c *Processor) op0020() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[0] -= 4
+	c.writeLong(c.A[0], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A0)\n", pc, v)
+}
+
+func (c *Processor) op0021() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[1] -= 4
+	c.writeLong(c.A[1], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A1)\n", pc, v)
+}
+
+func (c *Processor) op0022() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[2] -= 4
+	c.writeLong(c.A[2], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A2)\n", pc, v)
+}
+
+func (c *Processor) op0023() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[3] -= 4
+	c.writeLong(c.A[3], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A3)\n", pc, v)
+}
+
+func (c *Processor) op0024() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[4] -= 4
+	c.writeLong(c.A[4], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A4)\n", pc, v)
+}
+
+func (c *Processor) op0025() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[5] -= 4
+	c.writeLong(c.A[5], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A5)\n", pc, v)
+}
+
+func (c *Processor) op0026() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[6] -= 4
+	c.writeLong(c.A[6], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A6)\n", pc, v)
+}
+
+func (c *Processor) op0027() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.A[7] -= 4
+	c.writeLong(c.A[7], uint32(v))
+	c.tracef("%04X ori.b #$%X,-(A7)\n", pc, v)
+}
+
+func (c *Processor) op0028() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A0)\n", pc, v, disp)
+}
+
+func (c *Processor) op0029() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A1)\n", pc, v, disp)
+}
+
+func (c *Processor) op002A() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A2)\n", pc, v, disp)
+}
+
+func (c *Processor) op002B() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A3)\n", pc, v, disp)
+}
+
+func (c *Processor) op002C() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A4)\n", pc, v, disp)
+}
+
+func (c *Processor) op002D() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A5)\n", pc, v, disp)
+}
+
+func (c *Processor) op002E() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A6)\n", pc, v, disp)
+}
+
+func (c *Processor) op002F() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,(%d,A7)\n", pc, v, disp)
 }
 
 func (c *Processor) op0038() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b $%X,D0\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X ori.b #$%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op0039() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b $%X,D0\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.b #$%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op003C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.D[0] = uint32(v)
-	c.tracef("%04X move.b #$%X,D0\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	c.tracef("%04X ori.b #$%X,CCR\n", pc, v)
 }
 
 func (c *Processor) op0040() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D0,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[0] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D0\n", pc, v)
 }
 
 func (c *Processor) op0041() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[1]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D1,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[1] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D1\n", pc, v)
 }
 
 func (c *Processor) op0042() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[2]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D2,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[2] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D2\n", pc, v)
 }
 
 func (c *Processor) op0043() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[3]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D3,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[3] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D3\n", pc, v)
 }
 
 func (c *Processor) op0044() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[4]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D4,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[4] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D4\n", pc, v)
 }
 
 func (c *Processor) op0045() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[5]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D5,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[5] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D5\n", pc, v)
 }
 
 func (c *Processor) op0046() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[6]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D6,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[6] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D6\n", pc, v)
 }
 
 func (c *Processor) op0047() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[7]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b D7,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.D[7] = uint32(v)
+	c.tracef("%04X ori.w #$%X,D7\n", pc, v)
 }
 
 func (c *Processor) op0048() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A0,A0\n", pc)
+	c.tracef("%04X movea.w #$%X,A0\n", pc, v)
 }
 
 func (c *Processor) op0049() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[1]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A1,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[1] = uint32(v)
+	c.tracef("%04X movea.w #$%X,A1\n", pc, v)
 }
 
 func (c *Processor) op004A() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[2]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A2,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[2] = uint32(v)
+	c.tracef("%04X movea.w #$%X,A2\n", pc, v)
 }
 
 func (c *Processor) op004B() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[3]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A3,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[3] = uint32(v)
+	c.tracef("%04X movea.w #$%X,A3\n", pc, v)
 }
 
 func (c *Processor) op004C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[4]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A4,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[4] = uint32(v)
+	c.tracef("%04X movea.w #$%X,A4\n", pc, v)
 }
 
 func (c *Processor) op004D() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[5]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A5,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[5] = uint32(v)
+	c.tracef("%04X movea.w #$%X,A5\n", pc, v)
 }
 
 func (c *Processor) op004E() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[6]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A6,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[6] = uint32(v)
+	c.tracef("%04X movea.w #$%X,A6\n", pc, v)
 }
 
 func (c *Processor) op004F() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[7]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b A7,A0\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[7] = uint32(v)
+	c.tracef("%04X movea.w #$%X,A7\n", pc, v)
 }
 
 func (c *Processor) op0050() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[0]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A0),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[0], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A0)\n", pc, v)
 }
 
 func (c *Processor) op0051() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[1]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A1),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[1], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A1)\n", pc, v)
 }
 
 func (c *Processor) op0052() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[2]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A2),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[2], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A2)\n", pc, v)
 }
 
 func (c *Processor) op0053() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[3]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A3),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[3], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A3)\n", pc, v)
 }
 
 func (c *Processor) op0054() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[4]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A4),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[4], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A4)\n", pc, v)
 }
 
 func (c *Processor) op0055() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[5]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A5),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[5], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A5)\n", pc, v)
 }
 
 func (c *Processor) op0056() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[6]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A6),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[6], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A6)\n", pc, v)
 }
 
 func (c *Processor) op0057() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[7]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b (A7),A0\n", pc)
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[7], uint32(v))
+	c.tracef("%04X ori.w #$%X,(A7)\n", pc, v)
+}
+
+func (c *Processor) op0058() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[0], uint32(v))
+	c.A[0] += 4
+	c.tracef("%04X ori.w #$%X,(A0)+\n", pc, v)
+}
+
+func (c *Processor) op0059() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[1], uint32(v))
+	c.A[1] += 4
+	c.tracef("%04X ori.w #$%X,(A1)+\n", pc, v)
+}
+
+func (c *Processor) op005A() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[2], uint32(v))
+	c.A[2] += 4
+	c.tracef("%04X ori.w #$%X,(A2)+\n", pc, v)
+}
+
+func (c *Processor) op005B() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[3], uint32(v))
+	c.A[3] += 4
+	c.tracef("%04X ori.w #$%X,(A3)+\n", pc, v)
+}
+
+func (c *Processor) op005C() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[4], uint32(v))
+	c.A[4] += 4
+	c.tracef("%04X ori.w #$%X,(A4)+\n", pc, v)
+}
+
+func (c *Processor) op005D() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[5], uint32(v))
+	c.A[5] += 4
+	c.tracef("%04X ori.w #$%X,(A5)+\n", pc, v)
+}
+
+func (c *Processor) op005E() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[6], uint32(v))
+	c.A[6] += 4
+	c.tracef("%04X ori.w #$%X,(A6)+\n", pc, v)
+}
+
+func (c *Processor) op005F() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(c.A[7], uint32(v))
+	c.A[7] += 4
+	c.tracef("%04X ori.w #$%X,(A7)+\n", pc, v)
+}
+
+func (c *Processor) op0060() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[0] -= 4
+	c.writeLong(c.A[0], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A0)\n", pc, v)
+}
+
+func (c *Processor) op0061() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[1] -= 4
+	c.writeLong(c.A[1], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A1)\n", pc, v)
+}
+
+func (c *Processor) op0062() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[2] -= 4
+	c.writeLong(c.A[2], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A2)\n", pc, v)
+}
+
+func (c *Processor) op0063() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[3] -= 4
+	c.writeLong(c.A[3], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A3)\n", pc, v)
+}
+
+func (c *Processor) op0064() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[4] -= 4
+	c.writeLong(c.A[4], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A4)\n", pc, v)
+}
+
+func (c *Processor) op0065() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[5] -= 4
+	c.writeLong(c.A[5], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A5)\n", pc, v)
+}
+
+func (c *Processor) op0066() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[6] -= 4
+	c.writeLong(c.A[6], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A6)\n", pc, v)
+}
+
+func (c *Processor) op0067() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.A[7] -= 4
+	c.writeLong(c.A[7], uint32(v))
+	c.tracef("%04X ori.w #$%X,-(A7)\n", pc, v)
+}
+
+func (c *Processor) op0068() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A0)\n", pc, v, disp)
+}
+
+func (c *Processor) op0069() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A1)\n", pc, v, disp)
+}
+
+func (c *Processor) op006A() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A2)\n", pc, v, disp)
+}
+
+func (c *Processor) op006B() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A3)\n", pc, v, disp)
+}
+
+func (c *Processor) op006C() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A4)\n", pc, v, disp)
+}
+
+func (c *Processor) op006D() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A5)\n", pc, v, disp)
+}
+
+func (c *Processor) op006E() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A6)\n", pc, v, disp)
+}
+
+func (c *Processor) op006F() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,(%d,A7)\n", pc, v, disp)
 }
 
 func (c *Processor) op0078() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b $%X,A0\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X ori.w #$%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op0079() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b $%X,A0\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.w #$%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op007C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.A[0] = uint32(v)
-	c.tracef("%04X movea.b #$%X,A0\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.tracef("%04X ori.w #$%X,SR\n", pc, v)
 }
 
 func (c *Processor) op0080() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D0,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[0] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D0\n", pc, v)
 }
 
 func (c *Processor) op0081() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[1]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D1,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[1] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D1\n", pc, v)
 }
 
 func (c *Processor) op0082() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[2]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D2,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[2] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D2\n", pc, v)
 }
 
 func (c *Processor) op0083() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[3]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D3,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[3] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D3\n", pc, v)
 }
 
 func (c *Processor) op0084() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[4]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D4,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[4] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D4\n", pc, v)
 }
 
 func (c *Processor) op0085() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[5]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D5,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[5] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D5\n", pc, v)
 }
 
 func (c *Processor) op0086() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[6]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D6,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[6] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D6\n", pc, v)
 }
 
 func (c *Processor) op0087() {
 	pc := c.PC
 	c.PC += 2
-	v := c.D[7]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b D7,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.D[7] = uint32(v)
+	c.tracef("%04X ori.l #$%X,D7\n", pc, v)
 }
 
 func (c *Processor) op0088() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A0,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[0] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A0\n", pc, v)
 }
 
 func (c *Processor) op0089() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[1]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A1,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[1] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A1\n", pc, v)
 }
 
 func (c *Processor) op008A() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[2]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A2,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[2] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A2\n", pc, v)
 }
 
 func (c *Processor) op008B() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[3]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A3,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[3] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A3\n", pc, v)
 }
 
 func (c *Processor) op008C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[4]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A4,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[4] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A4\n", pc, v)
 }
 
 func (c *Processor) op008D() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[5]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A5,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[5] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A5\n", pc, v)
 }
 
 func (c *Processor) op008E() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[6]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A6,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[6] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A6\n", pc, v)
 }
 
 func (c *Processor) op008F() {
 	pc := c.PC
 	c.PC += 2
-	v := c.A[7]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A7,(A0)\n", pc)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[7] = uint32(v)
+	c.tracef("%04X movea.l #$%X,A7\n", pc, v)
 }
 
 func (c *Processor) op0090() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[0]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A0),(A0)\n", pc)
+	c.tracef("%04X ori.l #$%X,(A0)\n", pc, v)
 }
 
 func (c *Processor) op0091() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[1]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A1),(A0)\n", pc)
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[1], uint32(v))
+	c.tracef("%04X ori.l #$%X,(A1)\n", pc, v)
 }
 
 func (c *Processor) op0092() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[2]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A2),(A0)\n", pc)
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[2], uint32(v))
+	c.tracef("%04X ori.l #$%X,(A2)\n", pc, v)
 }
 
 func (c *Processor) op0093() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[3]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A3),(A0)\n", pc)
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[3], uint32(v))
+	c.tracef("%04X ori.l #$%X,(A3)\n", pc, v)
 }
 
 func (c *Processor) op0094() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[4]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A4),(A0)\n", pc)
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[4], uint32(v))
+	c.tracef("%04X ori.l #$%X,(A4)\n", pc, v)
 }
 
 func (c *Processor) op0095() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[5]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A5),(A0)\n", pc)
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[5], uint32(v))
+	c.tracef("%04X ori.l #$%X,(A5)\n", pc, v)
 }
 
 func (c *Processor) op0096() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[6]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A6),(A0)\n", pc)
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[6], uint32(v))
+	c.tracef("%04X ori.l #$%X,(A6)\n", pc, v)
 }
 
 func (c *Processor) op0097() {
 	pc := c.PC
 	c.PC += 2
-	_, c.err = c.M.Read(int(c.A[7]), c.buf[:1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	v := c.buf[0]
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[7], uint32(v))
+	c.tracef("%04X ori.l #$%X,(A7)\n", pc, v)
+}
+
+func (c *Processor) op0098() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b (A7),(A0)\n", pc)
+	c.A[0] += 4
+	c.tracef("%04X ori.l #$%X,(A0)+\n", pc, v)
+}
+
+func (c *Processor) op0099() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[1], uint32(v))
+	c.A[1] += 4
+	c.tracef("%04X ori.l #$%X,(A1)+\n", pc, v)
+}
+
+func (c *Processor) op009A() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[2], uint32(v))
+	c.A[2] += 4
+	c.tracef("%04X ori.l #$%X,(A2)+\n", pc, v)
+}
+
+func (c *Processor) op009B() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[3], uint32(v))
+	c.A[3] += 4
+	c.tracef("%04X ori.l #$%X,(A3)+\n", pc, v)
+}
+
+func (c *Processor) op009C() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[4], uint32(v))
+	c.A[4] += 4
+	c.tracef("%04X ori.l #$%X,(A4)+\n", pc, v)
+}
+
+func (c *Processor) op009D() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[5], uint32(v))
+	c.A[5] += 4
+	c.tracef("%04X ori.l #$%X,(A5)+\n", pc, v)
+}
+
+func (c *Processor) op009E() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[6], uint32(v))
+	c.A[6] += 4
+	c.tracef("%04X ori.l #$%X,(A6)+\n", pc, v)
+}
+
+func (c *Processor) op009F() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(c.A[7], uint32(v))
+	c.A[7] += 4
+	c.tracef("%04X ori.l #$%X,(A7)+\n", pc, v)
+}
+
+func (c *Processor) op00A0() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[0] -= 4
+	c.writeLong(c.A[0], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A0)\n", pc, v)
+}
+
+func (c *Processor) op00A1() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[1] -= 4
+	c.writeLong(c.A[1], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A1)\n", pc, v)
+}
+
+func (c *Processor) op00A2() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[2] -= 4
+	c.writeLong(c.A[2], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A2)\n", pc, v)
+}
+
+func (c *Processor) op00A3() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[3] -= 4
+	c.writeLong(c.A[3], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A3)\n", pc, v)
+}
+
+func (c *Processor) op00A4() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[4] -= 4
+	c.writeLong(c.A[4], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A4)\n", pc, v)
+}
+
+func (c *Processor) op00A5() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[5] -= 4
+	c.writeLong(c.A[5], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A5)\n", pc, v)
+}
+
+func (c *Processor) op00A6() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[6] -= 4
+	c.writeLong(c.A[6], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A6)\n", pc, v)
+}
+
+func (c *Processor) op00A7() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.A[7] -= 4
+	c.writeLong(c.A[7], uint32(v))
+	c.tracef("%04X ori.l #$%X,-(A7)\n", pc, v)
+}
+
+func (c *Processor) op00A8() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A0)\n", pc, v, disp)
+}
+
+func (c *Processor) op00A9() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A1)\n", pc, v, disp)
+}
+
+func (c *Processor) op00AA() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A2)\n", pc, v, disp)
+}
+
+func (c *Processor) op00AB() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A3)\n", pc, v, disp)
+}
+
+func (c *Processor) op00AC() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A4)\n", pc, v, disp)
+}
+
+func (c *Processor) op00AD() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A5)\n", pc, v, disp)
+}
+
+func (c *Processor) op00AE() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A6)\n", pc, v, disp)
+}
+
+func (c *Processor) op00AF() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,(%d,A7)\n", pc, v, disp)
 }
 
 func (c *Processor) op00B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b $%X,(A0)\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X ori.l #$%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op00B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b $%X,(A0)\n", pc, v)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	c.writeLong(addr, uint32(v))
+	c.tracef("%04X ori.l #$%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op00BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.b #$%X,(A0)\n", pc, v)
 }
@@ -1000,7 +2495,12 @@ func (c *Processor) op00D7() {
 func (c *Processor) op00F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.b $%X,(A0)+\n", pc, v)
@@ -1009,7 +2509,12 @@ func (c *Processor) op00F8() {
 func (c *Processor) op00F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.b $%X,(A0)+\n", pc, v)
@@ -1018,7 +2523,12 @@ func (c *Processor) op00F9() {
 func (c *Processor) op00FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.b #$%X,(A0)+\n", pc, v)
@@ -1102,7 +2612,7 @@ func (c *Processor) op0108() {
 	v := c.A[0]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A0,-(A0)\n", pc)
+	c.tracef("%04X movep.b A0,-(A0)\n", pc)
 }
 
 func (c *Processor) op0109() {
@@ -1111,7 +2621,7 @@ func (c *Processor) op0109() {
 	v := c.A[1]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A1,-(A0)\n", pc)
+	c.tracef("%04X movep.b A1,-(A0)\n", pc)
 }
 
 func (c *Processor) op010A() {
@@ -1120,7 +2630,7 @@ func (c *Processor) op010A() {
 	v := c.A[2]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A2,-(A0)\n", pc)
+	c.tracef("%04X movep.b A2,-(A0)\n", pc)
 }
 
 func (c *Processor) op010B() {
@@ -1129,7 +2639,7 @@ func (c *Processor) op010B() {
 	v := c.A[3]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A3,-(A0)\n", pc)
+	c.tracef("%04X movep.b A3,-(A0)\n", pc)
 }
 
 func (c *Processor) op010C() {
@@ -1138,7 +2648,7 @@ func (c *Processor) op010C() {
 	v := c.A[4]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A4,-(A0)\n", pc)
+	c.tracef("%04X movep.b A4,-(A0)\n", pc)
 }
 
 func (c *Processor) op010D() {
@@ -1147,7 +2657,7 @@ func (c *Processor) op010D() {
 	v := c.A[5]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A5,-(A0)\n", pc)
+	c.tracef("%04X movep.b A5,-(A0)\n", pc)
 }
 
 func (c *Processor) op010E() {
@@ -1156,7 +2666,7 @@ func (c *Processor) op010E() {
 	v := c.A[6]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A6,-(A0)\n", pc)
+	c.tracef("%04X movep.b A6,-(A0)\n", pc)
 }
 
 func (c *Processor) op010F() {
@@ -1165,7 +2675,7 @@ func (c *Processor) op010F() {
 	v := c.A[7]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.b A7,-(A0)\n", pc)
+	c.tracef("%04X movep.b A7,-(A0)\n", pc)
 }
 
 func (c *Processor) op0110() {
@@ -1275,7 +2785,12 @@ func (c *Processor) op0117() {
 func (c *Processor) op0138() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.b $%X,-(A0)\n", pc, v)
@@ -1284,7 +2799,12 @@ func (c *Processor) op0138() {
 func (c *Processor) op0139() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.b $%X,-(A0)\n", pc, v)
@@ -1293,7 +2813,12 @@ func (c *Processor) op0139() {
 func (c *Processor) op013C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A0)\n", pc, v)
@@ -1303,8 +2828,13 @@ func (c *Processor) op0140() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A0)\n", pc, disp)
 }
@@ -1313,8 +2843,13 @@ func (c *Processor) op0141() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A0)\n", pc, disp)
 }
@@ -1323,8 +2858,13 @@ func (c *Processor) op0142() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A0)\n", pc, disp)
 }
@@ -1333,8 +2873,13 @@ func (c *Processor) op0143() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A0)\n", pc, disp)
 }
@@ -1343,8 +2888,13 @@ func (c *Processor) op0144() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A0)\n", pc, disp)
 }
@@ -1353,8 +2903,13 @@ func (c *Processor) op0145() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A0)\n", pc, disp)
 }
@@ -1363,8 +2918,13 @@ func (c *Processor) op0146() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A0)\n", pc, disp)
 }
@@ -1373,8 +2933,13 @@ func (c *Processor) op0147() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A0)\n", pc, disp)
 }
@@ -1383,80 +2948,120 @@ func (c *Processor) op0148() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op0149() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op014A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op014B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op014C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op014D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op014E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op014F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op0150() {
@@ -1467,8 +3072,13 @@ func (c *Processor) op0150() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A0)\n", pc, disp)
 }
@@ -1481,8 +3091,13 @@ func (c *Processor) op0151() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A0)\n", pc, disp)
 }
@@ -1495,8 +3110,13 @@ func (c *Processor) op0152() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A0)\n", pc, disp)
 }
@@ -1509,8 +3129,13 @@ func (c *Processor) op0153() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A0)\n", pc, disp)
 }
@@ -1523,8 +3148,13 @@ func (c *Processor) op0154() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A0)\n", pc, disp)
 }
@@ -1537,8 +3167,13 @@ func (c *Processor) op0155() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A0)\n", pc, disp)
 }
@@ -1551,8 +3186,13 @@ func (c *Processor) op0156() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A0)\n", pc, disp)
 }
@@ -1565,8 +3205,13 @@ func (c *Processor) op0157() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A0)\n", pc, disp)
 }
@@ -1574,9 +3219,19 @@ func (c *Processor) op0157() {
 func (c *Processor) op0178() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A0)\n", pc, v, disp)
 }
@@ -1584,9 +3239,19 @@ func (c *Processor) op0178() {
 func (c *Processor) op0179() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A0)\n", pc, v, disp)
 }
@@ -1594,9 +3259,19 @@ func (c *Processor) op0179() {
 func (c *Processor) op017C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A0)\n", pc, v, disp)
 }
@@ -1605,8 +3280,13 @@ func (c *Processor) op01C0() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D0,$%X\n", pc, addr)
 }
 
@@ -1614,8 +3294,13 @@ func (c *Processor) op01C1() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D1,$%X\n", pc, addr)
 }
 
@@ -1623,8 +3308,13 @@ func (c *Processor) op01C2() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D2,$%X\n", pc, addr)
 }
 
@@ -1632,8 +3322,13 @@ func (c *Processor) op01C3() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D3,$%X\n", pc, addr)
 }
 
@@ -1641,8 +3336,13 @@ func (c *Processor) op01C4() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D4,$%X\n", pc, addr)
 }
 
@@ -1650,8 +3350,13 @@ func (c *Processor) op01C5() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D5,$%X\n", pc, addr)
 }
 
@@ -1659,8 +3364,13 @@ func (c *Processor) op01C6() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D6,$%X\n", pc, addr)
 }
 
@@ -1668,8 +3378,13 @@ func (c *Processor) op01C7() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b D7,$%X\n", pc, addr)
 }
 
@@ -1677,72 +3392,112 @@ func (c *Processor) op01C8() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A0,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01C9() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A1,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01CA() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A2,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01CB() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A3,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01CC() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A4,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01CD() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A5,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01CE() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A6,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01CF() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.b A7,$%X\n", pc, addr)
 }
 
 func (c *Processor) op01D0() {
@@ -1753,8 +3508,13 @@ func (c *Processor) op01D0() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A0),$%X\n", pc, addr)
 }
 
@@ -1766,8 +3526,13 @@ func (c *Processor) op01D1() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A1),$%X\n", pc, addr)
 }
 
@@ -1779,8 +3544,13 @@ func (c *Processor) op01D2() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A2),$%X\n", pc, addr)
 }
 
@@ -1792,8 +3562,13 @@ func (c *Processor) op01D3() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A3),$%X\n", pc, addr)
 }
 
@@ -1805,8 +3580,13 @@ func (c *Processor) op01D4() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A4),$%X\n", pc, addr)
 }
 
@@ -1818,8 +3598,13 @@ func (c *Processor) op01D5() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A5),$%X\n", pc, addr)
 }
 
@@ -1831,8 +3616,13 @@ func (c *Processor) op01D6() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A6),$%X\n", pc, addr)
 }
 
@@ -1844,35 +3634,70 @@ func (c *Processor) op01D7() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b (A7),$%X\n", pc, addr)
 }
 
 func (c *Processor) op01F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b $%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op01F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b $%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op01FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.b #$%X,$%X\n", pc, v, addr)
 }
 
@@ -2103,7 +3928,12 @@ func (c *Processor) op0217() {
 func (c *Processor) op0238() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.b $%X,D1\n", pc, v)
 }
@@ -2111,7 +3941,12 @@ func (c *Processor) op0238() {
 func (c *Processor) op0239() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.b $%X,D1\n", pc, v)
 }
@@ -2119,7 +3954,12 @@ func (c *Processor) op0239() {
 func (c *Processor) op023C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.b #$%X,D1\n", pc, v)
 }
@@ -2351,7 +4191,12 @@ func (c *Processor) op0257() {
 func (c *Processor) op0278() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.b $%X,A1\n", pc, v)
 }
@@ -2359,7 +4204,12 @@ func (c *Processor) op0278() {
 func (c *Processor) op0279() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.b $%X,A1\n", pc, v)
 }
@@ -2367,7 +4217,12 @@ func (c *Processor) op0279() {
 func (c *Processor) op027C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.b #$%X,A1\n", pc, v)
 }
@@ -2599,7 +4454,12 @@ func (c *Processor) op0297() {
 func (c *Processor) op02B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.b $%X,(A1)\n", pc, v)
 }
@@ -2607,7 +4467,12 @@ func (c *Processor) op02B8() {
 func (c *Processor) op02B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.b $%X,(A1)\n", pc, v)
 }
@@ -2615,7 +4480,12 @@ func (c *Processor) op02B9() {
 func (c *Processor) op02BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.b #$%X,(A1)\n", pc, v)
 }
@@ -2871,7 +4741,12 @@ func (c *Processor) op02D7() {
 func (c *Processor) op02F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.b $%X,(A1)+\n", pc, v)
@@ -2880,7 +4755,12 @@ func (c *Processor) op02F8() {
 func (c *Processor) op02F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.b $%X,(A1)+\n", pc, v)
@@ -2889,7 +4769,12 @@ func (c *Processor) op02F9() {
 func (c *Processor) op02FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.b #$%X,(A1)+\n", pc, v)
@@ -2973,7 +4858,7 @@ func (c *Processor) op0308() {
 	v := c.A[0]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A0,-(A1)\n", pc)
+	c.tracef("%04X movep.b A0,-(A1)\n", pc)
 }
 
 func (c *Processor) op0309() {
@@ -2982,7 +4867,7 @@ func (c *Processor) op0309() {
 	v := c.A[1]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A1,-(A1)\n", pc)
+	c.tracef("%04X movep.b A1,-(A1)\n", pc)
 }
 
 func (c *Processor) op030A() {
@@ -2991,7 +4876,7 @@ func (c *Processor) op030A() {
 	v := c.A[2]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A2,-(A1)\n", pc)
+	c.tracef("%04X movep.b A2,-(A1)\n", pc)
 }
 
 func (c *Processor) op030B() {
@@ -3000,7 +4885,7 @@ func (c *Processor) op030B() {
 	v := c.A[3]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A3,-(A1)\n", pc)
+	c.tracef("%04X movep.b A3,-(A1)\n", pc)
 }
 
 func (c *Processor) op030C() {
@@ -3009,7 +4894,7 @@ func (c *Processor) op030C() {
 	v := c.A[4]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A4,-(A1)\n", pc)
+	c.tracef("%04X movep.b A4,-(A1)\n", pc)
 }
 
 func (c *Processor) op030D() {
@@ -3018,7 +4903,7 @@ func (c *Processor) op030D() {
 	v := c.A[5]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A5,-(A1)\n", pc)
+	c.tracef("%04X movep.b A5,-(A1)\n", pc)
 }
 
 func (c *Processor) op030E() {
@@ -3027,7 +4912,7 @@ func (c *Processor) op030E() {
 	v := c.A[6]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A6,-(A1)\n", pc)
+	c.tracef("%04X movep.b A6,-(A1)\n", pc)
 }
 
 func (c *Processor) op030F() {
@@ -3036,7 +4921,7 @@ func (c *Processor) op030F() {
 	v := c.A[7]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.b A7,-(A1)\n", pc)
+	c.tracef("%04X movep.b A7,-(A1)\n", pc)
 }
 
 func (c *Processor) op0310() {
@@ -3146,7 +5031,12 @@ func (c *Processor) op0317() {
 func (c *Processor) op0338() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.b $%X,-(A1)\n", pc, v)
@@ -3155,7 +5045,12 @@ func (c *Processor) op0338() {
 func (c *Processor) op0339() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.b $%X,-(A1)\n", pc, v)
@@ -3164,7 +5059,12 @@ func (c *Processor) op0339() {
 func (c *Processor) op033C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A1)\n", pc, v)
@@ -3174,8 +5074,13 @@ func (c *Processor) op0340() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A1)\n", pc, disp)
 }
@@ -3184,8 +5089,13 @@ func (c *Processor) op0341() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A1)\n", pc, disp)
 }
@@ -3194,8 +5104,13 @@ func (c *Processor) op0342() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A1)\n", pc, disp)
 }
@@ -3204,8 +5119,13 @@ func (c *Processor) op0343() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A1)\n", pc, disp)
 }
@@ -3214,8 +5134,13 @@ func (c *Processor) op0344() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A1)\n", pc, disp)
 }
@@ -3224,8 +5149,13 @@ func (c *Processor) op0345() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A1)\n", pc, disp)
 }
@@ -3234,8 +5164,13 @@ func (c *Processor) op0346() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A1)\n", pc, disp)
 }
@@ -3244,8 +5179,13 @@ func (c *Processor) op0347() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A1)\n", pc, disp)
 }
@@ -3254,80 +5194,120 @@ func (c *Processor) op0348() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op0349() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op034A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op034B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op034C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op034D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op034E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op034F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op0350() {
@@ -3338,8 +5318,13 @@ func (c *Processor) op0350() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A1)\n", pc, disp)
 }
@@ -3352,8 +5337,13 @@ func (c *Processor) op0351() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A1)\n", pc, disp)
 }
@@ -3366,8 +5356,13 @@ func (c *Processor) op0352() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A1)\n", pc, disp)
 }
@@ -3380,8 +5375,13 @@ func (c *Processor) op0353() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A1)\n", pc, disp)
 }
@@ -3394,8 +5394,13 @@ func (c *Processor) op0354() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A1)\n", pc, disp)
 }
@@ -3408,8 +5413,13 @@ func (c *Processor) op0355() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A1)\n", pc, disp)
 }
@@ -3422,8 +5432,13 @@ func (c *Processor) op0356() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A1)\n", pc, disp)
 }
@@ -3436,8 +5451,13 @@ func (c *Processor) op0357() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A1)\n", pc, disp)
 }
@@ -3445,9 +5465,19 @@ func (c *Processor) op0357() {
 func (c *Processor) op0378() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A1)\n", pc, v, disp)
 }
@@ -3455,9 +5485,19 @@ func (c *Processor) op0378() {
 func (c *Processor) op0379() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A1)\n", pc, v, disp)
 }
@@ -3465,9 +5505,19 @@ func (c *Processor) op0379() {
 func (c *Processor) op037C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A1)\n", pc, v, disp)
 }
@@ -3476,7 +5526,12 @@ func (c *Processor) op03C0() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,$%X\n", pc, addr)
 }
@@ -3485,7 +5540,12 @@ func (c *Processor) op03C1() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,$%X\n", pc, addr)
 }
@@ -3494,7 +5554,12 @@ func (c *Processor) op03C2() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,$%X\n", pc, addr)
 }
@@ -3503,7 +5568,12 @@ func (c *Processor) op03C3() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,$%X\n", pc, addr)
 }
@@ -3512,7 +5582,12 @@ func (c *Processor) op03C4() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,$%X\n", pc, addr)
 }
@@ -3521,7 +5596,12 @@ func (c *Processor) op03C5() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,$%X\n", pc, addr)
 }
@@ -3530,7 +5610,12 @@ func (c *Processor) op03C6() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,$%X\n", pc, addr)
 }
@@ -3539,7 +5624,12 @@ func (c *Processor) op03C7() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,$%X\n", pc, addr)
 }
@@ -3548,72 +5638,112 @@ func (c *Processor) op03C8() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A0,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03C9() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A1,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03CA() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A2,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03CB() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A3,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03CC() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A4,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03CD() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A5,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03CE() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A6,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03CF() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,$%X\n", pc, addr)
+	c.tracef("%04X movep.b A7,$%X\n", pc, addr)
 }
 
 func (c *Processor) op03D0() {
@@ -3624,7 +5754,12 @@ func (c *Processor) op03D0() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),$%X\n", pc, addr)
 }
@@ -3637,7 +5772,12 @@ func (c *Processor) op03D1() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),$%X\n", pc, addr)
 }
@@ -3650,7 +5790,12 @@ func (c *Processor) op03D2() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),$%X\n", pc, addr)
 }
@@ -3663,7 +5808,12 @@ func (c *Processor) op03D3() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),$%X\n", pc, addr)
 }
@@ -3676,7 +5826,12 @@ func (c *Processor) op03D4() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),$%X\n", pc, addr)
 }
@@ -3689,7 +5844,12 @@ func (c *Processor) op03D5() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),$%X\n", pc, addr)
 }
@@ -3702,7 +5862,12 @@ func (c *Processor) op03D6() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),$%X\n", pc, addr)
 }
@@ -3715,7 +5880,12 @@ func (c *Processor) op03D7() {
 		return
 	}
 	v := c.buf[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),$%X\n", pc, addr)
 }
@@ -3723,8 +5893,18 @@ func (c *Processor) op03D7() {
 func (c *Processor) op03F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,$%X\n", pc, v, addr)
 }
@@ -3732,8 +5912,18 @@ func (c *Processor) op03F8() {
 func (c *Processor) op03F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,$%X\n", pc, v, addr)
 }
@@ -3741,8 +5931,18 @@ func (c *Processor) op03F9() {
 func (c *Processor) op03FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,$%X\n", pc, v, addr)
 }
@@ -3974,7 +6174,12 @@ func (c *Processor) op0417() {
 func (c *Processor) op0438() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.b $%X,D2\n", pc, v)
 }
@@ -3982,7 +6187,12 @@ func (c *Processor) op0438() {
 func (c *Processor) op0439() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.b $%X,D2\n", pc, v)
 }
@@ -3990,7 +6200,12 @@ func (c *Processor) op0439() {
 func (c *Processor) op043C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.b #$%X,D2\n", pc, v)
 }
@@ -4222,7 +6437,12 @@ func (c *Processor) op0457() {
 func (c *Processor) op0478() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.b $%X,A2\n", pc, v)
 }
@@ -4230,7 +6450,12 @@ func (c *Processor) op0478() {
 func (c *Processor) op0479() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.b $%X,A2\n", pc, v)
 }
@@ -4238,7 +6463,12 @@ func (c *Processor) op0479() {
 func (c *Processor) op047C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.b #$%X,A2\n", pc, v)
 }
@@ -4470,7 +6700,12 @@ func (c *Processor) op0497() {
 func (c *Processor) op04B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.b $%X,(A2)\n", pc, v)
 }
@@ -4478,7 +6713,12 @@ func (c *Processor) op04B8() {
 func (c *Processor) op04B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.b $%X,(A2)\n", pc, v)
 }
@@ -4486,7 +6726,12 @@ func (c *Processor) op04B9() {
 func (c *Processor) op04BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.b #$%X,(A2)\n", pc, v)
 }
@@ -4742,7 +6987,12 @@ func (c *Processor) op04D7() {
 func (c *Processor) op04F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.b $%X,(A2)+\n", pc, v)
@@ -4751,7 +7001,12 @@ func (c *Processor) op04F8() {
 func (c *Processor) op04F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.b $%X,(A2)+\n", pc, v)
@@ -4760,7 +7015,12 @@ func (c *Processor) op04F9() {
 func (c *Processor) op04FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.b #$%X,(A2)+\n", pc, v)
@@ -4844,7 +7104,7 @@ func (c *Processor) op0508() {
 	v := c.A[0]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A0,-(A2)\n", pc)
+	c.tracef("%04X movep.b A0,-(A2)\n", pc)
 }
 
 func (c *Processor) op0509() {
@@ -4853,7 +7113,7 @@ func (c *Processor) op0509() {
 	v := c.A[1]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A1,-(A2)\n", pc)
+	c.tracef("%04X movep.b A1,-(A2)\n", pc)
 }
 
 func (c *Processor) op050A() {
@@ -4862,7 +7122,7 @@ func (c *Processor) op050A() {
 	v := c.A[2]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A2,-(A2)\n", pc)
+	c.tracef("%04X movep.b A2,-(A2)\n", pc)
 }
 
 func (c *Processor) op050B() {
@@ -4871,7 +7131,7 @@ func (c *Processor) op050B() {
 	v := c.A[3]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A3,-(A2)\n", pc)
+	c.tracef("%04X movep.b A3,-(A2)\n", pc)
 }
 
 func (c *Processor) op050C() {
@@ -4880,7 +7140,7 @@ func (c *Processor) op050C() {
 	v := c.A[4]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A4,-(A2)\n", pc)
+	c.tracef("%04X movep.b A4,-(A2)\n", pc)
 }
 
 func (c *Processor) op050D() {
@@ -4889,7 +7149,7 @@ func (c *Processor) op050D() {
 	v := c.A[5]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A5,-(A2)\n", pc)
+	c.tracef("%04X movep.b A5,-(A2)\n", pc)
 }
 
 func (c *Processor) op050E() {
@@ -4898,7 +7158,7 @@ func (c *Processor) op050E() {
 	v := c.A[6]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A6,-(A2)\n", pc)
+	c.tracef("%04X movep.b A6,-(A2)\n", pc)
 }
 
 func (c *Processor) op050F() {
@@ -4907,7 +7167,7 @@ func (c *Processor) op050F() {
 	v := c.A[7]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.b A7,-(A2)\n", pc)
+	c.tracef("%04X movep.b A7,-(A2)\n", pc)
 }
 
 func (c *Processor) op0510() {
@@ -5017,7 +7277,12 @@ func (c *Processor) op0517() {
 func (c *Processor) op0538() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.b $%X,-(A2)\n", pc, v)
@@ -5026,7 +7291,12 @@ func (c *Processor) op0538() {
 func (c *Processor) op0539() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.b $%X,-(A2)\n", pc, v)
@@ -5035,7 +7305,12 @@ func (c *Processor) op0539() {
 func (c *Processor) op053C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A2)\n", pc, v)
@@ -5045,8 +7320,13 @@ func (c *Processor) op0540() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A2)\n", pc, disp)
 }
@@ -5055,8 +7335,13 @@ func (c *Processor) op0541() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A2)\n", pc, disp)
 }
@@ -5065,8 +7350,13 @@ func (c *Processor) op0542() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A2)\n", pc, disp)
 }
@@ -5075,8 +7365,13 @@ func (c *Processor) op0543() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A2)\n", pc, disp)
 }
@@ -5085,8 +7380,13 @@ func (c *Processor) op0544() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A2)\n", pc, disp)
 }
@@ -5095,8 +7395,13 @@ func (c *Processor) op0545() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A2)\n", pc, disp)
 }
@@ -5105,8 +7410,13 @@ func (c *Processor) op0546() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A2)\n", pc, disp)
 }
@@ -5115,8 +7425,13 @@ func (c *Processor) op0547() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A2)\n", pc, disp)
 }
@@ -5125,80 +7440,120 @@ func (c *Processor) op0548() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op0549() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op054A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op054B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op054C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op054D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op054E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op054F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op0550() {
@@ -5209,8 +7564,13 @@ func (c *Processor) op0550() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A2)\n", pc, disp)
 }
@@ -5223,8 +7583,13 @@ func (c *Processor) op0551() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A2)\n", pc, disp)
 }
@@ -5237,8 +7602,13 @@ func (c *Processor) op0552() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A2)\n", pc, disp)
 }
@@ -5251,8 +7621,13 @@ func (c *Processor) op0553() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A2)\n", pc, disp)
 }
@@ -5265,8 +7640,13 @@ func (c *Processor) op0554() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A2)\n", pc, disp)
 }
@@ -5279,8 +7659,13 @@ func (c *Processor) op0555() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A2)\n", pc, disp)
 }
@@ -5293,8 +7678,13 @@ func (c *Processor) op0556() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A2)\n", pc, disp)
 }
@@ -5307,8 +7697,13 @@ func (c *Processor) op0557() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A2)\n", pc, disp)
 }
@@ -5316,9 +7711,19 @@ func (c *Processor) op0557() {
 func (c *Processor) op0578() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A2)\n", pc, v, disp)
 }
@@ -5326,9 +7731,19 @@ func (c *Processor) op0578() {
 func (c *Processor) op0579() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A2)\n", pc, v, disp)
 }
@@ -5336,9 +7751,19 @@ func (c *Processor) op0579() {
 func (c *Processor) op057C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A2)\n", pc, v, disp)
 }
@@ -5570,7 +7995,12 @@ func (c *Processor) op0617() {
 func (c *Processor) op0638() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.b $%X,D3\n", pc, v)
 }
@@ -5578,7 +8008,12 @@ func (c *Processor) op0638() {
 func (c *Processor) op0639() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.b $%X,D3\n", pc, v)
 }
@@ -5586,7 +8021,12 @@ func (c *Processor) op0639() {
 func (c *Processor) op063C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.b #$%X,D3\n", pc, v)
 }
@@ -5818,7 +8258,12 @@ func (c *Processor) op0657() {
 func (c *Processor) op0678() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.b $%X,A3\n", pc, v)
 }
@@ -5826,7 +8271,12 @@ func (c *Processor) op0678() {
 func (c *Processor) op0679() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.b $%X,A3\n", pc, v)
 }
@@ -5834,7 +8284,12 @@ func (c *Processor) op0679() {
 func (c *Processor) op067C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.b #$%X,A3\n", pc, v)
 }
@@ -6066,7 +8521,12 @@ func (c *Processor) op0697() {
 func (c *Processor) op06B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.b $%X,(A3)\n", pc, v)
 }
@@ -6074,7 +8534,12 @@ func (c *Processor) op06B8() {
 func (c *Processor) op06B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.b $%X,(A3)\n", pc, v)
 }
@@ -6082,7 +8547,12 @@ func (c *Processor) op06B9() {
 func (c *Processor) op06BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.b #$%X,(A3)\n", pc, v)
 }
@@ -6338,7 +8808,12 @@ func (c *Processor) op06D7() {
 func (c *Processor) op06F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.b $%X,(A3)+\n", pc, v)
@@ -6347,7 +8822,12 @@ func (c *Processor) op06F8() {
 func (c *Processor) op06F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.b $%X,(A3)+\n", pc, v)
@@ -6356,7 +8836,12 @@ func (c *Processor) op06F9() {
 func (c *Processor) op06FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.b #$%X,(A3)+\n", pc, v)
@@ -6440,7 +8925,7 @@ func (c *Processor) op0708() {
 	v := c.A[0]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A0,-(A3)\n", pc)
+	c.tracef("%04X movep.b A0,-(A3)\n", pc)
 }
 
 func (c *Processor) op0709() {
@@ -6449,7 +8934,7 @@ func (c *Processor) op0709() {
 	v := c.A[1]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A1,-(A3)\n", pc)
+	c.tracef("%04X movep.b A1,-(A3)\n", pc)
 }
 
 func (c *Processor) op070A() {
@@ -6458,7 +8943,7 @@ func (c *Processor) op070A() {
 	v := c.A[2]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A2,-(A3)\n", pc)
+	c.tracef("%04X movep.b A2,-(A3)\n", pc)
 }
 
 func (c *Processor) op070B() {
@@ -6467,7 +8952,7 @@ func (c *Processor) op070B() {
 	v := c.A[3]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A3,-(A3)\n", pc)
+	c.tracef("%04X movep.b A3,-(A3)\n", pc)
 }
 
 func (c *Processor) op070C() {
@@ -6476,7 +8961,7 @@ func (c *Processor) op070C() {
 	v := c.A[4]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A4,-(A3)\n", pc)
+	c.tracef("%04X movep.b A4,-(A3)\n", pc)
 }
 
 func (c *Processor) op070D() {
@@ -6485,7 +8970,7 @@ func (c *Processor) op070D() {
 	v := c.A[5]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A5,-(A3)\n", pc)
+	c.tracef("%04X movep.b A5,-(A3)\n", pc)
 }
 
 func (c *Processor) op070E() {
@@ -6494,7 +8979,7 @@ func (c *Processor) op070E() {
 	v := c.A[6]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A6,-(A3)\n", pc)
+	c.tracef("%04X movep.b A6,-(A3)\n", pc)
 }
 
 func (c *Processor) op070F() {
@@ -6503,7 +8988,7 @@ func (c *Processor) op070F() {
 	v := c.A[7]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.b A7,-(A3)\n", pc)
+	c.tracef("%04X movep.b A7,-(A3)\n", pc)
 }
 
 func (c *Processor) op0710() {
@@ -6613,7 +9098,12 @@ func (c *Processor) op0717() {
 func (c *Processor) op0738() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.b $%X,-(A3)\n", pc, v)
@@ -6622,7 +9112,12 @@ func (c *Processor) op0738() {
 func (c *Processor) op0739() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.b $%X,-(A3)\n", pc, v)
@@ -6631,7 +9126,12 @@ func (c *Processor) op0739() {
 func (c *Processor) op073C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A3)\n", pc, v)
@@ -6641,8 +9141,13 @@ func (c *Processor) op0740() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A3)\n", pc, disp)
 }
@@ -6651,8 +9156,13 @@ func (c *Processor) op0741() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A3)\n", pc, disp)
 }
@@ -6661,8 +9171,13 @@ func (c *Processor) op0742() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A3)\n", pc, disp)
 }
@@ -6671,8 +9186,13 @@ func (c *Processor) op0743() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A3)\n", pc, disp)
 }
@@ -6681,8 +9201,13 @@ func (c *Processor) op0744() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A3)\n", pc, disp)
 }
@@ -6691,8 +9216,13 @@ func (c *Processor) op0745() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A3)\n", pc, disp)
 }
@@ -6701,8 +9231,13 @@ func (c *Processor) op0746() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A3)\n", pc, disp)
 }
@@ -6711,8 +9246,13 @@ func (c *Processor) op0747() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A3)\n", pc, disp)
 }
@@ -6721,80 +9261,120 @@ func (c *Processor) op0748() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op0749() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op074A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op074B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op074C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op074D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op074E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op074F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op0750() {
@@ -6805,8 +9385,13 @@ func (c *Processor) op0750() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A3)\n", pc, disp)
 }
@@ -6819,8 +9404,13 @@ func (c *Processor) op0751() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A3)\n", pc, disp)
 }
@@ -6833,8 +9423,13 @@ func (c *Processor) op0752() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A3)\n", pc, disp)
 }
@@ -6847,8 +9442,13 @@ func (c *Processor) op0753() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A3)\n", pc, disp)
 }
@@ -6861,8 +9461,13 @@ func (c *Processor) op0754() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A3)\n", pc, disp)
 }
@@ -6875,8 +9480,13 @@ func (c *Processor) op0755() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A3)\n", pc, disp)
 }
@@ -6889,8 +9499,13 @@ func (c *Processor) op0756() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A3)\n", pc, disp)
 }
@@ -6903,8 +9518,13 @@ func (c *Processor) op0757() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A3)\n", pc, disp)
 }
@@ -6912,9 +9532,19 @@ func (c *Processor) op0757() {
 func (c *Processor) op0778() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A3)\n", pc, v, disp)
 }
@@ -6922,9 +9552,19 @@ func (c *Processor) op0778() {
 func (c *Processor) op0779() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A3)\n", pc, v, disp)
 }
@@ -6932,9 +9572,19 @@ func (c *Processor) op0779() {
 func (c *Processor) op077C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A3)\n", pc, v, disp)
 }
@@ -7166,7 +9816,12 @@ func (c *Processor) op0817() {
 func (c *Processor) op0838() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.b $%X,D4\n", pc, v)
 }
@@ -7174,7 +9829,12 @@ func (c *Processor) op0838() {
 func (c *Processor) op0839() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.b $%X,D4\n", pc, v)
 }
@@ -7182,7 +9842,12 @@ func (c *Processor) op0839() {
 func (c *Processor) op083C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.b #$%X,D4\n", pc, v)
 }
@@ -7414,7 +10079,12 @@ func (c *Processor) op0857() {
 func (c *Processor) op0878() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.b $%X,A4\n", pc, v)
 }
@@ -7422,7 +10092,12 @@ func (c *Processor) op0878() {
 func (c *Processor) op0879() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.b $%X,A4\n", pc, v)
 }
@@ -7430,7 +10105,12 @@ func (c *Processor) op0879() {
 func (c *Processor) op087C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.b #$%X,A4\n", pc, v)
 }
@@ -7662,7 +10342,12 @@ func (c *Processor) op0897() {
 func (c *Processor) op08B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.b $%X,(A4)\n", pc, v)
 }
@@ -7670,7 +10355,12 @@ func (c *Processor) op08B8() {
 func (c *Processor) op08B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.b $%X,(A4)\n", pc, v)
 }
@@ -7678,7 +10368,12 @@ func (c *Processor) op08B9() {
 func (c *Processor) op08BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.b #$%X,(A4)\n", pc, v)
 }
@@ -7934,7 +10629,12 @@ func (c *Processor) op08D7() {
 func (c *Processor) op08F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.b $%X,(A4)+\n", pc, v)
@@ -7943,7 +10643,12 @@ func (c *Processor) op08F8() {
 func (c *Processor) op08F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.b $%X,(A4)+\n", pc, v)
@@ -7952,7 +10657,12 @@ func (c *Processor) op08F9() {
 func (c *Processor) op08FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.b #$%X,(A4)+\n", pc, v)
@@ -8036,7 +10746,7 @@ func (c *Processor) op0908() {
 	v := c.A[0]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A0,-(A4)\n", pc)
+	c.tracef("%04X movep.b A0,-(A4)\n", pc)
 }
 
 func (c *Processor) op0909() {
@@ -8045,7 +10755,7 @@ func (c *Processor) op0909() {
 	v := c.A[1]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A1,-(A4)\n", pc)
+	c.tracef("%04X movep.b A1,-(A4)\n", pc)
 }
 
 func (c *Processor) op090A() {
@@ -8054,7 +10764,7 @@ func (c *Processor) op090A() {
 	v := c.A[2]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A2,-(A4)\n", pc)
+	c.tracef("%04X movep.b A2,-(A4)\n", pc)
 }
 
 func (c *Processor) op090B() {
@@ -8063,7 +10773,7 @@ func (c *Processor) op090B() {
 	v := c.A[3]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A3,-(A4)\n", pc)
+	c.tracef("%04X movep.b A3,-(A4)\n", pc)
 }
 
 func (c *Processor) op090C() {
@@ -8072,7 +10782,7 @@ func (c *Processor) op090C() {
 	v := c.A[4]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A4,-(A4)\n", pc)
+	c.tracef("%04X movep.b A4,-(A4)\n", pc)
 }
 
 func (c *Processor) op090D() {
@@ -8081,7 +10791,7 @@ func (c *Processor) op090D() {
 	v := c.A[5]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A5,-(A4)\n", pc)
+	c.tracef("%04X movep.b A5,-(A4)\n", pc)
 }
 
 func (c *Processor) op090E() {
@@ -8090,7 +10800,7 @@ func (c *Processor) op090E() {
 	v := c.A[6]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A6,-(A4)\n", pc)
+	c.tracef("%04X movep.b A6,-(A4)\n", pc)
 }
 
 func (c *Processor) op090F() {
@@ -8099,7 +10809,7 @@ func (c *Processor) op090F() {
 	v := c.A[7]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.b A7,-(A4)\n", pc)
+	c.tracef("%04X movep.b A7,-(A4)\n", pc)
 }
 
 func (c *Processor) op0910() {
@@ -8209,7 +10919,12 @@ func (c *Processor) op0917() {
 func (c *Processor) op0938() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.b $%X,-(A4)\n", pc, v)
@@ -8218,7 +10933,12 @@ func (c *Processor) op0938() {
 func (c *Processor) op0939() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.b $%X,-(A4)\n", pc, v)
@@ -8227,7 +10947,12 @@ func (c *Processor) op0939() {
 func (c *Processor) op093C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A4)\n", pc, v)
@@ -8237,8 +10962,13 @@ func (c *Processor) op0940() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A4)\n", pc, disp)
 }
@@ -8247,8 +10977,13 @@ func (c *Processor) op0941() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A4)\n", pc, disp)
 }
@@ -8257,8 +10992,13 @@ func (c *Processor) op0942() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A4)\n", pc, disp)
 }
@@ -8267,8 +11007,13 @@ func (c *Processor) op0943() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A4)\n", pc, disp)
 }
@@ -8277,8 +11022,13 @@ func (c *Processor) op0944() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A4)\n", pc, disp)
 }
@@ -8287,8 +11037,13 @@ func (c *Processor) op0945() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A4)\n", pc, disp)
 }
@@ -8297,8 +11052,13 @@ func (c *Processor) op0946() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A4)\n", pc, disp)
 }
@@ -8307,8 +11067,13 @@ func (c *Processor) op0947() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A4)\n", pc, disp)
 }
@@ -8317,80 +11082,120 @@ func (c *Processor) op0948() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op0949() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op094A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op094B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op094C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op094D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op094E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op094F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op0950() {
@@ -8401,8 +11206,13 @@ func (c *Processor) op0950() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A4)\n", pc, disp)
 }
@@ -8415,8 +11225,13 @@ func (c *Processor) op0951() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A4)\n", pc, disp)
 }
@@ -8429,8 +11244,13 @@ func (c *Processor) op0952() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A4)\n", pc, disp)
 }
@@ -8443,8 +11263,13 @@ func (c *Processor) op0953() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A4)\n", pc, disp)
 }
@@ -8457,8 +11282,13 @@ func (c *Processor) op0954() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A4)\n", pc, disp)
 }
@@ -8471,8 +11301,13 @@ func (c *Processor) op0955() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A4)\n", pc, disp)
 }
@@ -8485,8 +11320,13 @@ func (c *Processor) op0956() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A4)\n", pc, disp)
 }
@@ -8499,8 +11339,13 @@ func (c *Processor) op0957() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A4)\n", pc, disp)
 }
@@ -8508,9 +11353,19 @@ func (c *Processor) op0957() {
 func (c *Processor) op0978() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A4)\n", pc, v, disp)
 }
@@ -8518,9 +11373,19 @@ func (c *Processor) op0978() {
 func (c *Processor) op0979() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A4)\n", pc, v, disp)
 }
@@ -8528,9 +11393,19 @@ func (c *Processor) op0979() {
 func (c *Processor) op097C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A4)\n", pc, v, disp)
 }
@@ -8762,7 +11637,12 @@ func (c *Processor) op0A17() {
 func (c *Processor) op0A38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.b $%X,D5\n", pc, v)
 }
@@ -8770,7 +11650,12 @@ func (c *Processor) op0A38() {
 func (c *Processor) op0A39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.b $%X,D5\n", pc, v)
 }
@@ -8778,7 +11663,12 @@ func (c *Processor) op0A39() {
 func (c *Processor) op0A3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.b #$%X,D5\n", pc, v)
 }
@@ -9010,7 +11900,12 @@ func (c *Processor) op0A57() {
 func (c *Processor) op0A78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.b $%X,A5\n", pc, v)
 }
@@ -9018,7 +11913,12 @@ func (c *Processor) op0A78() {
 func (c *Processor) op0A79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.b $%X,A5\n", pc, v)
 }
@@ -9026,7 +11926,12 @@ func (c *Processor) op0A79() {
 func (c *Processor) op0A7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.b #$%X,A5\n", pc, v)
 }
@@ -9258,7 +12163,12 @@ func (c *Processor) op0A97() {
 func (c *Processor) op0AB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.b $%X,(A5)\n", pc, v)
 }
@@ -9266,7 +12176,12 @@ func (c *Processor) op0AB8() {
 func (c *Processor) op0AB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.b $%X,(A5)\n", pc, v)
 }
@@ -9274,7 +12189,12 @@ func (c *Processor) op0AB9() {
 func (c *Processor) op0ABC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.b #$%X,(A5)\n", pc, v)
 }
@@ -9530,7 +12450,12 @@ func (c *Processor) op0AD7() {
 func (c *Processor) op0AF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.b $%X,(A5)+\n", pc, v)
@@ -9539,7 +12464,12 @@ func (c *Processor) op0AF8() {
 func (c *Processor) op0AF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.b $%X,(A5)+\n", pc, v)
@@ -9548,7 +12478,12 @@ func (c *Processor) op0AF9() {
 func (c *Processor) op0AFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.b #$%X,(A5)+\n", pc, v)
@@ -9632,7 +12567,7 @@ func (c *Processor) op0B08() {
 	v := c.A[0]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A0,-(A5)\n", pc)
+	c.tracef("%04X movep.b A0,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B09() {
@@ -9641,7 +12576,7 @@ func (c *Processor) op0B09() {
 	v := c.A[1]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A1,-(A5)\n", pc)
+	c.tracef("%04X movep.b A1,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B0A() {
@@ -9650,7 +12585,7 @@ func (c *Processor) op0B0A() {
 	v := c.A[2]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A2,-(A5)\n", pc)
+	c.tracef("%04X movep.b A2,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B0B() {
@@ -9659,7 +12594,7 @@ func (c *Processor) op0B0B() {
 	v := c.A[3]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A3,-(A5)\n", pc)
+	c.tracef("%04X movep.b A3,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B0C() {
@@ -9668,7 +12603,7 @@ func (c *Processor) op0B0C() {
 	v := c.A[4]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A4,-(A5)\n", pc)
+	c.tracef("%04X movep.b A4,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B0D() {
@@ -9677,7 +12612,7 @@ func (c *Processor) op0B0D() {
 	v := c.A[5]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A5,-(A5)\n", pc)
+	c.tracef("%04X movep.b A5,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B0E() {
@@ -9686,7 +12621,7 @@ func (c *Processor) op0B0E() {
 	v := c.A[6]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A6,-(A5)\n", pc)
+	c.tracef("%04X movep.b A6,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B0F() {
@@ -9695,7 +12630,7 @@ func (c *Processor) op0B0F() {
 	v := c.A[7]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.b A7,-(A5)\n", pc)
+	c.tracef("%04X movep.b A7,-(A5)\n", pc)
 }
 
 func (c *Processor) op0B10() {
@@ -9805,7 +12740,12 @@ func (c *Processor) op0B17() {
 func (c *Processor) op0B38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.b $%X,-(A5)\n", pc, v)
@@ -9814,7 +12754,12 @@ func (c *Processor) op0B38() {
 func (c *Processor) op0B39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.b $%X,-(A5)\n", pc, v)
@@ -9823,7 +12768,12 @@ func (c *Processor) op0B39() {
 func (c *Processor) op0B3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A5)\n", pc, v)
@@ -9833,8 +12783,13 @@ func (c *Processor) op0B40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A5)\n", pc, disp)
 }
@@ -9843,8 +12798,13 @@ func (c *Processor) op0B41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A5)\n", pc, disp)
 }
@@ -9853,8 +12813,13 @@ func (c *Processor) op0B42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A5)\n", pc, disp)
 }
@@ -9863,8 +12828,13 @@ func (c *Processor) op0B43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A5)\n", pc, disp)
 }
@@ -9873,8 +12843,13 @@ func (c *Processor) op0B44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A5)\n", pc, disp)
 }
@@ -9883,8 +12858,13 @@ func (c *Processor) op0B45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A5)\n", pc, disp)
 }
@@ -9893,8 +12873,13 @@ func (c *Processor) op0B46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A5)\n", pc, disp)
 }
@@ -9903,8 +12888,13 @@ func (c *Processor) op0B47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A5)\n", pc, disp)
 }
@@ -9913,80 +12903,120 @@ func (c *Processor) op0B48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op0B50() {
@@ -9997,8 +13027,13 @@ func (c *Processor) op0B50() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A5)\n", pc, disp)
 }
@@ -10011,8 +13046,13 @@ func (c *Processor) op0B51() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A5)\n", pc, disp)
 }
@@ -10025,8 +13065,13 @@ func (c *Processor) op0B52() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A5)\n", pc, disp)
 }
@@ -10039,8 +13084,13 @@ func (c *Processor) op0B53() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A5)\n", pc, disp)
 }
@@ -10053,8 +13103,13 @@ func (c *Processor) op0B54() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A5)\n", pc, disp)
 }
@@ -10067,8 +13122,13 @@ func (c *Processor) op0B55() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A5)\n", pc, disp)
 }
@@ -10081,8 +13141,13 @@ func (c *Processor) op0B56() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A5)\n", pc, disp)
 }
@@ -10095,8 +13160,13 @@ func (c *Processor) op0B57() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A5)\n", pc, disp)
 }
@@ -10104,9 +13174,19 @@ func (c *Processor) op0B57() {
 func (c *Processor) op0B78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A5)\n", pc, v, disp)
 }
@@ -10114,9 +13194,19 @@ func (c *Processor) op0B78() {
 func (c *Processor) op0B79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A5)\n", pc, v, disp)
 }
@@ -10124,9 +13214,19 @@ func (c *Processor) op0B79() {
 func (c *Processor) op0B7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A5)\n", pc, v, disp)
 }
@@ -10358,7 +13458,12 @@ func (c *Processor) op0C17() {
 func (c *Processor) op0C38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.b $%X,D6\n", pc, v)
 }
@@ -10366,7 +13471,12 @@ func (c *Processor) op0C38() {
 func (c *Processor) op0C39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.b $%X,D6\n", pc, v)
 }
@@ -10374,7 +13484,12 @@ func (c *Processor) op0C39() {
 func (c *Processor) op0C3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.b #$%X,D6\n", pc, v)
 }
@@ -10606,7 +13721,12 @@ func (c *Processor) op0C57() {
 func (c *Processor) op0C78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.b $%X,A6\n", pc, v)
 }
@@ -10614,7 +13734,12 @@ func (c *Processor) op0C78() {
 func (c *Processor) op0C79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.b $%X,A6\n", pc, v)
 }
@@ -10622,7 +13747,12 @@ func (c *Processor) op0C79() {
 func (c *Processor) op0C7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.b #$%X,A6\n", pc, v)
 }
@@ -10854,7 +13984,12 @@ func (c *Processor) op0C97() {
 func (c *Processor) op0CB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.b $%X,(A6)\n", pc, v)
 }
@@ -10862,7 +13997,12 @@ func (c *Processor) op0CB8() {
 func (c *Processor) op0CB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.b $%X,(A6)\n", pc, v)
 }
@@ -10870,7 +14010,12 @@ func (c *Processor) op0CB9() {
 func (c *Processor) op0CBC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.b #$%X,(A6)\n", pc, v)
 }
@@ -11126,7 +14271,12 @@ func (c *Processor) op0CD7() {
 func (c *Processor) op0CF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.b $%X,(A6)+\n", pc, v)
@@ -11135,7 +14285,12 @@ func (c *Processor) op0CF8() {
 func (c *Processor) op0CF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.b $%X,(A6)+\n", pc, v)
@@ -11144,7 +14299,12 @@ func (c *Processor) op0CF9() {
 func (c *Processor) op0CFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.b #$%X,(A6)+\n", pc, v)
@@ -11228,7 +14388,7 @@ func (c *Processor) op0D08() {
 	v := c.A[0]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A0,-(A6)\n", pc)
+	c.tracef("%04X movep.b A0,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D09() {
@@ -11237,7 +14397,7 @@ func (c *Processor) op0D09() {
 	v := c.A[1]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A1,-(A6)\n", pc)
+	c.tracef("%04X movep.b A1,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D0A() {
@@ -11246,7 +14406,7 @@ func (c *Processor) op0D0A() {
 	v := c.A[2]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A2,-(A6)\n", pc)
+	c.tracef("%04X movep.b A2,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D0B() {
@@ -11255,7 +14415,7 @@ func (c *Processor) op0D0B() {
 	v := c.A[3]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A3,-(A6)\n", pc)
+	c.tracef("%04X movep.b A3,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D0C() {
@@ -11264,7 +14424,7 @@ func (c *Processor) op0D0C() {
 	v := c.A[4]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A4,-(A6)\n", pc)
+	c.tracef("%04X movep.b A4,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D0D() {
@@ -11273,7 +14433,7 @@ func (c *Processor) op0D0D() {
 	v := c.A[5]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A5,-(A6)\n", pc)
+	c.tracef("%04X movep.b A5,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D0E() {
@@ -11282,7 +14442,7 @@ func (c *Processor) op0D0E() {
 	v := c.A[6]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A6,-(A6)\n", pc)
+	c.tracef("%04X movep.b A6,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D0F() {
@@ -11291,7 +14451,7 @@ func (c *Processor) op0D0F() {
 	v := c.A[7]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.b A7,-(A6)\n", pc)
+	c.tracef("%04X movep.b A7,-(A6)\n", pc)
 }
 
 func (c *Processor) op0D10() {
@@ -11401,7 +14561,12 @@ func (c *Processor) op0D17() {
 func (c *Processor) op0D38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.b $%X,-(A6)\n", pc, v)
@@ -11410,7 +14575,12 @@ func (c *Processor) op0D38() {
 func (c *Processor) op0D39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.b $%X,-(A6)\n", pc, v)
@@ -11419,7 +14589,12 @@ func (c *Processor) op0D39() {
 func (c *Processor) op0D3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A6)\n", pc, v)
@@ -11429,8 +14604,13 @@ func (c *Processor) op0D40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A6)\n", pc, disp)
 }
@@ -11439,8 +14619,13 @@ func (c *Processor) op0D41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A6)\n", pc, disp)
 }
@@ -11449,8 +14634,13 @@ func (c *Processor) op0D42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A6)\n", pc, disp)
 }
@@ -11459,8 +14649,13 @@ func (c *Processor) op0D43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A6)\n", pc, disp)
 }
@@ -11469,8 +14664,13 @@ func (c *Processor) op0D44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A6)\n", pc, disp)
 }
@@ -11479,8 +14679,13 @@ func (c *Processor) op0D45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A6)\n", pc, disp)
 }
@@ -11489,8 +14694,13 @@ func (c *Processor) op0D46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A6)\n", pc, disp)
 }
@@ -11499,8 +14709,13 @@ func (c *Processor) op0D47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A6)\n", pc, disp)
 }
@@ -11509,80 +14724,120 @@ func (c *Processor) op0D48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op0D50() {
@@ -11593,8 +14848,13 @@ func (c *Processor) op0D50() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A6)\n", pc, disp)
 }
@@ -11607,8 +14867,13 @@ func (c *Processor) op0D51() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A6)\n", pc, disp)
 }
@@ -11621,8 +14886,13 @@ func (c *Processor) op0D52() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A6)\n", pc, disp)
 }
@@ -11635,8 +14905,13 @@ func (c *Processor) op0D53() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A6)\n", pc, disp)
 }
@@ -11649,8 +14924,13 @@ func (c *Processor) op0D54() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A6)\n", pc, disp)
 }
@@ -11663,8 +14943,13 @@ func (c *Processor) op0D55() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A6)\n", pc, disp)
 }
@@ -11677,8 +14962,13 @@ func (c *Processor) op0D56() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A6)\n", pc, disp)
 }
@@ -11691,8 +14981,13 @@ func (c *Processor) op0D57() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A6)\n", pc, disp)
 }
@@ -11700,9 +14995,19 @@ func (c *Processor) op0D57() {
 func (c *Processor) op0D78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A6)\n", pc, v, disp)
 }
@@ -11710,9 +15015,19 @@ func (c *Processor) op0D78() {
 func (c *Processor) op0D79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A6)\n", pc, v, disp)
 }
@@ -11720,9 +15035,19 @@ func (c *Processor) op0D79() {
 func (c *Processor) op0D7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A6)\n", pc, v, disp)
 }
@@ -11954,7 +15279,12 @@ func (c *Processor) op0E17() {
 func (c *Processor) op0E38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.b $%X,D7\n", pc, v)
 }
@@ -11962,7 +15292,12 @@ func (c *Processor) op0E38() {
 func (c *Processor) op0E39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.b $%X,D7\n", pc, v)
 }
@@ -11970,7 +15305,12 @@ func (c *Processor) op0E39() {
 func (c *Processor) op0E3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.b #$%X,D7\n", pc, v)
 }
@@ -12202,7 +15542,12 @@ func (c *Processor) op0E57() {
 func (c *Processor) op0E78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.b $%X,A7\n", pc, v)
 }
@@ -12210,7 +15555,12 @@ func (c *Processor) op0E78() {
 func (c *Processor) op0E79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.b $%X,A7\n", pc, v)
 }
@@ -12218,7 +15568,12 @@ func (c *Processor) op0E79() {
 func (c *Processor) op0E7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.b #$%X,A7\n", pc, v)
 }
@@ -12450,7 +15805,12 @@ func (c *Processor) op0E97() {
 func (c *Processor) op0EB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.b $%X,(A7)\n", pc, v)
 }
@@ -12458,7 +15818,12 @@ func (c *Processor) op0EB8() {
 func (c *Processor) op0EB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.b $%X,(A7)\n", pc, v)
 }
@@ -12466,7 +15831,12 @@ func (c *Processor) op0EB9() {
 func (c *Processor) op0EBC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.b #$%X,(A7)\n", pc, v)
 }
@@ -12722,7 +16092,12 @@ func (c *Processor) op0ED7() {
 func (c *Processor) op0EF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.b $%X,(A7)+\n", pc, v)
@@ -12731,7 +16106,12 @@ func (c *Processor) op0EF8() {
 func (c *Processor) op0EF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.b $%X,(A7)+\n", pc, v)
@@ -12740,7 +16120,12 @@ func (c *Processor) op0EF9() {
 func (c *Processor) op0EFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.b #$%X,(A7)+\n", pc, v)
@@ -12824,7 +16209,7 @@ func (c *Processor) op0F08() {
 	v := c.A[0]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A0,-(A7)\n", pc)
+	c.tracef("%04X movep.b A0,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F09() {
@@ -12833,7 +16218,7 @@ func (c *Processor) op0F09() {
 	v := c.A[1]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A1,-(A7)\n", pc)
+	c.tracef("%04X movep.b A1,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F0A() {
@@ -12842,7 +16227,7 @@ func (c *Processor) op0F0A() {
 	v := c.A[2]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A2,-(A7)\n", pc)
+	c.tracef("%04X movep.b A2,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F0B() {
@@ -12851,7 +16236,7 @@ func (c *Processor) op0F0B() {
 	v := c.A[3]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A3,-(A7)\n", pc)
+	c.tracef("%04X movep.b A3,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F0C() {
@@ -12860,7 +16245,7 @@ func (c *Processor) op0F0C() {
 	v := c.A[4]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A4,-(A7)\n", pc)
+	c.tracef("%04X movep.b A4,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F0D() {
@@ -12869,7 +16254,7 @@ func (c *Processor) op0F0D() {
 	v := c.A[5]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A5,-(A7)\n", pc)
+	c.tracef("%04X movep.b A5,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F0E() {
@@ -12878,7 +16263,7 @@ func (c *Processor) op0F0E() {
 	v := c.A[6]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A6,-(A7)\n", pc)
+	c.tracef("%04X movep.b A6,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F0F() {
@@ -12887,7 +16272,7 @@ func (c *Processor) op0F0F() {
 	v := c.A[7]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.b A7,-(A7)\n", pc)
+	c.tracef("%04X movep.b A7,-(A7)\n", pc)
 }
 
 func (c *Processor) op0F10() {
@@ -12997,7 +16382,12 @@ func (c *Processor) op0F17() {
 func (c *Processor) op0F38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.b $%X,-(A7)\n", pc, v)
@@ -13006,7 +16396,12 @@ func (c *Processor) op0F38() {
 func (c *Processor) op0F39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.b $%X,-(A7)\n", pc, v)
@@ -13015,7 +16410,12 @@ func (c *Processor) op0F39() {
 func (c *Processor) op0F3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.b #$%X,-(A7)\n", pc, v)
@@ -13025,8 +16425,13 @@ func (c *Processor) op0F40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D0,(%d,A7)\n", pc, disp)
 }
@@ -13035,8 +16440,13 @@ func (c *Processor) op0F41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D1,(%d,A7)\n", pc, disp)
 }
@@ -13045,8 +16455,13 @@ func (c *Processor) op0F42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D2,(%d,A7)\n", pc, disp)
 }
@@ -13055,8 +16470,13 @@ func (c *Processor) op0F43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D3,(%d,A7)\n", pc, disp)
 }
@@ -13065,8 +16485,13 @@ func (c *Processor) op0F44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D4,(%d,A7)\n", pc, disp)
 }
@@ -13075,8 +16500,13 @@ func (c *Processor) op0F45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D5,(%d,A7)\n", pc, disp)
 }
@@ -13085,8 +16515,13 @@ func (c *Processor) op0F46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D6,(%d,A7)\n", pc, disp)
 }
@@ -13095,8 +16530,13 @@ func (c *Processor) op0F47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b D7,(%d,A7)\n", pc, disp)
 }
@@ -13105,80 +16545,120 @@ func (c *Processor) op0F48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A0,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A0,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A1,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A1,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A2,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A2,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A3,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A3,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A4,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A4,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A5,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A5,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A6,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A6,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.b A7,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.b A7,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op0F50() {
@@ -13189,8 +16669,13 @@ func (c *Processor) op0F50() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A0),(%d,A7)\n", pc, disp)
 }
@@ -13203,8 +16688,13 @@ func (c *Processor) op0F51() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A1),(%d,A7)\n", pc, disp)
 }
@@ -13217,8 +16707,13 @@ func (c *Processor) op0F52() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A2),(%d,A7)\n", pc, disp)
 }
@@ -13231,8 +16726,13 @@ func (c *Processor) op0F53() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A3),(%d,A7)\n", pc, disp)
 }
@@ -13245,8 +16745,13 @@ func (c *Processor) op0F54() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A4),(%d,A7)\n", pc, disp)
 }
@@ -13259,8 +16764,13 @@ func (c *Processor) op0F55() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A5),(%d,A7)\n", pc, disp)
 }
@@ -13273,8 +16783,13 @@ func (c *Processor) op0F56() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A6),(%d,A7)\n", pc, disp)
 }
@@ -13287,8 +16802,13 @@ func (c *Processor) op0F57() {
 		return
 	}
 	v := c.buf[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b (A7),(%d,A7)\n", pc, disp)
 }
@@ -13296,9 +16816,19 @@ func (c *Processor) op0F57() {
 func (c *Processor) op0F78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A7)\n", pc, v, disp)
 }
@@ -13306,9 +16836,19 @@ func (c *Processor) op0F78() {
 func (c *Processor) op0F79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b $%X,(%d,A7)\n", pc, v, disp)
 }
@@ -13316,9 +16856,19 @@ func (c *Processor) op0F79() {
 func (c *Processor) op0F7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:1])
+	if c.err != nil {
+		return
+	}
+	c.PC += 1
+	v := c.buf[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.b #$%X,(%d,A7)\n", pc, v, disp)
 }
@@ -13550,7 +17100,12 @@ func (c *Processor) op1017() {
 func (c *Processor) op1038() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[0] = uint32(v)
 	c.tracef("%04X move.w $%X,D0\n", pc, v)
 }
@@ -13558,7 +17113,12 @@ func (c *Processor) op1038() {
 func (c *Processor) op1039() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[0] = uint32(v)
 	c.tracef("%04X move.w $%X,D0\n", pc, v)
 }
@@ -13566,7 +17126,12 @@ func (c *Processor) op1039() {
 func (c *Processor) op103C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[0] = uint32(v)
 	c.tracef("%04X move.w #$%X,D0\n", pc, v)
 }
@@ -13798,7 +17363,12 @@ func (c *Processor) op1057() {
 func (c *Processor) op1078() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[0] = uint32(v)
 	c.tracef("%04X movea.w $%X,A0\n", pc, v)
 }
@@ -13806,7 +17376,12 @@ func (c *Processor) op1078() {
 func (c *Processor) op1079() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[0] = uint32(v)
 	c.tracef("%04X movea.w $%X,A0\n", pc, v)
 }
@@ -13814,7 +17389,12 @@ func (c *Processor) op1079() {
 func (c *Processor) op107C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[0] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A0\n", pc, v)
 }
@@ -14046,7 +17626,12 @@ func (c *Processor) op1097() {
 func (c *Processor) op10B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.w $%X,(A0)\n", pc, v)
 }
@@ -14054,7 +17639,12 @@ func (c *Processor) op10B8() {
 func (c *Processor) op10B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.w $%X,(A0)\n", pc, v)
 }
@@ -14062,7 +17652,12 @@ func (c *Processor) op10B9() {
 func (c *Processor) op10BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.w #$%X,(A0)\n", pc, v)
 }
@@ -14318,7 +17913,12 @@ func (c *Processor) op10D7() {
 func (c *Processor) op10F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.w $%X,(A0)+\n", pc, v)
@@ -14327,7 +17927,12 @@ func (c *Processor) op10F8() {
 func (c *Processor) op10F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.w $%X,(A0)+\n", pc, v)
@@ -14336,7 +17941,12 @@ func (c *Processor) op10F9() {
 func (c *Processor) op10FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.w #$%X,(A0)+\n", pc, v)
@@ -14420,7 +18030,7 @@ func (c *Processor) op1108() {
 	v := c.A[0]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A0,-(A0)\n", pc)
+	c.tracef("%04X movep.w A0,-(A0)\n", pc)
 }
 
 func (c *Processor) op1109() {
@@ -14429,7 +18039,7 @@ func (c *Processor) op1109() {
 	v := c.A[1]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A1,-(A0)\n", pc)
+	c.tracef("%04X movep.w A1,-(A0)\n", pc)
 }
 
 func (c *Processor) op110A() {
@@ -14438,7 +18048,7 @@ func (c *Processor) op110A() {
 	v := c.A[2]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A2,-(A0)\n", pc)
+	c.tracef("%04X movep.w A2,-(A0)\n", pc)
 }
 
 func (c *Processor) op110B() {
@@ -14447,7 +18057,7 @@ func (c *Processor) op110B() {
 	v := c.A[3]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A3,-(A0)\n", pc)
+	c.tracef("%04X movep.w A3,-(A0)\n", pc)
 }
 
 func (c *Processor) op110C() {
@@ -14456,7 +18066,7 @@ func (c *Processor) op110C() {
 	v := c.A[4]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A4,-(A0)\n", pc)
+	c.tracef("%04X movep.w A4,-(A0)\n", pc)
 }
 
 func (c *Processor) op110D() {
@@ -14465,7 +18075,7 @@ func (c *Processor) op110D() {
 	v := c.A[5]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A5,-(A0)\n", pc)
+	c.tracef("%04X movep.w A5,-(A0)\n", pc)
 }
 
 func (c *Processor) op110E() {
@@ -14474,7 +18084,7 @@ func (c *Processor) op110E() {
 	v := c.A[6]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A6,-(A0)\n", pc)
+	c.tracef("%04X movep.w A6,-(A0)\n", pc)
 }
 
 func (c *Processor) op110F() {
@@ -14483,7 +18093,7 @@ func (c *Processor) op110F() {
 	v := c.A[7]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.w A7,-(A0)\n", pc)
+	c.tracef("%04X movep.w A7,-(A0)\n", pc)
 }
 
 func (c *Processor) op1110() {
@@ -14593,7 +18203,12 @@ func (c *Processor) op1117() {
 func (c *Processor) op1138() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.w $%X,-(A0)\n", pc, v)
@@ -14602,7 +18217,12 @@ func (c *Processor) op1138() {
 func (c *Processor) op1139() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.w $%X,-(A0)\n", pc, v)
@@ -14611,7 +18231,12 @@ func (c *Processor) op1139() {
 func (c *Processor) op113C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A0)\n", pc, v)
@@ -14621,8 +18246,13 @@ func (c *Processor) op1140() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A0)\n", pc, disp)
 }
@@ -14631,8 +18261,13 @@ func (c *Processor) op1141() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A0)\n", pc, disp)
 }
@@ -14641,8 +18276,13 @@ func (c *Processor) op1142() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A0)\n", pc, disp)
 }
@@ -14651,8 +18291,13 @@ func (c *Processor) op1143() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A0)\n", pc, disp)
 }
@@ -14661,8 +18306,13 @@ func (c *Processor) op1144() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A0)\n", pc, disp)
 }
@@ -14671,8 +18321,13 @@ func (c *Processor) op1145() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A0)\n", pc, disp)
 }
@@ -14681,8 +18336,13 @@ func (c *Processor) op1146() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A0)\n", pc, disp)
 }
@@ -14691,8 +18351,13 @@ func (c *Processor) op1147() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A0)\n", pc, disp)
 }
@@ -14701,80 +18366,120 @@ func (c *Processor) op1148() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op1149() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op114A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op114B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op114C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op114D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op114E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op114F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op1150() {
@@ -14785,8 +18490,13 @@ func (c *Processor) op1150() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A0)\n", pc, disp)
 }
@@ -14799,8 +18509,13 @@ func (c *Processor) op1151() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A0)\n", pc, disp)
 }
@@ -14813,8 +18528,13 @@ func (c *Processor) op1152() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A0)\n", pc, disp)
 }
@@ -14827,8 +18547,13 @@ func (c *Processor) op1153() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A0)\n", pc, disp)
 }
@@ -14841,8 +18566,13 @@ func (c *Processor) op1154() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A0)\n", pc, disp)
 }
@@ -14855,8 +18585,13 @@ func (c *Processor) op1155() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A0)\n", pc, disp)
 }
@@ -14869,8 +18604,13 @@ func (c *Processor) op1156() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A0)\n", pc, disp)
 }
@@ -14883,8 +18623,13 @@ func (c *Processor) op1157() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A0)\n", pc, disp)
 }
@@ -14892,9 +18637,19 @@ func (c *Processor) op1157() {
 func (c *Processor) op1178() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A0)\n", pc, v, disp)
 }
@@ -14902,9 +18657,19 @@ func (c *Processor) op1178() {
 func (c *Processor) op1179() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A0)\n", pc, v, disp)
 }
@@ -14912,9 +18677,19 @@ func (c *Processor) op1179() {
 func (c *Processor) op117C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A0)\n", pc, v, disp)
 }
@@ -14923,8 +18698,13 @@ func (c *Processor) op11C0() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D0,$%X\n", pc, addr)
 }
 
@@ -14932,8 +18712,13 @@ func (c *Processor) op11C1() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D1,$%X\n", pc, addr)
 }
 
@@ -14941,8 +18726,13 @@ func (c *Processor) op11C2() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D2,$%X\n", pc, addr)
 }
 
@@ -14950,8 +18740,13 @@ func (c *Processor) op11C3() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D3,$%X\n", pc, addr)
 }
 
@@ -14959,8 +18754,13 @@ func (c *Processor) op11C4() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D4,$%X\n", pc, addr)
 }
 
@@ -14968,8 +18768,13 @@ func (c *Processor) op11C5() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D5,$%X\n", pc, addr)
 }
 
@@ -14977,8 +18782,13 @@ func (c *Processor) op11C6() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D6,$%X\n", pc, addr)
 }
 
@@ -14986,8 +18796,13 @@ func (c *Processor) op11C7() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w D7,$%X\n", pc, addr)
 }
 
@@ -14995,72 +18810,112 @@ func (c *Processor) op11C8() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A0,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11C9() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A1,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11CA() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A2,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11CB() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A3,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11CC() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A4,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11CD() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A5,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11CE() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A6,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11CF() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.w A7,$%X\n", pc, addr)
 }
 
 func (c *Processor) op11D0() {
@@ -15071,8 +18926,13 @@ func (c *Processor) op11D0() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A0),$%X\n", pc, addr)
 }
 
@@ -15084,8 +18944,13 @@ func (c *Processor) op11D1() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A1),$%X\n", pc, addr)
 }
 
@@ -15097,8 +18962,13 @@ func (c *Processor) op11D2() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A2),$%X\n", pc, addr)
 }
 
@@ -15110,8 +18980,13 @@ func (c *Processor) op11D3() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A3),$%X\n", pc, addr)
 }
 
@@ -15123,8 +18998,13 @@ func (c *Processor) op11D4() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A4),$%X\n", pc, addr)
 }
 
@@ -15136,8 +19016,13 @@ func (c *Processor) op11D5() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A5),$%X\n", pc, addr)
 }
 
@@ -15149,8 +19034,13 @@ func (c *Processor) op11D6() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A6),$%X\n", pc, addr)
 }
 
@@ -15162,35 +19052,70 @@ func (c *Processor) op11D7() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w (A7),$%X\n", pc, addr)
 }
 
 func (c *Processor) op11F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w $%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op11F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w $%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op11FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.w #$%X,$%X\n", pc, v, addr)
 }
 
@@ -15421,7 +19346,12 @@ func (c *Processor) op1217() {
 func (c *Processor) op1238() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.w $%X,D1\n", pc, v)
 }
@@ -15429,7 +19359,12 @@ func (c *Processor) op1238() {
 func (c *Processor) op1239() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.w $%X,D1\n", pc, v)
 }
@@ -15437,7 +19372,12 @@ func (c *Processor) op1239() {
 func (c *Processor) op123C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.w #$%X,D1\n", pc, v)
 }
@@ -15669,7 +19609,12 @@ func (c *Processor) op1257() {
 func (c *Processor) op1278() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.w $%X,A1\n", pc, v)
 }
@@ -15677,7 +19622,12 @@ func (c *Processor) op1278() {
 func (c *Processor) op1279() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.w $%X,A1\n", pc, v)
 }
@@ -15685,7 +19635,12 @@ func (c *Processor) op1279() {
 func (c *Processor) op127C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A1\n", pc, v)
 }
@@ -15917,7 +19872,12 @@ func (c *Processor) op1297() {
 func (c *Processor) op12B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.w $%X,(A1)\n", pc, v)
 }
@@ -15925,7 +19885,12 @@ func (c *Processor) op12B8() {
 func (c *Processor) op12B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.w $%X,(A1)\n", pc, v)
 }
@@ -15933,7 +19898,12 @@ func (c *Processor) op12B9() {
 func (c *Processor) op12BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.w #$%X,(A1)\n", pc, v)
 }
@@ -16189,7 +20159,12 @@ func (c *Processor) op12D7() {
 func (c *Processor) op12F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.w $%X,(A1)+\n", pc, v)
@@ -16198,7 +20173,12 @@ func (c *Processor) op12F8() {
 func (c *Processor) op12F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.w $%X,(A1)+\n", pc, v)
@@ -16207,7 +20187,12 @@ func (c *Processor) op12F9() {
 func (c *Processor) op12FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.w #$%X,(A1)+\n", pc, v)
@@ -16291,7 +20276,7 @@ func (c *Processor) op1308() {
 	v := c.A[0]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A0,-(A1)\n", pc)
+	c.tracef("%04X movep.w A0,-(A1)\n", pc)
 }
 
 func (c *Processor) op1309() {
@@ -16300,7 +20285,7 @@ func (c *Processor) op1309() {
 	v := c.A[1]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A1,-(A1)\n", pc)
+	c.tracef("%04X movep.w A1,-(A1)\n", pc)
 }
 
 func (c *Processor) op130A() {
@@ -16309,7 +20294,7 @@ func (c *Processor) op130A() {
 	v := c.A[2]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A2,-(A1)\n", pc)
+	c.tracef("%04X movep.w A2,-(A1)\n", pc)
 }
 
 func (c *Processor) op130B() {
@@ -16318,7 +20303,7 @@ func (c *Processor) op130B() {
 	v := c.A[3]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A3,-(A1)\n", pc)
+	c.tracef("%04X movep.w A3,-(A1)\n", pc)
 }
 
 func (c *Processor) op130C() {
@@ -16327,7 +20312,7 @@ func (c *Processor) op130C() {
 	v := c.A[4]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A4,-(A1)\n", pc)
+	c.tracef("%04X movep.w A4,-(A1)\n", pc)
 }
 
 func (c *Processor) op130D() {
@@ -16336,7 +20321,7 @@ func (c *Processor) op130D() {
 	v := c.A[5]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A5,-(A1)\n", pc)
+	c.tracef("%04X movep.w A5,-(A1)\n", pc)
 }
 
 func (c *Processor) op130E() {
@@ -16345,7 +20330,7 @@ func (c *Processor) op130E() {
 	v := c.A[6]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A6,-(A1)\n", pc)
+	c.tracef("%04X movep.w A6,-(A1)\n", pc)
 }
 
 func (c *Processor) op130F() {
@@ -16354,7 +20339,7 @@ func (c *Processor) op130F() {
 	v := c.A[7]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.w A7,-(A1)\n", pc)
+	c.tracef("%04X movep.w A7,-(A1)\n", pc)
 }
 
 func (c *Processor) op1310() {
@@ -16464,7 +20449,12 @@ func (c *Processor) op1317() {
 func (c *Processor) op1338() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.w $%X,-(A1)\n", pc, v)
@@ -16473,7 +20463,12 @@ func (c *Processor) op1338() {
 func (c *Processor) op1339() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.w $%X,-(A1)\n", pc, v)
@@ -16482,7 +20477,12 @@ func (c *Processor) op1339() {
 func (c *Processor) op133C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A1)\n", pc, v)
@@ -16492,8 +20492,13 @@ func (c *Processor) op1340() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A1)\n", pc, disp)
 }
@@ -16502,8 +20507,13 @@ func (c *Processor) op1341() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A1)\n", pc, disp)
 }
@@ -16512,8 +20522,13 @@ func (c *Processor) op1342() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A1)\n", pc, disp)
 }
@@ -16522,8 +20537,13 @@ func (c *Processor) op1343() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A1)\n", pc, disp)
 }
@@ -16532,8 +20552,13 @@ func (c *Processor) op1344() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A1)\n", pc, disp)
 }
@@ -16542,8 +20567,13 @@ func (c *Processor) op1345() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A1)\n", pc, disp)
 }
@@ -16552,8 +20582,13 @@ func (c *Processor) op1346() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A1)\n", pc, disp)
 }
@@ -16562,8 +20597,13 @@ func (c *Processor) op1347() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A1)\n", pc, disp)
 }
@@ -16572,80 +20612,120 @@ func (c *Processor) op1348() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op1349() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op134A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op134B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op134C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op134D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op134E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op134F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op1350() {
@@ -16656,8 +20736,13 @@ func (c *Processor) op1350() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A1)\n", pc, disp)
 }
@@ -16670,8 +20755,13 @@ func (c *Processor) op1351() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A1)\n", pc, disp)
 }
@@ -16684,8 +20774,13 @@ func (c *Processor) op1352() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A1)\n", pc, disp)
 }
@@ -16698,8 +20793,13 @@ func (c *Processor) op1353() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A1)\n", pc, disp)
 }
@@ -16712,8 +20812,13 @@ func (c *Processor) op1354() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A1)\n", pc, disp)
 }
@@ -16726,8 +20831,13 @@ func (c *Processor) op1355() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A1)\n", pc, disp)
 }
@@ -16740,8 +20850,13 @@ func (c *Processor) op1356() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A1)\n", pc, disp)
 }
@@ -16754,8 +20869,13 @@ func (c *Processor) op1357() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A1)\n", pc, disp)
 }
@@ -16763,9 +20883,19 @@ func (c *Processor) op1357() {
 func (c *Processor) op1378() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A1)\n", pc, v, disp)
 }
@@ -16773,9 +20903,19 @@ func (c *Processor) op1378() {
 func (c *Processor) op1379() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A1)\n", pc, v, disp)
 }
@@ -16783,9 +20923,19 @@ func (c *Processor) op1379() {
 func (c *Processor) op137C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A1)\n", pc, v, disp)
 }
@@ -16794,7 +20944,12 @@ func (c *Processor) op13C0() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,$%X\n", pc, addr)
 }
@@ -16803,7 +20958,12 @@ func (c *Processor) op13C1() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,$%X\n", pc, addr)
 }
@@ -16812,7 +20972,12 @@ func (c *Processor) op13C2() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,$%X\n", pc, addr)
 }
@@ -16821,7 +20986,12 @@ func (c *Processor) op13C3() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,$%X\n", pc, addr)
 }
@@ -16830,7 +21000,12 @@ func (c *Processor) op13C4() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,$%X\n", pc, addr)
 }
@@ -16839,7 +21014,12 @@ func (c *Processor) op13C5() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,$%X\n", pc, addr)
 }
@@ -16848,7 +21028,12 @@ func (c *Processor) op13C6() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,$%X\n", pc, addr)
 }
@@ -16857,7 +21042,12 @@ func (c *Processor) op13C7() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,$%X\n", pc, addr)
 }
@@ -16866,72 +21056,112 @@ func (c *Processor) op13C8() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A0,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13C9() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A1,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13CA() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A2,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13CB() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A3,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13CC() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A4,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13CD() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A5,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13CE() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A6,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13CF() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,$%X\n", pc, addr)
+	c.tracef("%04X movep.w A7,$%X\n", pc, addr)
 }
 
 func (c *Processor) op13D0() {
@@ -16942,7 +21172,12 @@ func (c *Processor) op13D0() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),$%X\n", pc, addr)
 }
@@ -16955,7 +21190,12 @@ func (c *Processor) op13D1() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),$%X\n", pc, addr)
 }
@@ -16968,7 +21208,12 @@ func (c *Processor) op13D2() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),$%X\n", pc, addr)
 }
@@ -16981,7 +21226,12 @@ func (c *Processor) op13D3() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),$%X\n", pc, addr)
 }
@@ -16994,7 +21244,12 @@ func (c *Processor) op13D4() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),$%X\n", pc, addr)
 }
@@ -17007,7 +21262,12 @@ func (c *Processor) op13D5() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),$%X\n", pc, addr)
 }
@@ -17020,7 +21280,12 @@ func (c *Processor) op13D6() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),$%X\n", pc, addr)
 }
@@ -17033,7 +21298,12 @@ func (c *Processor) op13D7() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),$%X\n", pc, addr)
 }
@@ -17041,8 +21311,18 @@ func (c *Processor) op13D7() {
 func (c *Processor) op13F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,$%X\n", pc, v, addr)
 }
@@ -17050,8 +21330,18 @@ func (c *Processor) op13F8() {
 func (c *Processor) op13F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,$%X\n", pc, v, addr)
 }
@@ -17059,8 +21349,18 @@ func (c *Processor) op13F9() {
 func (c *Processor) op13FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,$%X\n", pc, v, addr)
 }
@@ -17292,7 +21592,12 @@ func (c *Processor) op1417() {
 func (c *Processor) op1438() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.w $%X,D2\n", pc, v)
 }
@@ -17300,7 +21605,12 @@ func (c *Processor) op1438() {
 func (c *Processor) op1439() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.w $%X,D2\n", pc, v)
 }
@@ -17308,7 +21618,12 @@ func (c *Processor) op1439() {
 func (c *Processor) op143C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.w #$%X,D2\n", pc, v)
 }
@@ -17540,7 +21855,12 @@ func (c *Processor) op1457() {
 func (c *Processor) op1478() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.w $%X,A2\n", pc, v)
 }
@@ -17548,7 +21868,12 @@ func (c *Processor) op1478() {
 func (c *Processor) op1479() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.w $%X,A2\n", pc, v)
 }
@@ -17556,7 +21881,12 @@ func (c *Processor) op1479() {
 func (c *Processor) op147C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A2\n", pc, v)
 }
@@ -17788,7 +22118,12 @@ func (c *Processor) op1497() {
 func (c *Processor) op14B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.w $%X,(A2)\n", pc, v)
 }
@@ -17796,7 +22131,12 @@ func (c *Processor) op14B8() {
 func (c *Processor) op14B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.w $%X,(A2)\n", pc, v)
 }
@@ -17804,7 +22144,12 @@ func (c *Processor) op14B9() {
 func (c *Processor) op14BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.w #$%X,(A2)\n", pc, v)
 }
@@ -18060,7 +22405,12 @@ func (c *Processor) op14D7() {
 func (c *Processor) op14F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.w $%X,(A2)+\n", pc, v)
@@ -18069,7 +22419,12 @@ func (c *Processor) op14F8() {
 func (c *Processor) op14F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.w $%X,(A2)+\n", pc, v)
@@ -18078,7 +22433,12 @@ func (c *Processor) op14F9() {
 func (c *Processor) op14FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.w #$%X,(A2)+\n", pc, v)
@@ -18162,7 +22522,7 @@ func (c *Processor) op1508() {
 	v := c.A[0]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A0,-(A2)\n", pc)
+	c.tracef("%04X movep.w A0,-(A2)\n", pc)
 }
 
 func (c *Processor) op1509() {
@@ -18171,7 +22531,7 @@ func (c *Processor) op1509() {
 	v := c.A[1]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A1,-(A2)\n", pc)
+	c.tracef("%04X movep.w A1,-(A2)\n", pc)
 }
 
 func (c *Processor) op150A() {
@@ -18180,7 +22540,7 @@ func (c *Processor) op150A() {
 	v := c.A[2]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A2,-(A2)\n", pc)
+	c.tracef("%04X movep.w A2,-(A2)\n", pc)
 }
 
 func (c *Processor) op150B() {
@@ -18189,7 +22549,7 @@ func (c *Processor) op150B() {
 	v := c.A[3]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A3,-(A2)\n", pc)
+	c.tracef("%04X movep.w A3,-(A2)\n", pc)
 }
 
 func (c *Processor) op150C() {
@@ -18198,7 +22558,7 @@ func (c *Processor) op150C() {
 	v := c.A[4]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A4,-(A2)\n", pc)
+	c.tracef("%04X movep.w A4,-(A2)\n", pc)
 }
 
 func (c *Processor) op150D() {
@@ -18207,7 +22567,7 @@ func (c *Processor) op150D() {
 	v := c.A[5]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A5,-(A2)\n", pc)
+	c.tracef("%04X movep.w A5,-(A2)\n", pc)
 }
 
 func (c *Processor) op150E() {
@@ -18216,7 +22576,7 @@ func (c *Processor) op150E() {
 	v := c.A[6]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A6,-(A2)\n", pc)
+	c.tracef("%04X movep.w A6,-(A2)\n", pc)
 }
 
 func (c *Processor) op150F() {
@@ -18225,7 +22585,7 @@ func (c *Processor) op150F() {
 	v := c.A[7]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.w A7,-(A2)\n", pc)
+	c.tracef("%04X movep.w A7,-(A2)\n", pc)
 }
 
 func (c *Processor) op1510() {
@@ -18335,7 +22695,12 @@ func (c *Processor) op1517() {
 func (c *Processor) op1538() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.w $%X,-(A2)\n", pc, v)
@@ -18344,7 +22709,12 @@ func (c *Processor) op1538() {
 func (c *Processor) op1539() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.w $%X,-(A2)\n", pc, v)
@@ -18353,7 +22723,12 @@ func (c *Processor) op1539() {
 func (c *Processor) op153C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A2)\n", pc, v)
@@ -18363,8 +22738,13 @@ func (c *Processor) op1540() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A2)\n", pc, disp)
 }
@@ -18373,8 +22753,13 @@ func (c *Processor) op1541() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A2)\n", pc, disp)
 }
@@ -18383,8 +22768,13 @@ func (c *Processor) op1542() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A2)\n", pc, disp)
 }
@@ -18393,8 +22783,13 @@ func (c *Processor) op1543() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A2)\n", pc, disp)
 }
@@ -18403,8 +22798,13 @@ func (c *Processor) op1544() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A2)\n", pc, disp)
 }
@@ -18413,8 +22813,13 @@ func (c *Processor) op1545() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A2)\n", pc, disp)
 }
@@ -18423,8 +22828,13 @@ func (c *Processor) op1546() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A2)\n", pc, disp)
 }
@@ -18433,8 +22843,13 @@ func (c *Processor) op1547() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A2)\n", pc, disp)
 }
@@ -18443,80 +22858,120 @@ func (c *Processor) op1548() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op1549() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op154A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op154B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op154C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op154D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op154E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op154F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op1550() {
@@ -18527,8 +22982,13 @@ func (c *Processor) op1550() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A2)\n", pc, disp)
 }
@@ -18541,8 +23001,13 @@ func (c *Processor) op1551() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A2)\n", pc, disp)
 }
@@ -18555,8 +23020,13 @@ func (c *Processor) op1552() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A2)\n", pc, disp)
 }
@@ -18569,8 +23039,13 @@ func (c *Processor) op1553() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A2)\n", pc, disp)
 }
@@ -18583,8 +23058,13 @@ func (c *Processor) op1554() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A2)\n", pc, disp)
 }
@@ -18597,8 +23077,13 @@ func (c *Processor) op1555() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A2)\n", pc, disp)
 }
@@ -18611,8 +23096,13 @@ func (c *Processor) op1556() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A2)\n", pc, disp)
 }
@@ -18625,8 +23115,13 @@ func (c *Processor) op1557() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A2)\n", pc, disp)
 }
@@ -18634,9 +23129,19 @@ func (c *Processor) op1557() {
 func (c *Processor) op1578() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A2)\n", pc, v, disp)
 }
@@ -18644,9 +23149,19 @@ func (c *Processor) op1578() {
 func (c *Processor) op1579() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A2)\n", pc, v, disp)
 }
@@ -18654,9 +23169,19 @@ func (c *Processor) op1579() {
 func (c *Processor) op157C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A2)\n", pc, v, disp)
 }
@@ -18888,7 +23413,12 @@ func (c *Processor) op1617() {
 func (c *Processor) op1638() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.w $%X,D3\n", pc, v)
 }
@@ -18896,7 +23426,12 @@ func (c *Processor) op1638() {
 func (c *Processor) op1639() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.w $%X,D3\n", pc, v)
 }
@@ -18904,7 +23439,12 @@ func (c *Processor) op1639() {
 func (c *Processor) op163C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.w #$%X,D3\n", pc, v)
 }
@@ -19136,7 +23676,12 @@ func (c *Processor) op1657() {
 func (c *Processor) op1678() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.w $%X,A3\n", pc, v)
 }
@@ -19144,7 +23689,12 @@ func (c *Processor) op1678() {
 func (c *Processor) op1679() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.w $%X,A3\n", pc, v)
 }
@@ -19152,7 +23702,12 @@ func (c *Processor) op1679() {
 func (c *Processor) op167C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A3\n", pc, v)
 }
@@ -19384,7 +23939,12 @@ func (c *Processor) op1697() {
 func (c *Processor) op16B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.w $%X,(A3)\n", pc, v)
 }
@@ -19392,7 +23952,12 @@ func (c *Processor) op16B8() {
 func (c *Processor) op16B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.w $%X,(A3)\n", pc, v)
 }
@@ -19400,7 +23965,12 @@ func (c *Processor) op16B9() {
 func (c *Processor) op16BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.w #$%X,(A3)\n", pc, v)
 }
@@ -19656,7 +24226,12 @@ func (c *Processor) op16D7() {
 func (c *Processor) op16F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.w $%X,(A3)+\n", pc, v)
@@ -19665,7 +24240,12 @@ func (c *Processor) op16F8() {
 func (c *Processor) op16F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.w $%X,(A3)+\n", pc, v)
@@ -19674,7 +24254,12 @@ func (c *Processor) op16F9() {
 func (c *Processor) op16FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.w #$%X,(A3)+\n", pc, v)
@@ -19758,7 +24343,7 @@ func (c *Processor) op1708() {
 	v := c.A[0]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A0,-(A3)\n", pc)
+	c.tracef("%04X movep.w A0,-(A3)\n", pc)
 }
 
 func (c *Processor) op1709() {
@@ -19767,7 +24352,7 @@ func (c *Processor) op1709() {
 	v := c.A[1]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A1,-(A3)\n", pc)
+	c.tracef("%04X movep.w A1,-(A3)\n", pc)
 }
 
 func (c *Processor) op170A() {
@@ -19776,7 +24361,7 @@ func (c *Processor) op170A() {
 	v := c.A[2]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A2,-(A3)\n", pc)
+	c.tracef("%04X movep.w A2,-(A3)\n", pc)
 }
 
 func (c *Processor) op170B() {
@@ -19785,7 +24370,7 @@ func (c *Processor) op170B() {
 	v := c.A[3]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A3,-(A3)\n", pc)
+	c.tracef("%04X movep.w A3,-(A3)\n", pc)
 }
 
 func (c *Processor) op170C() {
@@ -19794,7 +24379,7 @@ func (c *Processor) op170C() {
 	v := c.A[4]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A4,-(A3)\n", pc)
+	c.tracef("%04X movep.w A4,-(A3)\n", pc)
 }
 
 func (c *Processor) op170D() {
@@ -19803,7 +24388,7 @@ func (c *Processor) op170D() {
 	v := c.A[5]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A5,-(A3)\n", pc)
+	c.tracef("%04X movep.w A5,-(A3)\n", pc)
 }
 
 func (c *Processor) op170E() {
@@ -19812,7 +24397,7 @@ func (c *Processor) op170E() {
 	v := c.A[6]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A6,-(A3)\n", pc)
+	c.tracef("%04X movep.w A6,-(A3)\n", pc)
 }
 
 func (c *Processor) op170F() {
@@ -19821,7 +24406,7 @@ func (c *Processor) op170F() {
 	v := c.A[7]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.w A7,-(A3)\n", pc)
+	c.tracef("%04X movep.w A7,-(A3)\n", pc)
 }
 
 func (c *Processor) op1710() {
@@ -19931,7 +24516,12 @@ func (c *Processor) op1717() {
 func (c *Processor) op1738() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.w $%X,-(A3)\n", pc, v)
@@ -19940,7 +24530,12 @@ func (c *Processor) op1738() {
 func (c *Processor) op1739() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.w $%X,-(A3)\n", pc, v)
@@ -19949,7 +24544,12 @@ func (c *Processor) op1739() {
 func (c *Processor) op173C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A3)\n", pc, v)
@@ -19959,8 +24559,13 @@ func (c *Processor) op1740() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A3)\n", pc, disp)
 }
@@ -19969,8 +24574,13 @@ func (c *Processor) op1741() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A3)\n", pc, disp)
 }
@@ -19979,8 +24589,13 @@ func (c *Processor) op1742() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A3)\n", pc, disp)
 }
@@ -19989,8 +24604,13 @@ func (c *Processor) op1743() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A3)\n", pc, disp)
 }
@@ -19999,8 +24619,13 @@ func (c *Processor) op1744() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A3)\n", pc, disp)
 }
@@ -20009,8 +24634,13 @@ func (c *Processor) op1745() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A3)\n", pc, disp)
 }
@@ -20019,8 +24649,13 @@ func (c *Processor) op1746() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A3)\n", pc, disp)
 }
@@ -20029,8 +24664,13 @@ func (c *Processor) op1747() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A3)\n", pc, disp)
 }
@@ -20039,80 +24679,120 @@ func (c *Processor) op1748() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op1749() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op174A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op174B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op174C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op174D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op174E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op174F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op1750() {
@@ -20123,8 +24803,13 @@ func (c *Processor) op1750() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A3)\n", pc, disp)
 }
@@ -20137,8 +24822,13 @@ func (c *Processor) op1751() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A3)\n", pc, disp)
 }
@@ -20151,8 +24841,13 @@ func (c *Processor) op1752() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A3)\n", pc, disp)
 }
@@ -20165,8 +24860,13 @@ func (c *Processor) op1753() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A3)\n", pc, disp)
 }
@@ -20179,8 +24879,13 @@ func (c *Processor) op1754() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A3)\n", pc, disp)
 }
@@ -20193,8 +24898,13 @@ func (c *Processor) op1755() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A3)\n", pc, disp)
 }
@@ -20207,8 +24917,13 @@ func (c *Processor) op1756() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A3)\n", pc, disp)
 }
@@ -20221,8 +24936,13 @@ func (c *Processor) op1757() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A3)\n", pc, disp)
 }
@@ -20230,9 +24950,19 @@ func (c *Processor) op1757() {
 func (c *Processor) op1778() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A3)\n", pc, v, disp)
 }
@@ -20240,9 +24970,19 @@ func (c *Processor) op1778() {
 func (c *Processor) op1779() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A3)\n", pc, v, disp)
 }
@@ -20250,9 +24990,19 @@ func (c *Processor) op1779() {
 func (c *Processor) op177C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A3)\n", pc, v, disp)
 }
@@ -20484,7 +25234,12 @@ func (c *Processor) op1817() {
 func (c *Processor) op1838() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.w $%X,D4\n", pc, v)
 }
@@ -20492,7 +25247,12 @@ func (c *Processor) op1838() {
 func (c *Processor) op1839() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.w $%X,D4\n", pc, v)
 }
@@ -20500,7 +25260,12 @@ func (c *Processor) op1839() {
 func (c *Processor) op183C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.w #$%X,D4\n", pc, v)
 }
@@ -20732,7 +25497,12 @@ func (c *Processor) op1857() {
 func (c *Processor) op1878() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.w $%X,A4\n", pc, v)
 }
@@ -20740,7 +25510,12 @@ func (c *Processor) op1878() {
 func (c *Processor) op1879() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.w $%X,A4\n", pc, v)
 }
@@ -20748,7 +25523,12 @@ func (c *Processor) op1879() {
 func (c *Processor) op187C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A4\n", pc, v)
 }
@@ -20980,7 +25760,12 @@ func (c *Processor) op1897() {
 func (c *Processor) op18B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.w $%X,(A4)\n", pc, v)
 }
@@ -20988,7 +25773,12 @@ func (c *Processor) op18B8() {
 func (c *Processor) op18B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.w $%X,(A4)\n", pc, v)
 }
@@ -20996,7 +25786,12 @@ func (c *Processor) op18B9() {
 func (c *Processor) op18BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.w #$%X,(A4)\n", pc, v)
 }
@@ -21252,7 +26047,12 @@ func (c *Processor) op18D7() {
 func (c *Processor) op18F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.w $%X,(A4)+\n", pc, v)
@@ -21261,7 +26061,12 @@ func (c *Processor) op18F8() {
 func (c *Processor) op18F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.w $%X,(A4)+\n", pc, v)
@@ -21270,7 +26075,12 @@ func (c *Processor) op18F9() {
 func (c *Processor) op18FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.w #$%X,(A4)+\n", pc, v)
@@ -21354,7 +26164,7 @@ func (c *Processor) op1908() {
 	v := c.A[0]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A0,-(A4)\n", pc)
+	c.tracef("%04X movep.w A0,-(A4)\n", pc)
 }
 
 func (c *Processor) op1909() {
@@ -21363,7 +26173,7 @@ func (c *Processor) op1909() {
 	v := c.A[1]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A1,-(A4)\n", pc)
+	c.tracef("%04X movep.w A1,-(A4)\n", pc)
 }
 
 func (c *Processor) op190A() {
@@ -21372,7 +26182,7 @@ func (c *Processor) op190A() {
 	v := c.A[2]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A2,-(A4)\n", pc)
+	c.tracef("%04X movep.w A2,-(A4)\n", pc)
 }
 
 func (c *Processor) op190B() {
@@ -21381,7 +26191,7 @@ func (c *Processor) op190B() {
 	v := c.A[3]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A3,-(A4)\n", pc)
+	c.tracef("%04X movep.w A3,-(A4)\n", pc)
 }
 
 func (c *Processor) op190C() {
@@ -21390,7 +26200,7 @@ func (c *Processor) op190C() {
 	v := c.A[4]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A4,-(A4)\n", pc)
+	c.tracef("%04X movep.w A4,-(A4)\n", pc)
 }
 
 func (c *Processor) op190D() {
@@ -21399,7 +26209,7 @@ func (c *Processor) op190D() {
 	v := c.A[5]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A5,-(A4)\n", pc)
+	c.tracef("%04X movep.w A5,-(A4)\n", pc)
 }
 
 func (c *Processor) op190E() {
@@ -21408,7 +26218,7 @@ func (c *Processor) op190E() {
 	v := c.A[6]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A6,-(A4)\n", pc)
+	c.tracef("%04X movep.w A6,-(A4)\n", pc)
 }
 
 func (c *Processor) op190F() {
@@ -21417,7 +26227,7 @@ func (c *Processor) op190F() {
 	v := c.A[7]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.w A7,-(A4)\n", pc)
+	c.tracef("%04X movep.w A7,-(A4)\n", pc)
 }
 
 func (c *Processor) op1910() {
@@ -21527,7 +26337,12 @@ func (c *Processor) op1917() {
 func (c *Processor) op1938() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.w $%X,-(A4)\n", pc, v)
@@ -21536,7 +26351,12 @@ func (c *Processor) op1938() {
 func (c *Processor) op1939() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.w $%X,-(A4)\n", pc, v)
@@ -21545,7 +26365,12 @@ func (c *Processor) op1939() {
 func (c *Processor) op193C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A4)\n", pc, v)
@@ -21555,8 +26380,13 @@ func (c *Processor) op1940() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A4)\n", pc, disp)
 }
@@ -21565,8 +26395,13 @@ func (c *Processor) op1941() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A4)\n", pc, disp)
 }
@@ -21575,8 +26410,13 @@ func (c *Processor) op1942() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A4)\n", pc, disp)
 }
@@ -21585,8 +26425,13 @@ func (c *Processor) op1943() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A4)\n", pc, disp)
 }
@@ -21595,8 +26440,13 @@ func (c *Processor) op1944() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A4)\n", pc, disp)
 }
@@ -21605,8 +26455,13 @@ func (c *Processor) op1945() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A4)\n", pc, disp)
 }
@@ -21615,8 +26470,13 @@ func (c *Processor) op1946() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A4)\n", pc, disp)
 }
@@ -21625,8 +26485,13 @@ func (c *Processor) op1947() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A4)\n", pc, disp)
 }
@@ -21635,80 +26500,120 @@ func (c *Processor) op1948() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op1949() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op194A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op194B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op194C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op194D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op194E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op194F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op1950() {
@@ -21719,8 +26624,13 @@ func (c *Processor) op1950() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A4)\n", pc, disp)
 }
@@ -21733,8 +26643,13 @@ func (c *Processor) op1951() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A4)\n", pc, disp)
 }
@@ -21747,8 +26662,13 @@ func (c *Processor) op1952() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A4)\n", pc, disp)
 }
@@ -21761,8 +26681,13 @@ func (c *Processor) op1953() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A4)\n", pc, disp)
 }
@@ -21775,8 +26700,13 @@ func (c *Processor) op1954() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A4)\n", pc, disp)
 }
@@ -21789,8 +26719,13 @@ func (c *Processor) op1955() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A4)\n", pc, disp)
 }
@@ -21803,8 +26738,13 @@ func (c *Processor) op1956() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A4)\n", pc, disp)
 }
@@ -21817,8 +26757,13 @@ func (c *Processor) op1957() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A4)\n", pc, disp)
 }
@@ -21826,9 +26771,19 @@ func (c *Processor) op1957() {
 func (c *Processor) op1978() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A4)\n", pc, v, disp)
 }
@@ -21836,9 +26791,19 @@ func (c *Processor) op1978() {
 func (c *Processor) op1979() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A4)\n", pc, v, disp)
 }
@@ -21846,9 +26811,19 @@ func (c *Processor) op1979() {
 func (c *Processor) op197C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A4)\n", pc, v, disp)
 }
@@ -22080,7 +27055,12 @@ func (c *Processor) op1A17() {
 func (c *Processor) op1A38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.w $%X,D5\n", pc, v)
 }
@@ -22088,7 +27068,12 @@ func (c *Processor) op1A38() {
 func (c *Processor) op1A39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.w $%X,D5\n", pc, v)
 }
@@ -22096,7 +27081,12 @@ func (c *Processor) op1A39() {
 func (c *Processor) op1A3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.w #$%X,D5\n", pc, v)
 }
@@ -22328,7 +27318,12 @@ func (c *Processor) op1A57() {
 func (c *Processor) op1A78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.w $%X,A5\n", pc, v)
 }
@@ -22336,7 +27331,12 @@ func (c *Processor) op1A78() {
 func (c *Processor) op1A79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.w $%X,A5\n", pc, v)
 }
@@ -22344,7 +27344,12 @@ func (c *Processor) op1A79() {
 func (c *Processor) op1A7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A5\n", pc, v)
 }
@@ -22576,7 +27581,12 @@ func (c *Processor) op1A97() {
 func (c *Processor) op1AB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.w $%X,(A5)\n", pc, v)
 }
@@ -22584,7 +27594,12 @@ func (c *Processor) op1AB8() {
 func (c *Processor) op1AB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.w $%X,(A5)\n", pc, v)
 }
@@ -22592,7 +27607,12 @@ func (c *Processor) op1AB9() {
 func (c *Processor) op1ABC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.w #$%X,(A5)\n", pc, v)
 }
@@ -22848,7 +27868,12 @@ func (c *Processor) op1AD7() {
 func (c *Processor) op1AF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.w $%X,(A5)+\n", pc, v)
@@ -22857,7 +27882,12 @@ func (c *Processor) op1AF8() {
 func (c *Processor) op1AF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.w $%X,(A5)+\n", pc, v)
@@ -22866,7 +27896,12 @@ func (c *Processor) op1AF9() {
 func (c *Processor) op1AFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.w #$%X,(A5)+\n", pc, v)
@@ -22950,7 +27985,7 @@ func (c *Processor) op1B08() {
 	v := c.A[0]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A0,-(A5)\n", pc)
+	c.tracef("%04X movep.w A0,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B09() {
@@ -22959,7 +27994,7 @@ func (c *Processor) op1B09() {
 	v := c.A[1]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A1,-(A5)\n", pc)
+	c.tracef("%04X movep.w A1,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B0A() {
@@ -22968,7 +28003,7 @@ func (c *Processor) op1B0A() {
 	v := c.A[2]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A2,-(A5)\n", pc)
+	c.tracef("%04X movep.w A2,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B0B() {
@@ -22977,7 +28012,7 @@ func (c *Processor) op1B0B() {
 	v := c.A[3]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A3,-(A5)\n", pc)
+	c.tracef("%04X movep.w A3,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B0C() {
@@ -22986,7 +28021,7 @@ func (c *Processor) op1B0C() {
 	v := c.A[4]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A4,-(A5)\n", pc)
+	c.tracef("%04X movep.w A4,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B0D() {
@@ -22995,7 +28030,7 @@ func (c *Processor) op1B0D() {
 	v := c.A[5]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A5,-(A5)\n", pc)
+	c.tracef("%04X movep.w A5,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B0E() {
@@ -23004,7 +28039,7 @@ func (c *Processor) op1B0E() {
 	v := c.A[6]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A6,-(A5)\n", pc)
+	c.tracef("%04X movep.w A6,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B0F() {
@@ -23013,7 +28048,7 @@ func (c *Processor) op1B0F() {
 	v := c.A[7]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.w A7,-(A5)\n", pc)
+	c.tracef("%04X movep.w A7,-(A5)\n", pc)
 }
 
 func (c *Processor) op1B10() {
@@ -23123,7 +28158,12 @@ func (c *Processor) op1B17() {
 func (c *Processor) op1B38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.w $%X,-(A5)\n", pc, v)
@@ -23132,7 +28172,12 @@ func (c *Processor) op1B38() {
 func (c *Processor) op1B39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.w $%X,-(A5)\n", pc, v)
@@ -23141,7 +28186,12 @@ func (c *Processor) op1B39() {
 func (c *Processor) op1B3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A5)\n", pc, v)
@@ -23151,8 +28201,13 @@ func (c *Processor) op1B40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A5)\n", pc, disp)
 }
@@ -23161,8 +28216,13 @@ func (c *Processor) op1B41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A5)\n", pc, disp)
 }
@@ -23171,8 +28231,13 @@ func (c *Processor) op1B42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A5)\n", pc, disp)
 }
@@ -23181,8 +28246,13 @@ func (c *Processor) op1B43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A5)\n", pc, disp)
 }
@@ -23191,8 +28261,13 @@ func (c *Processor) op1B44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A5)\n", pc, disp)
 }
@@ -23201,8 +28276,13 @@ func (c *Processor) op1B45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A5)\n", pc, disp)
 }
@@ -23211,8 +28291,13 @@ func (c *Processor) op1B46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A5)\n", pc, disp)
 }
@@ -23221,8 +28306,13 @@ func (c *Processor) op1B47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A5)\n", pc, disp)
 }
@@ -23231,80 +28321,120 @@ func (c *Processor) op1B48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op1B50() {
@@ -23315,8 +28445,13 @@ func (c *Processor) op1B50() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A5)\n", pc, disp)
 }
@@ -23329,8 +28464,13 @@ func (c *Processor) op1B51() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A5)\n", pc, disp)
 }
@@ -23343,8 +28483,13 @@ func (c *Processor) op1B52() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A5)\n", pc, disp)
 }
@@ -23357,8 +28502,13 @@ func (c *Processor) op1B53() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A5)\n", pc, disp)
 }
@@ -23371,8 +28521,13 @@ func (c *Processor) op1B54() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A5)\n", pc, disp)
 }
@@ -23385,8 +28540,13 @@ func (c *Processor) op1B55() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A5)\n", pc, disp)
 }
@@ -23399,8 +28559,13 @@ func (c *Processor) op1B56() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A5)\n", pc, disp)
 }
@@ -23413,8 +28578,13 @@ func (c *Processor) op1B57() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A5)\n", pc, disp)
 }
@@ -23422,9 +28592,19 @@ func (c *Processor) op1B57() {
 func (c *Processor) op1B78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A5)\n", pc, v, disp)
 }
@@ -23432,9 +28612,19 @@ func (c *Processor) op1B78() {
 func (c *Processor) op1B79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A5)\n", pc, v, disp)
 }
@@ -23442,9 +28632,19 @@ func (c *Processor) op1B79() {
 func (c *Processor) op1B7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A5)\n", pc, v, disp)
 }
@@ -23676,7 +28876,12 @@ func (c *Processor) op1C17() {
 func (c *Processor) op1C38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.w $%X,D6\n", pc, v)
 }
@@ -23684,7 +28889,12 @@ func (c *Processor) op1C38() {
 func (c *Processor) op1C39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.w $%X,D6\n", pc, v)
 }
@@ -23692,7 +28902,12 @@ func (c *Processor) op1C39() {
 func (c *Processor) op1C3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.w #$%X,D6\n", pc, v)
 }
@@ -23924,7 +29139,12 @@ func (c *Processor) op1C57() {
 func (c *Processor) op1C78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.w $%X,A6\n", pc, v)
 }
@@ -23932,7 +29152,12 @@ func (c *Processor) op1C78() {
 func (c *Processor) op1C79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.w $%X,A6\n", pc, v)
 }
@@ -23940,7 +29165,12 @@ func (c *Processor) op1C79() {
 func (c *Processor) op1C7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A6\n", pc, v)
 }
@@ -24172,7 +29402,12 @@ func (c *Processor) op1C97() {
 func (c *Processor) op1CB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.w $%X,(A6)\n", pc, v)
 }
@@ -24180,7 +29415,12 @@ func (c *Processor) op1CB8() {
 func (c *Processor) op1CB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.w $%X,(A6)\n", pc, v)
 }
@@ -24188,7 +29428,12 @@ func (c *Processor) op1CB9() {
 func (c *Processor) op1CBC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.w #$%X,(A6)\n", pc, v)
 }
@@ -24444,7 +29689,12 @@ func (c *Processor) op1CD7() {
 func (c *Processor) op1CF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.w $%X,(A6)+\n", pc, v)
@@ -24453,7 +29703,12 @@ func (c *Processor) op1CF8() {
 func (c *Processor) op1CF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.w $%X,(A6)+\n", pc, v)
@@ -24462,7 +29717,12 @@ func (c *Processor) op1CF9() {
 func (c *Processor) op1CFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.w #$%X,(A6)+\n", pc, v)
@@ -24546,7 +29806,7 @@ func (c *Processor) op1D08() {
 	v := c.A[0]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A0,-(A6)\n", pc)
+	c.tracef("%04X movep.w A0,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D09() {
@@ -24555,7 +29815,7 @@ func (c *Processor) op1D09() {
 	v := c.A[1]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A1,-(A6)\n", pc)
+	c.tracef("%04X movep.w A1,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D0A() {
@@ -24564,7 +29824,7 @@ func (c *Processor) op1D0A() {
 	v := c.A[2]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A2,-(A6)\n", pc)
+	c.tracef("%04X movep.w A2,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D0B() {
@@ -24573,7 +29833,7 @@ func (c *Processor) op1D0B() {
 	v := c.A[3]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A3,-(A6)\n", pc)
+	c.tracef("%04X movep.w A3,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D0C() {
@@ -24582,7 +29842,7 @@ func (c *Processor) op1D0C() {
 	v := c.A[4]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A4,-(A6)\n", pc)
+	c.tracef("%04X movep.w A4,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D0D() {
@@ -24591,7 +29851,7 @@ func (c *Processor) op1D0D() {
 	v := c.A[5]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A5,-(A6)\n", pc)
+	c.tracef("%04X movep.w A5,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D0E() {
@@ -24600,7 +29860,7 @@ func (c *Processor) op1D0E() {
 	v := c.A[6]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A6,-(A6)\n", pc)
+	c.tracef("%04X movep.w A6,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D0F() {
@@ -24609,7 +29869,7 @@ func (c *Processor) op1D0F() {
 	v := c.A[7]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.w A7,-(A6)\n", pc)
+	c.tracef("%04X movep.w A7,-(A6)\n", pc)
 }
 
 func (c *Processor) op1D10() {
@@ -24719,7 +29979,12 @@ func (c *Processor) op1D17() {
 func (c *Processor) op1D38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.w $%X,-(A6)\n", pc, v)
@@ -24728,7 +29993,12 @@ func (c *Processor) op1D38() {
 func (c *Processor) op1D39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.w $%X,-(A6)\n", pc, v)
@@ -24737,7 +30007,12 @@ func (c *Processor) op1D39() {
 func (c *Processor) op1D3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A6)\n", pc, v)
@@ -24747,8 +30022,13 @@ func (c *Processor) op1D40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A6)\n", pc, disp)
 }
@@ -24757,8 +30037,13 @@ func (c *Processor) op1D41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A6)\n", pc, disp)
 }
@@ -24767,8 +30052,13 @@ func (c *Processor) op1D42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A6)\n", pc, disp)
 }
@@ -24777,8 +30067,13 @@ func (c *Processor) op1D43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A6)\n", pc, disp)
 }
@@ -24787,8 +30082,13 @@ func (c *Processor) op1D44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A6)\n", pc, disp)
 }
@@ -24797,8 +30097,13 @@ func (c *Processor) op1D45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A6)\n", pc, disp)
 }
@@ -24807,8 +30112,13 @@ func (c *Processor) op1D46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A6)\n", pc, disp)
 }
@@ -24817,8 +30127,13 @@ func (c *Processor) op1D47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A6)\n", pc, disp)
 }
@@ -24827,80 +30142,120 @@ func (c *Processor) op1D48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op1D50() {
@@ -24911,8 +30266,13 @@ func (c *Processor) op1D50() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A6)\n", pc, disp)
 }
@@ -24925,8 +30285,13 @@ func (c *Processor) op1D51() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A6)\n", pc, disp)
 }
@@ -24939,8 +30304,13 @@ func (c *Processor) op1D52() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A6)\n", pc, disp)
 }
@@ -24953,8 +30323,13 @@ func (c *Processor) op1D53() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A6)\n", pc, disp)
 }
@@ -24967,8 +30342,13 @@ func (c *Processor) op1D54() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A6)\n", pc, disp)
 }
@@ -24981,8 +30361,13 @@ func (c *Processor) op1D55() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A6)\n", pc, disp)
 }
@@ -24995,8 +30380,13 @@ func (c *Processor) op1D56() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A6)\n", pc, disp)
 }
@@ -25009,8 +30399,13 @@ func (c *Processor) op1D57() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A6)\n", pc, disp)
 }
@@ -25018,9 +30413,19 @@ func (c *Processor) op1D57() {
 func (c *Processor) op1D78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A6)\n", pc, v, disp)
 }
@@ -25028,9 +30433,19 @@ func (c *Processor) op1D78() {
 func (c *Processor) op1D79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A6)\n", pc, v, disp)
 }
@@ -25038,9 +30453,19 @@ func (c *Processor) op1D79() {
 func (c *Processor) op1D7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A6)\n", pc, v, disp)
 }
@@ -25272,7 +30697,12 @@ func (c *Processor) op1E17() {
 func (c *Processor) op1E38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.w $%X,D7\n", pc, v)
 }
@@ -25280,7 +30710,12 @@ func (c *Processor) op1E38() {
 func (c *Processor) op1E39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.w $%X,D7\n", pc, v)
 }
@@ -25288,7 +30723,12 @@ func (c *Processor) op1E39() {
 func (c *Processor) op1E3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.w #$%X,D7\n", pc, v)
 }
@@ -25520,7 +30960,12 @@ func (c *Processor) op1E57() {
 func (c *Processor) op1E78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.w $%X,A7\n", pc, v)
 }
@@ -25528,7 +30973,12 @@ func (c *Processor) op1E78() {
 func (c *Processor) op1E79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.w $%X,A7\n", pc, v)
 }
@@ -25536,7 +30986,12 @@ func (c *Processor) op1E79() {
 func (c *Processor) op1E7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.w #$%X,A7\n", pc, v)
 }
@@ -25768,7 +31223,12 @@ func (c *Processor) op1E97() {
 func (c *Processor) op1EB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.w $%X,(A7)\n", pc, v)
 }
@@ -25776,7 +31236,12 @@ func (c *Processor) op1EB8() {
 func (c *Processor) op1EB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.w $%X,(A7)\n", pc, v)
 }
@@ -25784,7 +31249,12 @@ func (c *Processor) op1EB9() {
 func (c *Processor) op1EBC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.w #$%X,(A7)\n", pc, v)
 }
@@ -26040,7 +31510,12 @@ func (c *Processor) op1ED7() {
 func (c *Processor) op1EF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.w $%X,(A7)+\n", pc, v)
@@ -26049,7 +31524,12 @@ func (c *Processor) op1EF8() {
 func (c *Processor) op1EF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.w $%X,(A7)+\n", pc, v)
@@ -26058,7 +31538,12 @@ func (c *Processor) op1EF9() {
 func (c *Processor) op1EFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.w #$%X,(A7)+\n", pc, v)
@@ -26142,7 +31627,7 @@ func (c *Processor) op1F08() {
 	v := c.A[0]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A0,-(A7)\n", pc)
+	c.tracef("%04X movep.w A0,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F09() {
@@ -26151,7 +31636,7 @@ func (c *Processor) op1F09() {
 	v := c.A[1]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A1,-(A7)\n", pc)
+	c.tracef("%04X movep.w A1,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F0A() {
@@ -26160,7 +31645,7 @@ func (c *Processor) op1F0A() {
 	v := c.A[2]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A2,-(A7)\n", pc)
+	c.tracef("%04X movep.w A2,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F0B() {
@@ -26169,7 +31654,7 @@ func (c *Processor) op1F0B() {
 	v := c.A[3]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A3,-(A7)\n", pc)
+	c.tracef("%04X movep.w A3,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F0C() {
@@ -26178,7 +31663,7 @@ func (c *Processor) op1F0C() {
 	v := c.A[4]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A4,-(A7)\n", pc)
+	c.tracef("%04X movep.w A4,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F0D() {
@@ -26187,7 +31672,7 @@ func (c *Processor) op1F0D() {
 	v := c.A[5]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A5,-(A7)\n", pc)
+	c.tracef("%04X movep.w A5,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F0E() {
@@ -26196,7 +31681,7 @@ func (c *Processor) op1F0E() {
 	v := c.A[6]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A6,-(A7)\n", pc)
+	c.tracef("%04X movep.w A6,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F0F() {
@@ -26205,7 +31690,7 @@ func (c *Processor) op1F0F() {
 	v := c.A[7]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.w A7,-(A7)\n", pc)
+	c.tracef("%04X movep.w A7,-(A7)\n", pc)
 }
 
 func (c *Processor) op1F10() {
@@ -26315,7 +31800,12 @@ func (c *Processor) op1F17() {
 func (c *Processor) op1F38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.w $%X,-(A7)\n", pc, v)
@@ -26324,7 +31814,12 @@ func (c *Processor) op1F38() {
 func (c *Processor) op1F39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.w $%X,-(A7)\n", pc, v)
@@ -26333,7 +31828,12 @@ func (c *Processor) op1F39() {
 func (c *Processor) op1F3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.w #$%X,-(A7)\n", pc, v)
@@ -26343,8 +31843,13 @@ func (c *Processor) op1F40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D0,(%d,A7)\n", pc, disp)
 }
@@ -26353,8 +31858,13 @@ func (c *Processor) op1F41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D1,(%d,A7)\n", pc, disp)
 }
@@ -26363,8 +31873,13 @@ func (c *Processor) op1F42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D2,(%d,A7)\n", pc, disp)
 }
@@ -26373,8 +31888,13 @@ func (c *Processor) op1F43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D3,(%d,A7)\n", pc, disp)
 }
@@ -26383,8 +31903,13 @@ func (c *Processor) op1F44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D4,(%d,A7)\n", pc, disp)
 }
@@ -26393,8 +31918,13 @@ func (c *Processor) op1F45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D5,(%d,A7)\n", pc, disp)
 }
@@ -26403,8 +31933,13 @@ func (c *Processor) op1F46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D6,(%d,A7)\n", pc, disp)
 }
@@ -26413,8 +31948,13 @@ func (c *Processor) op1F47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w D7,(%d,A7)\n", pc, disp)
 }
@@ -26423,80 +31963,120 @@ func (c *Processor) op1F48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A0,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A0,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A1,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A1,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A2,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A2,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A3,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A3,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A4,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A4,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A5,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A5,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A6,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A6,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.w A7,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.w A7,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op1F50() {
@@ -26507,8 +32087,13 @@ func (c *Processor) op1F50() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A0),(%d,A7)\n", pc, disp)
 }
@@ -26521,8 +32106,13 @@ func (c *Processor) op1F51() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A1),(%d,A7)\n", pc, disp)
 }
@@ -26535,8 +32125,13 @@ func (c *Processor) op1F52() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A2),(%d,A7)\n", pc, disp)
 }
@@ -26549,8 +32144,13 @@ func (c *Processor) op1F53() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A3),(%d,A7)\n", pc, disp)
 }
@@ -26563,8 +32163,13 @@ func (c *Processor) op1F54() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A4),(%d,A7)\n", pc, disp)
 }
@@ -26577,8 +32182,13 @@ func (c *Processor) op1F55() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A5),(%d,A7)\n", pc, disp)
 }
@@ -26591,8 +32201,13 @@ func (c *Processor) op1F56() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A6),(%d,A7)\n", pc, disp)
 }
@@ -26605,8 +32220,13 @@ func (c *Processor) op1F57() {
 		return
 	}
 	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w (A7),(%d,A7)\n", pc, disp)
 }
@@ -26614,9 +32234,19 @@ func (c *Processor) op1F57() {
 func (c *Processor) op1F78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A7)\n", pc, v, disp)
 }
@@ -26624,9 +32254,19 @@ func (c *Processor) op1F78() {
 func (c *Processor) op1F79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w $%X,(%d,A7)\n", pc, v, disp)
 }
@@ -26634,9 +32274,19 @@ func (c *Processor) op1F79() {
 func (c *Processor) op1F7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.w #$%X,(%d,A7)\n", pc, v, disp)
 }
@@ -26868,7 +32518,12 @@ func (c *Processor) op2017() {
 func (c *Processor) op2038() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[0] = uint32(v)
 	c.tracef("%04X move.l $%X,D0\n", pc, v)
 }
@@ -26876,7 +32531,12 @@ func (c *Processor) op2038() {
 func (c *Processor) op2039() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[0] = uint32(v)
 	c.tracef("%04X move.l $%X,D0\n", pc, v)
 }
@@ -26884,7 +32544,12 @@ func (c *Processor) op2039() {
 func (c *Processor) op203C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[0] = uint32(v)
 	c.tracef("%04X move.l #$%X,D0\n", pc, v)
 }
@@ -27116,7 +32781,12 @@ func (c *Processor) op2057() {
 func (c *Processor) op2078() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[0] = uint32(v)
 	c.tracef("%04X movea.l $%X,A0\n", pc, v)
 }
@@ -27124,7 +32794,12 @@ func (c *Processor) op2078() {
 func (c *Processor) op2079() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[0] = uint32(v)
 	c.tracef("%04X movea.l $%X,A0\n", pc, v)
 }
@@ -27132,7 +32807,12 @@ func (c *Processor) op2079() {
 func (c *Processor) op207C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[0] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A0\n", pc, v)
 }
@@ -27364,7 +33044,12 @@ func (c *Processor) op2097() {
 func (c *Processor) op20B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.l $%X,(A0)\n", pc, v)
 }
@@ -27372,7 +33057,12 @@ func (c *Processor) op20B8() {
 func (c *Processor) op20B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.l $%X,(A0)\n", pc, v)
 }
@@ -27380,7 +33070,12 @@ func (c *Processor) op20B9() {
 func (c *Processor) op20BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.l #$%X,(A0)\n", pc, v)
 }
@@ -27636,7 +33331,12 @@ func (c *Processor) op20D7() {
 func (c *Processor) op20F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.l $%X,(A0)+\n", pc, v)
@@ -27645,7 +33345,12 @@ func (c *Processor) op20F8() {
 func (c *Processor) op20F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.l $%X,(A0)+\n", pc, v)
@@ -27654,7 +33359,12 @@ func (c *Processor) op20F9() {
 func (c *Processor) op20FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[0], uint32(v))
 	c.A[0] += 4
 	c.tracef("%04X move.l #$%X,(A0)+\n", pc, v)
@@ -27738,7 +33448,7 @@ func (c *Processor) op2108() {
 	v := c.A[0]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A0,-(A0)\n", pc)
+	c.tracef("%04X movep.l A0,-(A0)\n", pc)
 }
 
 func (c *Processor) op2109() {
@@ -27747,7 +33457,7 @@ func (c *Processor) op2109() {
 	v := c.A[1]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A1,-(A0)\n", pc)
+	c.tracef("%04X movep.l A1,-(A0)\n", pc)
 }
 
 func (c *Processor) op210A() {
@@ -27756,7 +33466,7 @@ func (c *Processor) op210A() {
 	v := c.A[2]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A2,-(A0)\n", pc)
+	c.tracef("%04X movep.l A2,-(A0)\n", pc)
 }
 
 func (c *Processor) op210B() {
@@ -27765,7 +33475,7 @@ func (c *Processor) op210B() {
 	v := c.A[3]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A3,-(A0)\n", pc)
+	c.tracef("%04X movep.l A3,-(A0)\n", pc)
 }
 
 func (c *Processor) op210C() {
@@ -27774,7 +33484,7 @@ func (c *Processor) op210C() {
 	v := c.A[4]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A4,-(A0)\n", pc)
+	c.tracef("%04X movep.l A4,-(A0)\n", pc)
 }
 
 func (c *Processor) op210D() {
@@ -27783,7 +33493,7 @@ func (c *Processor) op210D() {
 	v := c.A[5]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A5,-(A0)\n", pc)
+	c.tracef("%04X movep.l A5,-(A0)\n", pc)
 }
 
 func (c *Processor) op210E() {
@@ -27792,7 +33502,7 @@ func (c *Processor) op210E() {
 	v := c.A[6]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A6,-(A0)\n", pc)
+	c.tracef("%04X movep.l A6,-(A0)\n", pc)
 }
 
 func (c *Processor) op210F() {
@@ -27801,7 +33511,7 @@ func (c *Processor) op210F() {
 	v := c.A[7]
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
-	c.tracef("%04X move.l A7,-(A0)\n", pc)
+	c.tracef("%04X movep.l A7,-(A0)\n", pc)
 }
 
 func (c *Processor) op2110() {
@@ -27911,7 +33621,12 @@ func (c *Processor) op2117() {
 func (c *Processor) op2138() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.l $%X,-(A0)\n", pc, v)
@@ -27920,7 +33635,12 @@ func (c *Processor) op2138() {
 func (c *Processor) op2139() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.l $%X,-(A0)\n", pc, v)
@@ -27929,7 +33649,12 @@ func (c *Processor) op2139() {
 func (c *Processor) op213C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[0] -= 4
 	c.writeLong(c.A[0], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A0)\n", pc, v)
@@ -27939,8 +33664,13 @@ func (c *Processor) op2140() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A0)\n", pc, disp)
 }
@@ -27949,8 +33679,13 @@ func (c *Processor) op2141() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A0)\n", pc, disp)
 }
@@ -27959,8 +33694,13 @@ func (c *Processor) op2142() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A0)\n", pc, disp)
 }
@@ -27969,8 +33709,13 @@ func (c *Processor) op2143() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A0)\n", pc, disp)
 }
@@ -27979,8 +33724,13 @@ func (c *Processor) op2144() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A0)\n", pc, disp)
 }
@@ -27989,8 +33739,13 @@ func (c *Processor) op2145() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A0)\n", pc, disp)
 }
@@ -27999,8 +33754,13 @@ func (c *Processor) op2146() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A0)\n", pc, disp)
 }
@@ -28009,8 +33769,13 @@ func (c *Processor) op2147() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A0)\n", pc, disp)
 }
@@ -28019,80 +33784,120 @@ func (c *Processor) op2148() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op2149() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op214A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op214B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op214C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op214D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op214E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op214F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A0)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A0)\n", pc, disp)
 }
 
 func (c *Processor) op2150() {
@@ -28103,8 +33908,13 @@ func (c *Processor) op2150() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A0)\n", pc, disp)
 }
@@ -28117,8 +33927,13 @@ func (c *Processor) op2151() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A0)\n", pc, disp)
 }
@@ -28131,8 +33946,13 @@ func (c *Processor) op2152() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A0)\n", pc, disp)
 }
@@ -28145,8 +33965,13 @@ func (c *Processor) op2153() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A0)\n", pc, disp)
 }
@@ -28159,8 +33984,13 @@ func (c *Processor) op2154() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A0)\n", pc, disp)
 }
@@ -28173,8 +34003,13 @@ func (c *Processor) op2155() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A0)\n", pc, disp)
 }
@@ -28187,8 +34022,13 @@ func (c *Processor) op2156() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A0)\n", pc, disp)
 }
@@ -28201,8 +34041,13 @@ func (c *Processor) op2157() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A0)\n", pc, disp)
 }
@@ -28210,9 +34055,19 @@ func (c *Processor) op2157() {
 func (c *Processor) op2178() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A0)\n", pc, v, disp)
 }
@@ -28220,9 +34075,19 @@ func (c *Processor) op2178() {
 func (c *Processor) op2179() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A0)\n", pc, v, disp)
 }
@@ -28230,9 +34095,19 @@ func (c *Processor) op2179() {
 func (c *Processor) op217C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[0]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[0]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A0)\n", pc, v, disp)
 }
@@ -28241,8 +34116,13 @@ func (c *Processor) op21C0() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D0,$%X\n", pc, addr)
 }
 
@@ -28250,8 +34130,13 @@ func (c *Processor) op21C1() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D1,$%X\n", pc, addr)
 }
 
@@ -28259,8 +34144,13 @@ func (c *Processor) op21C2() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D2,$%X\n", pc, addr)
 }
 
@@ -28268,8 +34158,13 @@ func (c *Processor) op21C3() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D3,$%X\n", pc, addr)
 }
 
@@ -28277,8 +34172,13 @@ func (c *Processor) op21C4() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D4,$%X\n", pc, addr)
 }
 
@@ -28286,8 +34186,13 @@ func (c *Processor) op21C5() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D5,$%X\n", pc, addr)
 }
 
@@ -28295,8 +34200,13 @@ func (c *Processor) op21C6() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D6,$%X\n", pc, addr)
 }
 
@@ -28304,8 +34214,13 @@ func (c *Processor) op21C7() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l D7,$%X\n", pc, addr)
 }
 
@@ -28313,72 +34228,112 @@ func (c *Processor) op21C8() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A0,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21C9() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A1,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21CA() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A2,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21CB() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A3,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21CC() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A4,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21CD() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A5,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21CE() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A6,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21CF() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,$%X\n", pc, addr)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
+	c.tracef("%04X movep.l A7,$%X\n", pc, addr)
 }
 
 func (c *Processor) op21D0() {
@@ -28389,8 +34344,13 @@ func (c *Processor) op21D0() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A0),$%X\n", pc, addr)
 }
 
@@ -28402,8 +34362,13 @@ func (c *Processor) op21D1() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A1),$%X\n", pc, addr)
 }
 
@@ -28415,8 +34380,13 @@ func (c *Processor) op21D2() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A2),$%X\n", pc, addr)
 }
 
@@ -28428,8 +34398,13 @@ func (c *Processor) op21D3() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A3),$%X\n", pc, addr)
 }
 
@@ -28441,8 +34416,13 @@ func (c *Processor) op21D4() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A4),$%X\n", pc, addr)
 }
 
@@ -28454,8 +34434,13 @@ func (c *Processor) op21D5() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A5),$%X\n", pc, addr)
 }
 
@@ -28467,8 +34452,13 @@ func (c *Processor) op21D6() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A6),$%X\n", pc, addr)
 }
 
@@ -28480,35 +34470,70 @@ func (c *Processor) op21D7() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l (A7),$%X\n", pc, addr)
 }
 
 func (c *Processor) op21F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l $%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op21F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l $%X,$%X\n", pc, v, addr)
 }
 
 func (c *Processor) op21FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x01)
-	c.writeLong(addr, uint32(v))
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	addr := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.writeLong(uint32(addr), uint32(v))
 	c.tracef("%04X move.l #$%X,$%X\n", pc, v, addr)
 }
 
@@ -28739,7 +34764,12 @@ func (c *Processor) op2217() {
 func (c *Processor) op2238() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.l $%X,D1\n", pc, v)
 }
@@ -28747,7 +34777,12 @@ func (c *Processor) op2238() {
 func (c *Processor) op2239() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.l $%X,D1\n", pc, v)
 }
@@ -28755,7 +34790,12 @@ func (c *Processor) op2239() {
 func (c *Processor) op223C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[1] = uint32(v)
 	c.tracef("%04X move.l #$%X,D1\n", pc, v)
 }
@@ -28987,7 +35027,12 @@ func (c *Processor) op2257() {
 func (c *Processor) op2278() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.l $%X,A1\n", pc, v)
 }
@@ -28995,7 +35040,12 @@ func (c *Processor) op2278() {
 func (c *Processor) op2279() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.l $%X,A1\n", pc, v)
 }
@@ -29003,7 +35053,12 @@ func (c *Processor) op2279() {
 func (c *Processor) op227C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[1] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A1\n", pc, v)
 }
@@ -29235,7 +35290,12 @@ func (c *Processor) op2297() {
 func (c *Processor) op22B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.l $%X,(A1)\n", pc, v)
 }
@@ -29243,7 +35303,12 @@ func (c *Processor) op22B8() {
 func (c *Processor) op22B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.l $%X,(A1)\n", pc, v)
 }
@@ -29251,7 +35316,12 @@ func (c *Processor) op22B9() {
 func (c *Processor) op22BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.l #$%X,(A1)\n", pc, v)
 }
@@ -29507,7 +35577,12 @@ func (c *Processor) op22D7() {
 func (c *Processor) op22F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.l $%X,(A1)+\n", pc, v)
@@ -29516,7 +35591,12 @@ func (c *Processor) op22F8() {
 func (c *Processor) op22F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.l $%X,(A1)+\n", pc, v)
@@ -29525,7 +35605,12 @@ func (c *Processor) op22F9() {
 func (c *Processor) op22FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[1], uint32(v))
 	c.A[1] += 4
 	c.tracef("%04X move.l #$%X,(A1)+\n", pc, v)
@@ -29609,7 +35694,7 @@ func (c *Processor) op2308() {
 	v := c.A[0]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A0,-(A1)\n", pc)
+	c.tracef("%04X movep.l A0,-(A1)\n", pc)
 }
 
 func (c *Processor) op2309() {
@@ -29618,7 +35703,7 @@ func (c *Processor) op2309() {
 	v := c.A[1]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A1,-(A1)\n", pc)
+	c.tracef("%04X movep.l A1,-(A1)\n", pc)
 }
 
 func (c *Processor) op230A() {
@@ -29627,7 +35712,7 @@ func (c *Processor) op230A() {
 	v := c.A[2]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A2,-(A1)\n", pc)
+	c.tracef("%04X movep.l A2,-(A1)\n", pc)
 }
 
 func (c *Processor) op230B() {
@@ -29636,7 +35721,7 @@ func (c *Processor) op230B() {
 	v := c.A[3]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A3,-(A1)\n", pc)
+	c.tracef("%04X movep.l A3,-(A1)\n", pc)
 }
 
 func (c *Processor) op230C() {
@@ -29645,7 +35730,7 @@ func (c *Processor) op230C() {
 	v := c.A[4]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A4,-(A1)\n", pc)
+	c.tracef("%04X movep.l A4,-(A1)\n", pc)
 }
 
 func (c *Processor) op230D() {
@@ -29654,7 +35739,7 @@ func (c *Processor) op230D() {
 	v := c.A[5]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A5,-(A1)\n", pc)
+	c.tracef("%04X movep.l A5,-(A1)\n", pc)
 }
 
 func (c *Processor) op230E() {
@@ -29663,7 +35748,7 @@ func (c *Processor) op230E() {
 	v := c.A[6]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A6,-(A1)\n", pc)
+	c.tracef("%04X movep.l A6,-(A1)\n", pc)
 }
 
 func (c *Processor) op230F() {
@@ -29672,7 +35757,7 @@ func (c *Processor) op230F() {
 	v := c.A[7]
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
-	c.tracef("%04X move.l A7,-(A1)\n", pc)
+	c.tracef("%04X movep.l A7,-(A1)\n", pc)
 }
 
 func (c *Processor) op2310() {
@@ -29782,7 +35867,12 @@ func (c *Processor) op2317() {
 func (c *Processor) op2338() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.l $%X,-(A1)\n", pc, v)
@@ -29791,7 +35881,12 @@ func (c *Processor) op2338() {
 func (c *Processor) op2339() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.l $%X,-(A1)\n", pc, v)
@@ -29800,7 +35895,12 @@ func (c *Processor) op2339() {
 func (c *Processor) op233C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[1] -= 4
 	c.writeLong(c.A[1], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A1)\n", pc, v)
@@ -29810,8 +35910,13 @@ func (c *Processor) op2340() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A1)\n", pc, disp)
 }
@@ -29820,8 +35925,13 @@ func (c *Processor) op2341() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A1)\n", pc, disp)
 }
@@ -29830,8 +35940,13 @@ func (c *Processor) op2342() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A1)\n", pc, disp)
 }
@@ -29840,8 +35955,13 @@ func (c *Processor) op2343() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A1)\n", pc, disp)
 }
@@ -29850,8 +35970,13 @@ func (c *Processor) op2344() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A1)\n", pc, disp)
 }
@@ -29860,8 +35985,13 @@ func (c *Processor) op2345() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A1)\n", pc, disp)
 }
@@ -29870,8 +36000,13 @@ func (c *Processor) op2346() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A1)\n", pc, disp)
 }
@@ -29880,8 +36015,13 @@ func (c *Processor) op2347() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A1)\n", pc, disp)
 }
@@ -29890,80 +36030,120 @@ func (c *Processor) op2348() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op2349() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op234A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op234B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op234C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op234D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op234E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op234F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A1)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A1)\n", pc, disp)
 }
 
 func (c *Processor) op2350() {
@@ -29974,8 +36154,13 @@ func (c *Processor) op2350() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A1)\n", pc, disp)
 }
@@ -29988,8 +36173,13 @@ func (c *Processor) op2351() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A1)\n", pc, disp)
 }
@@ -30002,8 +36192,13 @@ func (c *Processor) op2352() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A1)\n", pc, disp)
 }
@@ -30016,8 +36211,13 @@ func (c *Processor) op2353() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A1)\n", pc, disp)
 }
@@ -30030,8 +36230,13 @@ func (c *Processor) op2354() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A1)\n", pc, disp)
 }
@@ -30044,8 +36249,13 @@ func (c *Processor) op2355() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A1)\n", pc, disp)
 }
@@ -30058,8 +36268,13 @@ func (c *Processor) op2356() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A1)\n", pc, disp)
 }
@@ -30072,8 +36287,13 @@ func (c *Processor) op2357() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A1)\n", pc, disp)
 }
@@ -30081,9 +36301,19 @@ func (c *Processor) op2357() {
 func (c *Processor) op2378() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A1)\n", pc, v, disp)
 }
@@ -30091,9 +36321,19 @@ func (c *Processor) op2378() {
 func (c *Processor) op2379() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A1)\n", pc, v, disp)
 }
@@ -30101,9 +36341,19 @@ func (c *Processor) op2379() {
 func (c *Processor) op237C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[1]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[1]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A1)\n", pc, v, disp)
 }
@@ -30112,7 +36362,12 @@ func (c *Processor) op23C0() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,$%X\n", pc, addr)
 }
@@ -30121,7 +36376,12 @@ func (c *Processor) op23C1() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,$%X\n", pc, addr)
 }
@@ -30130,7 +36390,12 @@ func (c *Processor) op23C2() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,$%X\n", pc, addr)
 }
@@ -30139,7 +36404,12 @@ func (c *Processor) op23C3() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,$%X\n", pc, addr)
 }
@@ -30148,7 +36418,12 @@ func (c *Processor) op23C4() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,$%X\n", pc, addr)
 }
@@ -30157,7 +36432,12 @@ func (c *Processor) op23C5() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,$%X\n", pc, addr)
 }
@@ -30166,7 +36446,12 @@ func (c *Processor) op23C6() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,$%X\n", pc, addr)
 }
@@ -30175,7 +36460,12 @@ func (c *Processor) op23C7() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,$%X\n", pc, addr)
 }
@@ -30184,72 +36474,112 @@ func (c *Processor) op23C8() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A0,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23C9() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A1,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23CA() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A2,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23CB() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A3,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23CC() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A4,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23CD() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A5,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23CE() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A6,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23CF() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,$%X\n", pc, addr)
+	c.tracef("%04X movep.l A7,$%X\n", pc, addr)
 }
 
 func (c *Processor) op23D0() {
@@ -30260,7 +36590,12 @@ func (c *Processor) op23D0() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),$%X\n", pc, addr)
 }
@@ -30273,7 +36608,12 @@ func (c *Processor) op23D1() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),$%X\n", pc, addr)
 }
@@ -30286,7 +36626,12 @@ func (c *Processor) op23D2() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),$%X\n", pc, addr)
 }
@@ -30299,7 +36644,12 @@ func (c *Processor) op23D3() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),$%X\n", pc, addr)
 }
@@ -30312,7 +36662,12 @@ func (c *Processor) op23D4() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),$%X\n", pc, addr)
 }
@@ -30325,7 +36680,12 @@ func (c *Processor) op23D5() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),$%X\n", pc, addr)
 }
@@ -30338,7 +36698,12 @@ func (c *Processor) op23D6() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),$%X\n", pc, addr)
 }
@@ -30351,7 +36716,12 @@ func (c *Processor) op23D7() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),$%X\n", pc, addr)
 }
@@ -30359,8 +36729,18 @@ func (c *Processor) op23D7() {
 func (c *Processor) op23F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,$%X\n", pc, v, addr)
 }
@@ -30368,8 +36748,18 @@ func (c *Processor) op23F8() {
 func (c *Processor) op23F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,$%X\n", pc, v, addr)
 }
@@ -30377,8 +36767,18 @@ func (c *Processor) op23F9() {
 func (c *Processor) op23FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	addr := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	addr := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,$%X\n", pc, v, addr)
 }
@@ -30610,7 +37010,12 @@ func (c *Processor) op2417() {
 func (c *Processor) op2438() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.l $%X,D2\n", pc, v)
 }
@@ -30618,7 +37023,12 @@ func (c *Processor) op2438() {
 func (c *Processor) op2439() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.l $%X,D2\n", pc, v)
 }
@@ -30626,7 +37036,12 @@ func (c *Processor) op2439() {
 func (c *Processor) op243C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[2] = uint32(v)
 	c.tracef("%04X move.l #$%X,D2\n", pc, v)
 }
@@ -30858,7 +37273,12 @@ func (c *Processor) op2457() {
 func (c *Processor) op2478() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.l $%X,A2\n", pc, v)
 }
@@ -30866,7 +37286,12 @@ func (c *Processor) op2478() {
 func (c *Processor) op2479() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.l $%X,A2\n", pc, v)
 }
@@ -30874,7 +37299,12 @@ func (c *Processor) op2479() {
 func (c *Processor) op247C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[2] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A2\n", pc, v)
 }
@@ -31106,7 +37536,12 @@ func (c *Processor) op2497() {
 func (c *Processor) op24B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.l $%X,(A2)\n", pc, v)
 }
@@ -31114,7 +37549,12 @@ func (c *Processor) op24B8() {
 func (c *Processor) op24B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.l $%X,(A2)\n", pc, v)
 }
@@ -31122,7 +37562,12 @@ func (c *Processor) op24B9() {
 func (c *Processor) op24BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.l #$%X,(A2)\n", pc, v)
 }
@@ -31378,7 +37823,12 @@ func (c *Processor) op24D7() {
 func (c *Processor) op24F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.l $%X,(A2)+\n", pc, v)
@@ -31387,7 +37837,12 @@ func (c *Processor) op24F8() {
 func (c *Processor) op24F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.l $%X,(A2)+\n", pc, v)
@@ -31396,7 +37851,12 @@ func (c *Processor) op24F9() {
 func (c *Processor) op24FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[2], uint32(v))
 	c.A[2] += 4
 	c.tracef("%04X move.l #$%X,(A2)+\n", pc, v)
@@ -31480,7 +37940,7 @@ func (c *Processor) op2508() {
 	v := c.A[0]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A0,-(A2)\n", pc)
+	c.tracef("%04X movep.l A0,-(A2)\n", pc)
 }
 
 func (c *Processor) op2509() {
@@ -31489,7 +37949,7 @@ func (c *Processor) op2509() {
 	v := c.A[1]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A1,-(A2)\n", pc)
+	c.tracef("%04X movep.l A1,-(A2)\n", pc)
 }
 
 func (c *Processor) op250A() {
@@ -31498,7 +37958,7 @@ func (c *Processor) op250A() {
 	v := c.A[2]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A2,-(A2)\n", pc)
+	c.tracef("%04X movep.l A2,-(A2)\n", pc)
 }
 
 func (c *Processor) op250B() {
@@ -31507,7 +37967,7 @@ func (c *Processor) op250B() {
 	v := c.A[3]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A3,-(A2)\n", pc)
+	c.tracef("%04X movep.l A3,-(A2)\n", pc)
 }
 
 func (c *Processor) op250C() {
@@ -31516,7 +37976,7 @@ func (c *Processor) op250C() {
 	v := c.A[4]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A4,-(A2)\n", pc)
+	c.tracef("%04X movep.l A4,-(A2)\n", pc)
 }
 
 func (c *Processor) op250D() {
@@ -31525,7 +37985,7 @@ func (c *Processor) op250D() {
 	v := c.A[5]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A5,-(A2)\n", pc)
+	c.tracef("%04X movep.l A5,-(A2)\n", pc)
 }
 
 func (c *Processor) op250E() {
@@ -31534,7 +37994,7 @@ func (c *Processor) op250E() {
 	v := c.A[6]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A6,-(A2)\n", pc)
+	c.tracef("%04X movep.l A6,-(A2)\n", pc)
 }
 
 func (c *Processor) op250F() {
@@ -31543,7 +38003,7 @@ func (c *Processor) op250F() {
 	v := c.A[7]
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
-	c.tracef("%04X move.l A7,-(A2)\n", pc)
+	c.tracef("%04X movep.l A7,-(A2)\n", pc)
 }
 
 func (c *Processor) op2510() {
@@ -31653,7 +38113,12 @@ func (c *Processor) op2517() {
 func (c *Processor) op2538() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.l $%X,-(A2)\n", pc, v)
@@ -31662,7 +38127,12 @@ func (c *Processor) op2538() {
 func (c *Processor) op2539() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.l $%X,-(A2)\n", pc, v)
@@ -31671,7 +38141,12 @@ func (c *Processor) op2539() {
 func (c *Processor) op253C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[2] -= 4
 	c.writeLong(c.A[2], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A2)\n", pc, v)
@@ -31681,8 +38156,13 @@ func (c *Processor) op2540() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A2)\n", pc, disp)
 }
@@ -31691,8 +38171,13 @@ func (c *Processor) op2541() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A2)\n", pc, disp)
 }
@@ -31701,8 +38186,13 @@ func (c *Processor) op2542() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A2)\n", pc, disp)
 }
@@ -31711,8 +38201,13 @@ func (c *Processor) op2543() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A2)\n", pc, disp)
 }
@@ -31721,8 +38216,13 @@ func (c *Processor) op2544() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A2)\n", pc, disp)
 }
@@ -31731,8 +38231,13 @@ func (c *Processor) op2545() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A2)\n", pc, disp)
 }
@@ -31741,8 +38246,13 @@ func (c *Processor) op2546() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A2)\n", pc, disp)
 }
@@ -31751,8 +38261,13 @@ func (c *Processor) op2547() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A2)\n", pc, disp)
 }
@@ -31761,80 +38276,120 @@ func (c *Processor) op2548() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op2549() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op254A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op254B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op254C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op254D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op254E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op254F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A2)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A2)\n", pc, disp)
 }
 
 func (c *Processor) op2550() {
@@ -31845,8 +38400,13 @@ func (c *Processor) op2550() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A2)\n", pc, disp)
 }
@@ -31859,8 +38419,13 @@ func (c *Processor) op2551() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A2)\n", pc, disp)
 }
@@ -31873,8 +38438,13 @@ func (c *Processor) op2552() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A2)\n", pc, disp)
 }
@@ -31887,8 +38457,13 @@ func (c *Processor) op2553() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A2)\n", pc, disp)
 }
@@ -31901,8 +38476,13 @@ func (c *Processor) op2554() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A2)\n", pc, disp)
 }
@@ -31915,8 +38495,13 @@ func (c *Processor) op2555() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A2)\n", pc, disp)
 }
@@ -31929,8 +38514,13 @@ func (c *Processor) op2556() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A2)\n", pc, disp)
 }
@@ -31943,8 +38533,13 @@ func (c *Processor) op2557() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A2)\n", pc, disp)
 }
@@ -31952,9 +38547,19 @@ func (c *Processor) op2557() {
 func (c *Processor) op2578() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A2)\n", pc, v, disp)
 }
@@ -31962,9 +38567,19 @@ func (c *Processor) op2578() {
 func (c *Processor) op2579() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A2)\n", pc, v, disp)
 }
@@ -31972,9 +38587,19 @@ func (c *Processor) op2579() {
 func (c *Processor) op257C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[2]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[2]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A2)\n", pc, v, disp)
 }
@@ -32206,7 +38831,12 @@ func (c *Processor) op2617() {
 func (c *Processor) op2638() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.l $%X,D3\n", pc, v)
 }
@@ -32214,7 +38844,12 @@ func (c *Processor) op2638() {
 func (c *Processor) op2639() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.l $%X,D3\n", pc, v)
 }
@@ -32222,7 +38857,12 @@ func (c *Processor) op2639() {
 func (c *Processor) op263C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[3] = uint32(v)
 	c.tracef("%04X move.l #$%X,D3\n", pc, v)
 }
@@ -32454,7 +39094,12 @@ func (c *Processor) op2657() {
 func (c *Processor) op2678() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.l $%X,A3\n", pc, v)
 }
@@ -32462,7 +39107,12 @@ func (c *Processor) op2678() {
 func (c *Processor) op2679() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.l $%X,A3\n", pc, v)
 }
@@ -32470,7 +39120,12 @@ func (c *Processor) op2679() {
 func (c *Processor) op267C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[3] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A3\n", pc, v)
 }
@@ -32702,7 +39357,12 @@ func (c *Processor) op2697() {
 func (c *Processor) op26B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.l $%X,(A3)\n", pc, v)
 }
@@ -32710,7 +39370,12 @@ func (c *Processor) op26B8() {
 func (c *Processor) op26B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.l $%X,(A3)\n", pc, v)
 }
@@ -32718,7 +39383,12 @@ func (c *Processor) op26B9() {
 func (c *Processor) op26BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.l #$%X,(A3)\n", pc, v)
 }
@@ -32974,7 +39644,12 @@ func (c *Processor) op26D7() {
 func (c *Processor) op26F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.l $%X,(A3)+\n", pc, v)
@@ -32983,7 +39658,12 @@ func (c *Processor) op26F8() {
 func (c *Processor) op26F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.l $%X,(A3)+\n", pc, v)
@@ -32992,7 +39672,12 @@ func (c *Processor) op26F9() {
 func (c *Processor) op26FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[3], uint32(v))
 	c.A[3] += 4
 	c.tracef("%04X move.l #$%X,(A3)+\n", pc, v)
@@ -33076,7 +39761,7 @@ func (c *Processor) op2708() {
 	v := c.A[0]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A0,-(A3)\n", pc)
+	c.tracef("%04X movep.l A0,-(A3)\n", pc)
 }
 
 func (c *Processor) op2709() {
@@ -33085,7 +39770,7 @@ func (c *Processor) op2709() {
 	v := c.A[1]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A1,-(A3)\n", pc)
+	c.tracef("%04X movep.l A1,-(A3)\n", pc)
 }
 
 func (c *Processor) op270A() {
@@ -33094,7 +39779,7 @@ func (c *Processor) op270A() {
 	v := c.A[2]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A2,-(A3)\n", pc)
+	c.tracef("%04X movep.l A2,-(A3)\n", pc)
 }
 
 func (c *Processor) op270B() {
@@ -33103,7 +39788,7 @@ func (c *Processor) op270B() {
 	v := c.A[3]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A3,-(A3)\n", pc)
+	c.tracef("%04X movep.l A3,-(A3)\n", pc)
 }
 
 func (c *Processor) op270C() {
@@ -33112,7 +39797,7 @@ func (c *Processor) op270C() {
 	v := c.A[4]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A4,-(A3)\n", pc)
+	c.tracef("%04X movep.l A4,-(A3)\n", pc)
 }
 
 func (c *Processor) op270D() {
@@ -33121,7 +39806,7 @@ func (c *Processor) op270D() {
 	v := c.A[5]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A5,-(A3)\n", pc)
+	c.tracef("%04X movep.l A5,-(A3)\n", pc)
 }
 
 func (c *Processor) op270E() {
@@ -33130,7 +39815,7 @@ func (c *Processor) op270E() {
 	v := c.A[6]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A6,-(A3)\n", pc)
+	c.tracef("%04X movep.l A6,-(A3)\n", pc)
 }
 
 func (c *Processor) op270F() {
@@ -33139,7 +39824,7 @@ func (c *Processor) op270F() {
 	v := c.A[7]
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
-	c.tracef("%04X move.l A7,-(A3)\n", pc)
+	c.tracef("%04X movep.l A7,-(A3)\n", pc)
 }
 
 func (c *Processor) op2710() {
@@ -33249,7 +39934,12 @@ func (c *Processor) op2717() {
 func (c *Processor) op2738() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.l $%X,-(A3)\n", pc, v)
@@ -33258,7 +39948,12 @@ func (c *Processor) op2738() {
 func (c *Processor) op2739() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.l $%X,-(A3)\n", pc, v)
@@ -33267,7 +39962,12 @@ func (c *Processor) op2739() {
 func (c *Processor) op273C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[3] -= 4
 	c.writeLong(c.A[3], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A3)\n", pc, v)
@@ -33277,8 +39977,13 @@ func (c *Processor) op2740() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A3)\n", pc, disp)
 }
@@ -33287,8 +39992,13 @@ func (c *Processor) op2741() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A3)\n", pc, disp)
 }
@@ -33297,8 +40007,13 @@ func (c *Processor) op2742() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A3)\n", pc, disp)
 }
@@ -33307,8 +40022,13 @@ func (c *Processor) op2743() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A3)\n", pc, disp)
 }
@@ -33317,8 +40037,13 @@ func (c *Processor) op2744() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A3)\n", pc, disp)
 }
@@ -33327,8 +40052,13 @@ func (c *Processor) op2745() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A3)\n", pc, disp)
 }
@@ -33337,8 +40067,13 @@ func (c *Processor) op2746() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A3)\n", pc, disp)
 }
@@ -33347,8 +40082,13 @@ func (c *Processor) op2747() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A3)\n", pc, disp)
 }
@@ -33357,80 +40097,120 @@ func (c *Processor) op2748() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op2749() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op274A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op274B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op274C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op274D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op274E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op274F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A3)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A3)\n", pc, disp)
 }
 
 func (c *Processor) op2750() {
@@ -33441,8 +40221,13 @@ func (c *Processor) op2750() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A3)\n", pc, disp)
 }
@@ -33455,8 +40240,13 @@ func (c *Processor) op2751() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A3)\n", pc, disp)
 }
@@ -33469,8 +40259,13 @@ func (c *Processor) op2752() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A3)\n", pc, disp)
 }
@@ -33483,8 +40278,13 @@ func (c *Processor) op2753() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A3)\n", pc, disp)
 }
@@ -33497,8 +40297,13 @@ func (c *Processor) op2754() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A3)\n", pc, disp)
 }
@@ -33511,8 +40316,13 @@ func (c *Processor) op2755() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A3)\n", pc, disp)
 }
@@ -33525,8 +40335,13 @@ func (c *Processor) op2756() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A3)\n", pc, disp)
 }
@@ -33539,8 +40354,13 @@ func (c *Processor) op2757() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A3)\n", pc, disp)
 }
@@ -33548,9 +40368,19 @@ func (c *Processor) op2757() {
 func (c *Processor) op2778() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A3)\n", pc, v, disp)
 }
@@ -33558,9 +40388,19 @@ func (c *Processor) op2778() {
 func (c *Processor) op2779() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A3)\n", pc, v, disp)
 }
@@ -33568,9 +40408,19 @@ func (c *Processor) op2779() {
 func (c *Processor) op277C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[3]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[3]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A3)\n", pc, v, disp)
 }
@@ -33802,7 +40652,12 @@ func (c *Processor) op2817() {
 func (c *Processor) op2838() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.l $%X,D4\n", pc, v)
 }
@@ -33810,7 +40665,12 @@ func (c *Processor) op2838() {
 func (c *Processor) op2839() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.l $%X,D4\n", pc, v)
 }
@@ -33818,7 +40678,12 @@ func (c *Processor) op2839() {
 func (c *Processor) op283C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[4] = uint32(v)
 	c.tracef("%04X move.l #$%X,D4\n", pc, v)
 }
@@ -34050,7 +40915,12 @@ func (c *Processor) op2857() {
 func (c *Processor) op2878() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.l $%X,A4\n", pc, v)
 }
@@ -34058,7 +40928,12 @@ func (c *Processor) op2878() {
 func (c *Processor) op2879() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.l $%X,A4\n", pc, v)
 }
@@ -34066,7 +40941,12 @@ func (c *Processor) op2879() {
 func (c *Processor) op287C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[4] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A4\n", pc, v)
 }
@@ -34298,7 +41178,12 @@ func (c *Processor) op2897() {
 func (c *Processor) op28B8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.l $%X,(A4)\n", pc, v)
 }
@@ -34306,7 +41191,12 @@ func (c *Processor) op28B8() {
 func (c *Processor) op28B9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.l $%X,(A4)\n", pc, v)
 }
@@ -34314,7 +41204,12 @@ func (c *Processor) op28B9() {
 func (c *Processor) op28BC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.l #$%X,(A4)\n", pc, v)
 }
@@ -34570,7 +41465,12 @@ func (c *Processor) op28D7() {
 func (c *Processor) op28F8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.l $%X,(A4)+\n", pc, v)
@@ -34579,7 +41479,12 @@ func (c *Processor) op28F8() {
 func (c *Processor) op28F9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.l $%X,(A4)+\n", pc, v)
@@ -34588,7 +41493,12 @@ func (c *Processor) op28F9() {
 func (c *Processor) op28FC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[4], uint32(v))
 	c.A[4] += 4
 	c.tracef("%04X move.l #$%X,(A4)+\n", pc, v)
@@ -34672,7 +41582,7 @@ func (c *Processor) op2908() {
 	v := c.A[0]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A0,-(A4)\n", pc)
+	c.tracef("%04X movep.l A0,-(A4)\n", pc)
 }
 
 func (c *Processor) op2909() {
@@ -34681,7 +41591,7 @@ func (c *Processor) op2909() {
 	v := c.A[1]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A1,-(A4)\n", pc)
+	c.tracef("%04X movep.l A1,-(A4)\n", pc)
 }
 
 func (c *Processor) op290A() {
@@ -34690,7 +41600,7 @@ func (c *Processor) op290A() {
 	v := c.A[2]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A2,-(A4)\n", pc)
+	c.tracef("%04X movep.l A2,-(A4)\n", pc)
 }
 
 func (c *Processor) op290B() {
@@ -34699,7 +41609,7 @@ func (c *Processor) op290B() {
 	v := c.A[3]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A3,-(A4)\n", pc)
+	c.tracef("%04X movep.l A3,-(A4)\n", pc)
 }
 
 func (c *Processor) op290C() {
@@ -34708,7 +41618,7 @@ func (c *Processor) op290C() {
 	v := c.A[4]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A4,-(A4)\n", pc)
+	c.tracef("%04X movep.l A4,-(A4)\n", pc)
 }
 
 func (c *Processor) op290D() {
@@ -34717,7 +41627,7 @@ func (c *Processor) op290D() {
 	v := c.A[5]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A5,-(A4)\n", pc)
+	c.tracef("%04X movep.l A5,-(A4)\n", pc)
 }
 
 func (c *Processor) op290E() {
@@ -34726,7 +41636,7 @@ func (c *Processor) op290E() {
 	v := c.A[6]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A6,-(A4)\n", pc)
+	c.tracef("%04X movep.l A6,-(A4)\n", pc)
 }
 
 func (c *Processor) op290F() {
@@ -34735,7 +41645,7 @@ func (c *Processor) op290F() {
 	v := c.A[7]
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
-	c.tracef("%04X move.l A7,-(A4)\n", pc)
+	c.tracef("%04X movep.l A7,-(A4)\n", pc)
 }
 
 func (c *Processor) op2910() {
@@ -34845,7 +41755,12 @@ func (c *Processor) op2917() {
 func (c *Processor) op2938() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.l $%X,-(A4)\n", pc, v)
@@ -34854,7 +41769,12 @@ func (c *Processor) op2938() {
 func (c *Processor) op2939() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.l $%X,-(A4)\n", pc, v)
@@ -34863,7 +41783,12 @@ func (c *Processor) op2939() {
 func (c *Processor) op293C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[4] -= 4
 	c.writeLong(c.A[4], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A4)\n", pc, v)
@@ -34873,8 +41798,13 @@ func (c *Processor) op2940() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A4)\n", pc, disp)
 }
@@ -34883,8 +41813,13 @@ func (c *Processor) op2941() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A4)\n", pc, disp)
 }
@@ -34893,8 +41828,13 @@ func (c *Processor) op2942() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A4)\n", pc, disp)
 }
@@ -34903,8 +41843,13 @@ func (c *Processor) op2943() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A4)\n", pc, disp)
 }
@@ -34913,8 +41858,13 @@ func (c *Processor) op2944() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A4)\n", pc, disp)
 }
@@ -34923,8 +41873,13 @@ func (c *Processor) op2945() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A4)\n", pc, disp)
 }
@@ -34933,8 +41888,13 @@ func (c *Processor) op2946() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A4)\n", pc, disp)
 }
@@ -34943,8 +41903,13 @@ func (c *Processor) op2947() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A4)\n", pc, disp)
 }
@@ -34953,80 +41918,120 @@ func (c *Processor) op2948() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op2949() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op294A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op294B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op294C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op294D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op294E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op294F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A4)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A4)\n", pc, disp)
 }
 
 func (c *Processor) op2950() {
@@ -35037,8 +42042,13 @@ func (c *Processor) op2950() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A4)\n", pc, disp)
 }
@@ -35051,8 +42061,13 @@ func (c *Processor) op2951() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A4)\n", pc, disp)
 }
@@ -35065,8 +42080,13 @@ func (c *Processor) op2952() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A4)\n", pc, disp)
 }
@@ -35079,8 +42099,13 @@ func (c *Processor) op2953() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A4)\n", pc, disp)
 }
@@ -35093,8 +42118,13 @@ func (c *Processor) op2954() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A4)\n", pc, disp)
 }
@@ -35107,8 +42137,13 @@ func (c *Processor) op2955() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A4)\n", pc, disp)
 }
@@ -35121,8 +42156,13 @@ func (c *Processor) op2956() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A4)\n", pc, disp)
 }
@@ -35135,8 +42175,13 @@ func (c *Processor) op2957() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A4)\n", pc, disp)
 }
@@ -35144,9 +42189,19 @@ func (c *Processor) op2957() {
 func (c *Processor) op2978() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A4)\n", pc, v, disp)
 }
@@ -35154,9 +42209,19 @@ func (c *Processor) op2978() {
 func (c *Processor) op2979() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A4)\n", pc, v, disp)
 }
@@ -35164,9 +42229,19 @@ func (c *Processor) op2979() {
 func (c *Processor) op297C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[4]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[4]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A4)\n", pc, v, disp)
 }
@@ -35398,7 +42473,12 @@ func (c *Processor) op2A17() {
 func (c *Processor) op2A38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.l $%X,D5\n", pc, v)
 }
@@ -35406,7 +42486,12 @@ func (c *Processor) op2A38() {
 func (c *Processor) op2A39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.l $%X,D5\n", pc, v)
 }
@@ -35414,7 +42499,12 @@ func (c *Processor) op2A39() {
 func (c *Processor) op2A3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[5] = uint32(v)
 	c.tracef("%04X move.l #$%X,D5\n", pc, v)
 }
@@ -35646,7 +42736,12 @@ func (c *Processor) op2A57() {
 func (c *Processor) op2A78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.l $%X,A5\n", pc, v)
 }
@@ -35654,7 +42749,12 @@ func (c *Processor) op2A78() {
 func (c *Processor) op2A79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.l $%X,A5\n", pc, v)
 }
@@ -35662,7 +42762,12 @@ func (c *Processor) op2A79() {
 func (c *Processor) op2A7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[5] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A5\n", pc, v)
 }
@@ -35894,7 +42999,12 @@ func (c *Processor) op2A97() {
 func (c *Processor) op2AB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.l $%X,(A5)\n", pc, v)
 }
@@ -35902,7 +43012,12 @@ func (c *Processor) op2AB8() {
 func (c *Processor) op2AB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.l $%X,(A5)\n", pc, v)
 }
@@ -35910,7 +43025,12 @@ func (c *Processor) op2AB9() {
 func (c *Processor) op2ABC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.l #$%X,(A5)\n", pc, v)
 }
@@ -36166,7 +43286,12 @@ func (c *Processor) op2AD7() {
 func (c *Processor) op2AF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.l $%X,(A5)+\n", pc, v)
@@ -36175,7 +43300,12 @@ func (c *Processor) op2AF8() {
 func (c *Processor) op2AF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.l $%X,(A5)+\n", pc, v)
@@ -36184,7 +43314,12 @@ func (c *Processor) op2AF9() {
 func (c *Processor) op2AFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[5], uint32(v))
 	c.A[5] += 4
 	c.tracef("%04X move.l #$%X,(A5)+\n", pc, v)
@@ -36268,7 +43403,7 @@ func (c *Processor) op2B08() {
 	v := c.A[0]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A0,-(A5)\n", pc)
+	c.tracef("%04X movep.l A0,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B09() {
@@ -36277,7 +43412,7 @@ func (c *Processor) op2B09() {
 	v := c.A[1]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A1,-(A5)\n", pc)
+	c.tracef("%04X movep.l A1,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B0A() {
@@ -36286,7 +43421,7 @@ func (c *Processor) op2B0A() {
 	v := c.A[2]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A2,-(A5)\n", pc)
+	c.tracef("%04X movep.l A2,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B0B() {
@@ -36295,7 +43430,7 @@ func (c *Processor) op2B0B() {
 	v := c.A[3]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A3,-(A5)\n", pc)
+	c.tracef("%04X movep.l A3,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B0C() {
@@ -36304,7 +43439,7 @@ func (c *Processor) op2B0C() {
 	v := c.A[4]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A4,-(A5)\n", pc)
+	c.tracef("%04X movep.l A4,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B0D() {
@@ -36313,7 +43448,7 @@ func (c *Processor) op2B0D() {
 	v := c.A[5]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A5,-(A5)\n", pc)
+	c.tracef("%04X movep.l A5,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B0E() {
@@ -36322,7 +43457,7 @@ func (c *Processor) op2B0E() {
 	v := c.A[6]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A6,-(A5)\n", pc)
+	c.tracef("%04X movep.l A6,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B0F() {
@@ -36331,7 +43466,7 @@ func (c *Processor) op2B0F() {
 	v := c.A[7]
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
-	c.tracef("%04X move.l A7,-(A5)\n", pc)
+	c.tracef("%04X movep.l A7,-(A5)\n", pc)
 }
 
 func (c *Processor) op2B10() {
@@ -36441,7 +43576,12 @@ func (c *Processor) op2B17() {
 func (c *Processor) op2B38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.l $%X,-(A5)\n", pc, v)
@@ -36450,7 +43590,12 @@ func (c *Processor) op2B38() {
 func (c *Processor) op2B39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.l $%X,-(A5)\n", pc, v)
@@ -36459,7 +43604,12 @@ func (c *Processor) op2B39() {
 func (c *Processor) op2B3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[5] -= 4
 	c.writeLong(c.A[5], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A5)\n", pc, v)
@@ -36469,8 +43619,13 @@ func (c *Processor) op2B40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A5)\n", pc, disp)
 }
@@ -36479,8 +43634,13 @@ func (c *Processor) op2B41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A5)\n", pc, disp)
 }
@@ -36489,8 +43649,13 @@ func (c *Processor) op2B42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A5)\n", pc, disp)
 }
@@ -36499,8 +43664,13 @@ func (c *Processor) op2B43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A5)\n", pc, disp)
 }
@@ -36509,8 +43679,13 @@ func (c *Processor) op2B44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A5)\n", pc, disp)
 }
@@ -36519,8 +43694,13 @@ func (c *Processor) op2B45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A5)\n", pc, disp)
 }
@@ -36529,8 +43709,13 @@ func (c *Processor) op2B46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A5)\n", pc, disp)
 }
@@ -36539,8 +43724,13 @@ func (c *Processor) op2B47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A5)\n", pc, disp)
 }
@@ -36549,80 +43739,120 @@ func (c *Processor) op2B48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A5)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A5)\n", pc, disp)
 }
 
 func (c *Processor) op2B50() {
@@ -36633,8 +43863,13 @@ func (c *Processor) op2B50() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A5)\n", pc, disp)
 }
@@ -36647,8 +43882,13 @@ func (c *Processor) op2B51() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A5)\n", pc, disp)
 }
@@ -36661,8 +43901,13 @@ func (c *Processor) op2B52() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A5)\n", pc, disp)
 }
@@ -36675,8 +43920,13 @@ func (c *Processor) op2B53() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A5)\n", pc, disp)
 }
@@ -36689,8 +43939,13 @@ func (c *Processor) op2B54() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A5)\n", pc, disp)
 }
@@ -36703,8 +43958,13 @@ func (c *Processor) op2B55() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A5)\n", pc, disp)
 }
@@ -36717,8 +43977,13 @@ func (c *Processor) op2B56() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A5)\n", pc, disp)
 }
@@ -36731,8 +43996,13 @@ func (c *Processor) op2B57() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A5)\n", pc, disp)
 }
@@ -36740,9 +44010,19 @@ func (c *Processor) op2B57() {
 func (c *Processor) op2B78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A5)\n", pc, v, disp)
 }
@@ -36750,9 +44030,19 @@ func (c *Processor) op2B78() {
 func (c *Processor) op2B79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A5)\n", pc, v, disp)
 }
@@ -36760,9 +44050,19 @@ func (c *Processor) op2B79() {
 func (c *Processor) op2B7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[5]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[5]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A5)\n", pc, v, disp)
 }
@@ -36994,7 +44294,12 @@ func (c *Processor) op2C17() {
 func (c *Processor) op2C38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.l $%X,D6\n", pc, v)
 }
@@ -37002,7 +44307,12 @@ func (c *Processor) op2C38() {
 func (c *Processor) op2C39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.l $%X,D6\n", pc, v)
 }
@@ -37010,7 +44320,12 @@ func (c *Processor) op2C39() {
 func (c *Processor) op2C3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[6] = uint32(v)
 	c.tracef("%04X move.l #$%X,D6\n", pc, v)
 }
@@ -37242,7 +44557,12 @@ func (c *Processor) op2C57() {
 func (c *Processor) op2C78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.l $%X,A6\n", pc, v)
 }
@@ -37250,7 +44570,12 @@ func (c *Processor) op2C78() {
 func (c *Processor) op2C79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.l $%X,A6\n", pc, v)
 }
@@ -37258,7 +44583,12 @@ func (c *Processor) op2C79() {
 func (c *Processor) op2C7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[6] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A6\n", pc, v)
 }
@@ -37490,7 +44820,12 @@ func (c *Processor) op2C97() {
 func (c *Processor) op2CB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.l $%X,(A6)\n", pc, v)
 }
@@ -37498,7 +44833,12 @@ func (c *Processor) op2CB8() {
 func (c *Processor) op2CB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.l $%X,(A6)\n", pc, v)
 }
@@ -37506,7 +44846,12 @@ func (c *Processor) op2CB9() {
 func (c *Processor) op2CBC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.l #$%X,(A6)\n", pc, v)
 }
@@ -37762,7 +45107,12 @@ func (c *Processor) op2CD7() {
 func (c *Processor) op2CF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.l $%X,(A6)+\n", pc, v)
@@ -37771,7 +45121,12 @@ func (c *Processor) op2CF8() {
 func (c *Processor) op2CF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.l $%X,(A6)+\n", pc, v)
@@ -37780,7 +45135,12 @@ func (c *Processor) op2CF9() {
 func (c *Processor) op2CFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[6], uint32(v))
 	c.A[6] += 4
 	c.tracef("%04X move.l #$%X,(A6)+\n", pc, v)
@@ -37864,7 +45224,7 @@ func (c *Processor) op2D08() {
 	v := c.A[0]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A0,-(A6)\n", pc)
+	c.tracef("%04X movep.l A0,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D09() {
@@ -37873,7 +45233,7 @@ func (c *Processor) op2D09() {
 	v := c.A[1]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A1,-(A6)\n", pc)
+	c.tracef("%04X movep.l A1,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D0A() {
@@ -37882,7 +45242,7 @@ func (c *Processor) op2D0A() {
 	v := c.A[2]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A2,-(A6)\n", pc)
+	c.tracef("%04X movep.l A2,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D0B() {
@@ -37891,7 +45251,7 @@ func (c *Processor) op2D0B() {
 	v := c.A[3]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A3,-(A6)\n", pc)
+	c.tracef("%04X movep.l A3,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D0C() {
@@ -37900,7 +45260,7 @@ func (c *Processor) op2D0C() {
 	v := c.A[4]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A4,-(A6)\n", pc)
+	c.tracef("%04X movep.l A4,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D0D() {
@@ -37909,7 +45269,7 @@ func (c *Processor) op2D0D() {
 	v := c.A[5]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A5,-(A6)\n", pc)
+	c.tracef("%04X movep.l A5,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D0E() {
@@ -37918,7 +45278,7 @@ func (c *Processor) op2D0E() {
 	v := c.A[6]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A6,-(A6)\n", pc)
+	c.tracef("%04X movep.l A6,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D0F() {
@@ -37927,7 +45287,7 @@ func (c *Processor) op2D0F() {
 	v := c.A[7]
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
-	c.tracef("%04X move.l A7,-(A6)\n", pc)
+	c.tracef("%04X movep.l A7,-(A6)\n", pc)
 }
 
 func (c *Processor) op2D10() {
@@ -38037,7 +45397,12 @@ func (c *Processor) op2D17() {
 func (c *Processor) op2D38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.l $%X,-(A6)\n", pc, v)
@@ -38046,7 +45411,12 @@ func (c *Processor) op2D38() {
 func (c *Processor) op2D39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.l $%X,-(A6)\n", pc, v)
@@ -38055,7 +45425,12 @@ func (c *Processor) op2D39() {
 func (c *Processor) op2D3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[6] -= 4
 	c.writeLong(c.A[6], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A6)\n", pc, v)
@@ -38065,8 +45440,13 @@ func (c *Processor) op2D40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A6)\n", pc, disp)
 }
@@ -38075,8 +45455,13 @@ func (c *Processor) op2D41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A6)\n", pc, disp)
 }
@@ -38085,8 +45470,13 @@ func (c *Processor) op2D42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A6)\n", pc, disp)
 }
@@ -38095,8 +45485,13 @@ func (c *Processor) op2D43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A6)\n", pc, disp)
 }
@@ -38105,8 +45500,13 @@ func (c *Processor) op2D44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A6)\n", pc, disp)
 }
@@ -38115,8 +45515,13 @@ func (c *Processor) op2D45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A6)\n", pc, disp)
 }
@@ -38125,8 +45530,13 @@ func (c *Processor) op2D46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A6)\n", pc, disp)
 }
@@ -38135,8 +45545,13 @@ func (c *Processor) op2D47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A6)\n", pc, disp)
 }
@@ -38145,80 +45560,120 @@ func (c *Processor) op2D48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A6)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A6)\n", pc, disp)
 }
 
 func (c *Processor) op2D50() {
@@ -38229,8 +45684,13 @@ func (c *Processor) op2D50() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A6)\n", pc, disp)
 }
@@ -38243,8 +45703,13 @@ func (c *Processor) op2D51() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A6)\n", pc, disp)
 }
@@ -38257,8 +45722,13 @@ func (c *Processor) op2D52() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A6)\n", pc, disp)
 }
@@ -38271,8 +45741,13 @@ func (c *Processor) op2D53() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A6)\n", pc, disp)
 }
@@ -38285,8 +45760,13 @@ func (c *Processor) op2D54() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A6)\n", pc, disp)
 }
@@ -38299,8 +45779,13 @@ func (c *Processor) op2D55() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A6)\n", pc, disp)
 }
@@ -38313,8 +45798,13 @@ func (c *Processor) op2D56() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A6)\n", pc, disp)
 }
@@ -38327,8 +45817,13 @@ func (c *Processor) op2D57() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A6)\n", pc, disp)
 }
@@ -38336,9 +45831,19 @@ func (c *Processor) op2D57() {
 func (c *Processor) op2D78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A6)\n", pc, v, disp)
 }
@@ -38346,9 +45851,19 @@ func (c *Processor) op2D78() {
 func (c *Processor) op2D79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A6)\n", pc, v, disp)
 }
@@ -38356,9 +45871,19 @@ func (c *Processor) op2D79() {
 func (c *Processor) op2D7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[6]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[6]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A6)\n", pc, v, disp)
 }
@@ -38590,7 +46115,12 @@ func (c *Processor) op2E17() {
 func (c *Processor) op2E38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.l $%X,D7\n", pc, v)
 }
@@ -38598,7 +46128,12 @@ func (c *Processor) op2E38() {
 func (c *Processor) op2E39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.l $%X,D7\n", pc, v)
 }
@@ -38606,7 +46141,12 @@ func (c *Processor) op2E39() {
 func (c *Processor) op2E3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.D[7] = uint32(v)
 	c.tracef("%04X move.l #$%X,D7\n", pc, v)
 }
@@ -38838,7 +46378,12 @@ func (c *Processor) op2E57() {
 func (c *Processor) op2E78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.l $%X,A7\n", pc, v)
 }
@@ -38846,7 +46391,12 @@ func (c *Processor) op2E78() {
 func (c *Processor) op2E79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.l $%X,A7\n", pc, v)
 }
@@ -38854,7 +46404,12 @@ func (c *Processor) op2E79() {
 func (c *Processor) op2E7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[7] = uint32(v)
 	c.tracef("%04X movea.l #$%X,A7\n", pc, v)
 }
@@ -39086,7 +46641,12 @@ func (c *Processor) op2E97() {
 func (c *Processor) op2EB8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.l $%X,(A7)\n", pc, v)
 }
@@ -39094,7 +46654,12 @@ func (c *Processor) op2EB8() {
 func (c *Processor) op2EB9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.l $%X,(A7)\n", pc, v)
 }
@@ -39102,7 +46667,12 @@ func (c *Processor) op2EB9() {
 func (c *Processor) op2EBC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.l #$%X,(A7)\n", pc, v)
 }
@@ -39358,7 +46928,12 @@ func (c *Processor) op2ED7() {
 func (c *Processor) op2EF8() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.l $%X,(A7)+\n", pc, v)
@@ -39367,7 +46942,12 @@ func (c *Processor) op2EF8() {
 func (c *Processor) op2EF9() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.l $%X,(A7)+\n", pc, v)
@@ -39376,7 +46956,12 @@ func (c *Processor) op2EF9() {
 func (c *Processor) op2EFC() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.writeLong(c.A[7], uint32(v))
 	c.A[7] += 4
 	c.tracef("%04X move.l #$%X,(A7)+\n", pc, v)
@@ -39460,7 +47045,7 @@ func (c *Processor) op2F08() {
 	v := c.A[0]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A0,-(A7)\n", pc)
+	c.tracef("%04X movep.l A0,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F09() {
@@ -39469,7 +47054,7 @@ func (c *Processor) op2F09() {
 	v := c.A[1]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A1,-(A7)\n", pc)
+	c.tracef("%04X movep.l A1,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F0A() {
@@ -39478,7 +47063,7 @@ func (c *Processor) op2F0A() {
 	v := c.A[2]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A2,-(A7)\n", pc)
+	c.tracef("%04X movep.l A2,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F0B() {
@@ -39487,7 +47072,7 @@ func (c *Processor) op2F0B() {
 	v := c.A[3]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A3,-(A7)\n", pc)
+	c.tracef("%04X movep.l A3,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F0C() {
@@ -39496,7 +47081,7 @@ func (c *Processor) op2F0C() {
 	v := c.A[4]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A4,-(A7)\n", pc)
+	c.tracef("%04X movep.l A4,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F0D() {
@@ -39505,7 +47090,7 @@ func (c *Processor) op2F0D() {
 	v := c.A[5]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A5,-(A7)\n", pc)
+	c.tracef("%04X movep.l A5,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F0E() {
@@ -39514,7 +47099,7 @@ func (c *Processor) op2F0E() {
 	v := c.A[6]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A6,-(A7)\n", pc)
+	c.tracef("%04X movep.l A6,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F0F() {
@@ -39523,7 +47108,7 @@ func (c *Processor) op2F0F() {
 	v := c.A[7]
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
-	c.tracef("%04X move.l A7,-(A7)\n", pc)
+	c.tracef("%04X movep.l A7,-(A7)\n", pc)
 }
 
 func (c *Processor) op2F10() {
@@ -39633,7 +47218,12 @@ func (c *Processor) op2F17() {
 func (c *Processor) op2F38() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.l $%X,-(A7)\n", pc, v)
@@ -39642,7 +47232,12 @@ func (c *Processor) op2F38() {
 func (c *Processor) op2F39() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.l $%X,-(A7)\n", pc, v)
@@ -39651,7 +47246,12 @@ func (c *Processor) op2F39() {
 func (c *Processor) op2F3C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	c.A[7] -= 4
 	c.writeLong(c.A[7], uint32(v))
 	c.tracef("%04X move.l #$%X,-(A7)\n", pc, v)
@@ -39661,8 +47261,13 @@ func (c *Processor) op2F40() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D0,(%d,A7)\n", pc, disp)
 }
@@ -39671,8 +47276,13 @@ func (c *Processor) op2F41() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D1,(%d,A7)\n", pc, disp)
 }
@@ -39681,8 +47291,13 @@ func (c *Processor) op2F42() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D2,(%d,A7)\n", pc, disp)
 }
@@ -39691,8 +47306,13 @@ func (c *Processor) op2F43() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D3,(%d,A7)\n", pc, disp)
 }
@@ -39701,8 +47321,13 @@ func (c *Processor) op2F44() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D4,(%d,A7)\n", pc, disp)
 }
@@ -39711,8 +47336,13 @@ func (c *Processor) op2F45() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D5,(%d,A7)\n", pc, disp)
 }
@@ -39721,8 +47351,13 @@ func (c *Processor) op2F46() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D6,(%d,A7)\n", pc, disp)
 }
@@ -39731,8 +47366,13 @@ func (c *Processor) op2F47() {
 	pc := c.PC
 	c.PC += 2
 	v := c.D[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l D7,(%d,A7)\n", pc, disp)
 }
@@ -39741,80 +47381,120 @@ func (c *Processor) op2F48() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[0]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A0,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A0,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F49() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[1]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A1,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A1,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F4A() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[2]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A2,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A2,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F4B() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[3]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A3,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A3,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F4C() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[4]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A4,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A4,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F4D() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[5]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A5,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A5,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F4E() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[6]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A6,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A6,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F4F() {
 	pc := c.PC
 	c.PC += 2
 	v := c.A[7]
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
-	c.tracef("%04X move.l A7,(%d,A7)\n", pc, disp)
+	c.tracef("%04X movep.l A7,(%d,A7)\n", pc, disp)
 }
 
 func (c *Processor) op2F50() {
@@ -39825,8 +47505,13 @@ func (c *Processor) op2F50() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A0),(%d,A7)\n", pc, disp)
 }
@@ -39839,8 +47524,13 @@ func (c *Processor) op2F51() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A1),(%d,A7)\n", pc, disp)
 }
@@ -39853,8 +47543,13 @@ func (c *Processor) op2F52() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A2),(%d,A7)\n", pc, disp)
 }
@@ -39867,8 +47562,13 @@ func (c *Processor) op2F53() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A3),(%d,A7)\n", pc, disp)
 }
@@ -39881,8 +47581,13 @@ func (c *Processor) op2F54() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A4),(%d,A7)\n", pc, disp)
 }
@@ -39895,8 +47600,13 @@ func (c *Processor) op2F55() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A5),(%d,A7)\n", pc, disp)
 }
@@ -39909,8 +47619,13 @@ func (c *Processor) op2F56() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A6),(%d,A7)\n", pc, disp)
 }
@@ -39923,8 +47638,13 @@ func (c *Processor) op2F57() {
 		return
 	}
 	v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l (A7),(%d,A7)\n", pc, disp)
 }
@@ -39932,9 +47652,19 @@ func (c *Processor) op2F57() {
 func (c *Processor) op2F78() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A7)\n", pc, v, disp)
 }
@@ -39942,9 +47672,19 @@ func (c *Processor) op2F78() {
 func (c *Processor) op2F79() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l $%X,(%d,A7)\n", pc, v, disp)
 }
@@ -39952,9 +47692,19 @@ func (c *Processor) op2F79() {
 func (c *Processor) op2F7C() {
 	pc := c.PC
 	c.PC += 2
-	v := c.readImm(0x02)
-	disp := c.readImm(0x01)
-	addr := disp + c.A[7]
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	v := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	disp := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	addr := uint32(disp) + c.A[7]
 	c.writeLong(addr, uint32(v))
 	c.tracef("%04X move.l #$%X,(%d,A7)\n", pc, v, disp)
 }
@@ -39985,6 +47735,30 @@ func (c *Processor) mapFn(op uint16) func() {
 		0x0015: c.op0015,
 		0x0016: c.op0016,
 		0x0017: c.op0017,
+		0x0018: c.op0018,
+		0x0019: c.op0019,
+		0x001A: c.op001A,
+		0x001B: c.op001B,
+		0x001C: c.op001C,
+		0x001D: c.op001D,
+		0x001E: c.op001E,
+		0x001F: c.op001F,
+		0x0020: c.op0020,
+		0x0021: c.op0021,
+		0x0022: c.op0022,
+		0x0023: c.op0023,
+		0x0024: c.op0024,
+		0x0025: c.op0025,
+		0x0026: c.op0026,
+		0x0027: c.op0027,
+		0x0028: c.op0028,
+		0x0029: c.op0029,
+		0x002A: c.op002A,
+		0x002B: c.op002B,
+		0x002C: c.op002C,
+		0x002D: c.op002D,
+		0x002E: c.op002E,
+		0x002F: c.op002F,
 		0x0038: c.op0038,
 		0x0039: c.op0039,
 		0x003C: c.op003C,
@@ -40012,6 +47786,30 @@ func (c *Processor) mapFn(op uint16) func() {
 		0x0055: c.op0055,
 		0x0056: c.op0056,
 		0x0057: c.op0057,
+		0x0058: c.op0058,
+		0x0059: c.op0059,
+		0x005A: c.op005A,
+		0x005B: c.op005B,
+		0x005C: c.op005C,
+		0x005D: c.op005D,
+		0x005E: c.op005E,
+		0x005F: c.op005F,
+		0x0060: c.op0060,
+		0x0061: c.op0061,
+		0x0062: c.op0062,
+		0x0063: c.op0063,
+		0x0064: c.op0064,
+		0x0065: c.op0065,
+		0x0066: c.op0066,
+		0x0067: c.op0067,
+		0x0068: c.op0068,
+		0x0069: c.op0069,
+		0x006A: c.op006A,
+		0x006B: c.op006B,
+		0x006C: c.op006C,
+		0x006D: c.op006D,
+		0x006E: c.op006E,
+		0x006F: c.op006F,
 		0x0078: c.op0078,
 		0x0079: c.op0079,
 		0x007C: c.op007C,
@@ -40039,6 +47837,30 @@ func (c *Processor) mapFn(op uint16) func() {
 		0x0095: c.op0095,
 		0x0096: c.op0096,
 		0x0097: c.op0097,
+		0x0098: c.op0098,
+		0x0099: c.op0099,
+		0x009A: c.op009A,
+		0x009B: c.op009B,
+		0x009C: c.op009C,
+		0x009D: c.op009D,
+		0x009E: c.op009E,
+		0x009F: c.op009F,
+		0x00A0: c.op00A0,
+		0x00A1: c.op00A1,
+		0x00A2: c.op00A2,
+		0x00A3: c.op00A3,
+		0x00A4: c.op00A4,
+		0x00A5: c.op00A5,
+		0x00A6: c.op00A6,
+		0x00A7: c.op00A7,
+		0x00A8: c.op00A8,
+		0x00A9: c.op00A9,
+		0x00AA: c.op00AA,
+		0x00AB: c.op00AB,
+		0x00AC: c.op00AC,
+		0x00AD: c.op00AD,
+		0x00AE: c.op00AE,
+		0x00AF: c.op00AF,
 		0x00B8: c.op00B8,
 		0x00B9: c.op00B9,
 		0x00BC: c.op00BC,
