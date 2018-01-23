@@ -1,6 +1,9 @@
-package main
+package generator
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type IndentWriter struct {
 	w      io.Writer
@@ -72,4 +75,14 @@ func (w *IndentWriter) Reset() int {
 func (w *IndentWriter) Set(n int) int {
 	w.n = n
 	return w.n
+}
+
+func (w *IndentWriter) Block(f func(*IndentWriter)) {
+	w.Increment(1)
+	defer w.Decrement(1)
+	f(w)
+}
+
+func (w *IndentWriter) String() string {
+	return fmt.Sprintf("%s", w.w)
 }

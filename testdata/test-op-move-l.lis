@@ -20,7 +20,7 @@
 0000102C  2100                              20  		move.l D0,-(A0)						* to indirect with pre-decrement
 0000102E                                    21  
 0000102E  203C 44334433                     22  		move.l #$44334433,D0
-00001034  2140 002C                         23  		move.l D0,44(A0)						* to indirect with displacement
+00001034  2140 0004                         23  		move.l D0,4(A0)						* to indirect with displacement
 00001038                                    24  
 00001038  203C 44344434                     25  		move.l #$44344434,D0
 0000103E  21C0 2010                         26  		move.l D0,$2010						* to absolute short

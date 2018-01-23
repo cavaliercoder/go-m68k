@@ -1,5 +1,7 @@
 package m68k
 
+//go:generate ./cmd/m68kgen/m68kgen -out opcodes.go
+
 import (
 	"errors"
 	"fmt"
