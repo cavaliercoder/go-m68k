@@ -9,16 +9,26 @@ import (
 	"github.com/cavaliercoder/go-m68k/srec"
 )
 
-func testProc() *m68k.Processor {
+type testLogWriter struct {
+	t *testing.T
+}
+
+func (t *testLogWriter) Write(p []byte) (n int, err error) {
+	t.t.Logf("%s", p)
+	n = len(p)
+	return
+}
+
+func testProc(t *testing.T) *m68k.Processor {
 	p := &m68k.Processor{
-		TraceWriter: os.Stderr,
+		TraceWriter: &testLogWriter{t},
 	}
 	p.Reset()
 	return p
 }
 
-func load(path string) *m68k.Processor {
-	p := testProc()
+func loadFile(t *testing.T, path string) *m68k.Processor {
+	p := testProc(t)
 	f, err := os.Open("./testdata/" + path)
 	if err != nil {
 		panic(err)
@@ -38,6 +48,14 @@ func load(path string) *m68k.Processor {
 	return p
 }
 
+func loadBytes(t *testing.T, b []byte) *m68k.Processor {
+	p := testProc(t)
+	if _, err := p.M.Write(0x1000, b); err != nil {
+		panic(err)
+	}
+	return p
+}
+
 func assertRun(t *testing.T, p *m68k.Processor) {
 	err := p.Jump(0x1000)
 	if err != nil {
@@ -49,6 +67,7 @@ func assertRun(t *testing.T, p *m68k.Processor) {
 	}
 	if err != nil {
 		t.Errorf("error running program: %v", err)
+		m68k.Dump(os.Stdout, p.M)
 	}
 }
 
@@ -61,6 +80,12 @@ func assertDataRegister(t *testing.T, p *m68k.Processor, r int, v uint32) {
 func assertAddressRegister(t *testing.T, p *m68k.Processor, r int, v uint32) {
 	if p.A[r] != v {
 		t.Errorf("expected address value 0x%08X in A%d, got 0x%08X", v, r, p.A[r])
+	}
+}
+
+func assertCCRRegister(t *testing.T, p *m68k.Processor, v uint32) {
+	if p.CCR != v {
+		t.Errorf("expected value 0x%X in CCR, got 0x%X", v, p.CCR)
 	}
 }
 
@@ -80,7 +105,7 @@ func assertLong(t *testing.T, p *m68k.Processor, addr uint32, v uint32) {
 
 func TestReset(t *testing.T) {
 	// init dirty processor
-	p := testProc()
+	p := testProc(t)
 	for i := 0; i < 8; i++ {
 		p.A[i], p.D[i] = 0xFFFFFFFF, 0xFFFFFFFF
 	}
@@ -127,7 +152,7 @@ func TestReset(t *testing.T) {
 // }
 
 func TestMoveL(t *testing.T) {
-	p := load("test-op-move-l.h68")
+	p := loadFile(t, "test-op-move-l.h68")
 	assertRun(t, p)
 
 	// source: data register
@@ -157,4 +182,14 @@ func TestMoveL(t *testing.T) {
 	assertLong(t, p, 0xF008, 0x49324932)
 	assertLong(t, p, 0xF00C, 0x49334933)
 	assertLong(t, p, 0x1F000, 0x49334933)
+}
+
+func TestOri(t *testing.T) {
+	p := loadFile(t, "test-op-ori.h68")
+	assertRun(t, p)
+	assertCCRRegister(t, p, 0x1F)
+	assertDataRegister(t, p, 1, 0xFFFFFFFF)
+	assertDataRegister(t, p, 2, 0x33)
+	assertDataRegister(t, p, 3, 0x3333)
+	assertDataRegister(t, p, 4, 0x33333333)
 }

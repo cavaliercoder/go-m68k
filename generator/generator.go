@@ -33,23 +33,12 @@ type genFunc func(uint16) (string, error)
 func Generate(w io.Writer) error {
 	printFileHdr(w)
 
-	funcs := []genFunc{
-		genORI, genMove,
-	}
 	opcodes := []uint16{}
 	for op := uint16(0x0000); op < 0xFFFF; op++ {
-		for _, fn := range funcs {
-			s, err := fn(op)
-			if err == errNotImplemented {
-				continue
-			}
-			if err == nil {
-				w.Write([]byte(s))
-				opcodes = append(opcodes, op)
-				break
-			}
-			// TODO: handle error
-			// fmt.Fprintf(os.Stderr, "Opcode %04X: %v\n", op, err)
+		fn, err := dispatch(op)
+		if err == nil {
+			w.Write([]byte(fn))
+			opcodes = append(opcodes, op)
 		}
 	}
 
@@ -62,6 +51,25 @@ func Generate(w io.Writer) error {
 	fmt.Fprintf(w, "	return table[op]\n")
 	fmt.Fprintf(w, "}\n")
 	return nil
+}
+
+func dispatch(op uint16) (s string, err error) {
+	funcs := []genFunc{
+		genORI, genMove,
+	}
+	for _, fn := range funcs {
+		s, err = fn(op)
+		if err == errNotImplemented {
+			continue
+		}
+		if err == nil {
+			return
+		}
+		// TODO: handle error
+		// fmt.Fprintf(os.Stderr, "Opcode %04X: %v\n", op, err)
+	}
+	err = errNotImplemented
+	return
 }
 
 func bufWriter() *IndentWriter {
@@ -115,16 +123,16 @@ func printReadMem(w io.Writer, name, addr string, sz uint16) {
 	fmt.Fprintln(w, "}")
 	switch sz {
 	case 0:
-		fmt.Fprintln(w, "v := c.buf[0]")
+		fmt.Fprintln(w, name, ":= c.buf[0]")
 	case 1:
-		fmt.Fprintln(w, "v := uint16(c.buf[0])<<8 | uint16(c.buf[1])")
+		fmt.Fprintln(w, name, ":= uint16(c.buf[0])<<8 | uint16(c.buf[1])")
 	case 2:
-		fmt.Fprintln(w, "v := uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24")
+		fmt.Fprintln(w, name, ":= uint32(c.buf[3]) | uint32(c.buf[2])<<8 | uint32(c.buf[1])<<16 | uint32(c.buf[0])<<24")
 	}
 }
 
 func printReadImm(w io.Writer, name string, sz uint16) {
-	n := []int{1, 2, 4}[sz]
+	n := []int{2, 2, 4}[sz] // single bytes are 16bit aligned
 	fmt.Fprintf(w, "_, c.err = c.M.Read(int(c.PC), c.buf[:%d])\n", n)
 	fmt.Fprintln(w, "if c.err != nil {")
 	fmt.Fprintln(w, "	return")
@@ -132,7 +140,7 @@ func printReadImm(w io.Writer, name string, sz uint16) {
 	fmt.Fprintf(w, "c.PC += %d\n", n)
 	switch sz {
 	case 0: // byte
-		fmt.Fprintln(w, name, ":= c.buf[0]")
+		fmt.Fprintln(w, name, ":= c.buf[1]")
 	case 1: // word
 		fmt.Fprintln(w, name, ":= uint16(c.buf[0])<<8 | uint16(c.buf[1])")
 	case 2: // long
@@ -162,7 +170,7 @@ func printReadImm(w io.Writer, name string, sz uint16) {
 // 	fmt.Fprintln(w, "}")
 // }
 
-func printSourceRead(w io.Writer, ea byte, opsize uint16, t *traceMessage) (err error) {
+func printSourceRead(w io.Writer, name string, ea byte, sz uint16, t *traceMessage) (err error) {
 	mod := ea & 0x38 >> 3
 	reg := ea & 0x07
 
@@ -171,15 +179,15 @@ func printSourceRead(w io.Writer, ea byte, opsize uint16, t *traceMessage) (err 
 		return errInvalidAddress
 
 	case 0x00: // data register
-		fmt.Fprintf(w, "v := c.D[%d]\n", reg)
+		fmt.Fprintf(w, "%s := c.D[%d]\n", name, reg)
 		t.src = fmt.Sprintf("D%d", reg)
 
 	case 0x01: // address register
-		fmt.Fprintf(w, "v := c.A[%d]\n", reg)
+		fmt.Fprintf(w, "%s := c.A[%d]\n", name, reg)
 		t.src = fmt.Sprintf("A%d", reg)
 
 	case 0x02: // memory address
-		printReadMem(w, "v", fmt.Sprintf("c.A[%d]", reg), opsize)
+		printReadMem(w, name, fmt.Sprintf("c.A[%d]", reg), sz)
 		t.src = fmt.Sprintf("(A%d)", reg)
 
 	case 0x07:
@@ -188,14 +196,53 @@ func printSourceRead(w io.Writer, ea byte, opsize uint16, t *traceMessage) (err 
 			return errInvalidAddress
 
 		case 0x00, 0x01: // absolute short/long
-			printReadImm(w, "v", opsize)
+			printReadImm(w, name, sz)
 			t.src = "$%X"
-			t.args = append(t.args, "v")
+			t.args = append(t.args, name)
 
 		case 0x04: // immediate
-			printReadImm(w, "v", opsize)
+			printReadImm(w, name, sz)
 			t.src = "#$%X"
-			t.args = append(t.args, "v")
+			t.args = append(t.args, name)
+		}
+	}
+	return
+}
+
+func printDestRead(w io.Writer, name string, ea byte, sz uint16, t *traceMessage) (err error) {
+	mod := ea & 0x38 >> 3
+	reg := ea & 0x07
+
+	switch mod {
+	default:
+		return errInvalidAddress
+
+	case 0x00: // data register
+		fmt.Fprintf(w, "%s := c.D[%d]\n", name, reg)
+		t.dst = fmt.Sprintf("D%d", reg)
+
+	case 0x01: // address register
+		fmt.Fprintf(w, "%s := c.A[%d]\n", name, reg)
+		t.dst = fmt.Sprintf("A%d", reg)
+
+	case 0x02: // memory address
+		printReadMem(w, name, fmt.Sprintf("c.A[%d]", reg), sz)
+		t.dst = fmt.Sprintf("(A%d)", reg)
+
+	case 0x07:
+		switch reg {
+		default:
+			return errInvalidAddress
+
+		case 0x00, 0x01: // absolute short/long
+			printReadImm(w, name, sz)
+			t.dst = "$%X"
+			t.args = append(t.args, name)
+
+		case 0x04: // immediate
+			printReadImm(w, name, sz)
+			t.dst = "#$%X"
+			t.args = append(t.args, name)
 		}
 	}
 	return
@@ -267,11 +314,18 @@ func genMove(op uint16) (fn string, err error) {
 	}
 	src := byte(op & 0x003F)
 	dst := byte((op&0x01C0)>>3 | (op&0x0E00)>>9)
-	sz := (op & 0x3000) >> 12 // operand size
-	if sz == 0x03 {
+
+	// Decode operand size
+	// Move employs an usual encoding of the operand size field. The last step
+	// here maps this unusual the size value to the same encoding used by other
+	// instructions.
+	sz := (op & 0x3000) >> 12
+	if sz == 0 {
 		err = errInvalidOpSize
 		return
 	}
+	sz = []uint16{0, 0, 2, 1}[sz]
+
 	t := &traceMessage{
 		op: "move",
 		sz: sz,
@@ -285,7 +339,7 @@ func genMove(op uint16) (fn string, err error) {
 	w := bufWriter()
 	printOpFuncHdr(w, op)
 	w.Increment(1)
-	if err = printSourceRead(w, src, sz, t); err != nil {
+	if err = printSourceRead(w, "v", src, sz, t); err != nil {
 		return
 	}
 	if err = printDestWrite(w, dst, t); err != nil {
@@ -312,18 +366,18 @@ func genORI(op uint16) (fn string, err error) {
 		op:   "ori",
 		sz:   sz,
 		src:  "#$%X",
-		args: []string{"v"},
+		args: []string{"src"},
 	}
 
 	w := bufWriter()
 	printOpFuncHdr(w, op)
 	w.Increment(1)
 
-	// source is always immediate
-	printReadImm(w, "v", sz)
+	// read source (always an immediate value)
+	printReadImm(w, "src", sz)
 
 	// dest could be EA, CCR or SR
-	if mod == 0x07 && reg == 0x04 { // ORI to CCR or to SR
+	if mod == 0x07 && reg == 0x04 {
 		switch sz {
 		default:
 			err = errNotImplemented
@@ -331,11 +385,26 @@ func genORI(op uint16) (fn string, err error) {
 
 		case 0x00: // byte to CCR
 			t.dst = "CCR"
+			fmt.Fprintln(w, "c.CCR |= (uint32(src) & 0x1F)")
 
 		case 0x01: // word to SR
+			// TODO: Is ORI to SR a supervisor only function?
 			t.dst = "SR"
+			fmt.Fprintln(w, "c.CCR |= uint32(src) & 0x1F")
 		}
 	} else {
+		// TODO: eliminate where source and destination are the same
+
+		// read destination
+		if err = printDestRead(w, "dst", byte(op), sz, t); err != nil {
+			return
+		}
+
+		// bitwise OR
+		szt := []string{"byte", "uint16", "uint32"}[sz]
+		fmt.Fprintf(w, "v := %s(dst) | %s(src)\n", szt, szt)
+
+		// write to destination
 		if err = printDestWrite(w, byte(op), t); err != nil {
 			return
 		}

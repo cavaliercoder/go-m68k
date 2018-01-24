@@ -86,14 +86,14 @@ func (c *Processor) Step() error {
 	}
 	c.op = uint16(c.buf[0])<<8 + uint16(c.buf[1])
 	if c.op == 0 {
-		// this might not always be true...
+		// TODO: this is a valid instruction. Find a way to terminate programs
+		// without buffer overrun.
 		c.err = io.EOF
 		return c.err
 	}
-
 	f := c.mapFn(c.op)
 	if f == nil {
-		c.err = fmt.Errorf("Unregistered opcode @0x%04X: 0x%04X", c.PC, c.op&0xF000)
+		c.err = fmt.Errorf("unrecognised opcode: %04X @ %04X", c.op, c.PC)
 	} else {
 		f()
 	}
