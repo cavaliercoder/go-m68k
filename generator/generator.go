@@ -317,7 +317,7 @@ func genMove(op uint16) (fn string, err error) {
 
 	// Decode operand size
 	// Move employs an usual encoding of the operand size field. The last step
-	// here maps this unusual the size value to the same encoding used by other
+	// here normalizes this unusual size value to the same encoding used by other
 	// instructions.
 	sz := (op & 0x3000) >> 12
 	if sz == 0 {
@@ -350,8 +350,15 @@ func genMove(op uint16) (fn string, err error) {
 	return w.String(), nil
 }
 
+// genORI implements the following operations:
+// - ORI to CCR		4-155
+// - ORI to SR		6-27
+// - ORI					4-153
+// - ANDI to CCR	4-20
+// - ANDI to SR		6-2
+// - ANDI					4-18
 func genORI(op uint16) (fn string, err error) {
-	if op&0xFF00 != 0 {
+	if op&0xFC00 != 0 {
 		err = errNotImplemented
 		return
 	}
@@ -368,7 +375,9 @@ func genORI(op uint16) (fn string, err error) {
 		src:  "#$%X",
 		args: []string{"src"},
 	}
-
+	if op&0x0200 != 0 {
+		t.op = "andi"
+	}
 	w := bufWriter()
 	printOpFuncHdr(w, op)
 	w.Increment(1)
@@ -402,7 +411,20 @@ func genORI(op uint16) (fn string, err error) {
 
 		// bitwise OR
 		szt := []string{"byte", "uint16", "uint32"}[sz]
-		fmt.Fprintf(w, "v := %s(dst) | %s(src)\n", szt, szt)
+		regMask := []uint32{0xFFFFFF00, 0xFFFF0000, 0x00}[sz]
+		switch op & 0x0200 {
+		case 0: // ori
+			fmt.Fprintf(w, "v := %s(dst) | %s(src)\n", szt, szt)
+
+		case 0x200: // andi
+			// we need to ensure that only the bits for the target operand size are
+			// modified in register operations.
+			if mod < 2 && sz < 2 { // data or address register
+				fmt.Fprintf(w, "v := (dst & 0x%X) | uint32(%s(dst) & %s(src))\n", regMask, szt, szt)
+			} else {
+				fmt.Fprintf(w, "v := %s(dst) & %s(src)\n", szt, szt)
+			}
+		}
 
 		// write to destination
 		if err = printDestWrite(w, byte(op), t); err != nil {

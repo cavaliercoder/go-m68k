@@ -10,7 +10,7 @@ testdata:
 	cd testdata/; make
 
 check: opcodes.go testdata
-	go test -v -cover ./...
+	go test -cover ./...
 
 clean:
 	cd cmd/m68kgen/; make clean

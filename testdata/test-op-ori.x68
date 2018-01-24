@@ -37,16 +37,15 @@
     ori.l #$20000000,D1
     ori.l #$40000000,D1
     ori.l #$80000000,D1
-    ori.l #$0,D1 * try break it
 
-    * Set D2 to 0x33
-    move.b #$22,D2
+    * try break it
+    ori.l #$0,D1
+
+    * assuming D2 = $22
     ori.b #$11,D2
 
-    * Set D3 to 0x3333
-    move.w #$2222,D3
+    * assuming D3 = $2222
     ori.w #$1111,D3
 
-    * Set D3 to 0x33333333
-    move.l #$22222222,D4
+    * assuming D4 = $22222222
     ori.l #$11111111,D4

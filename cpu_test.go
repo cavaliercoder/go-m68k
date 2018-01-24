@@ -14,6 +14,9 @@ type testLogWriter struct {
 }
 
 func (t *testLogWriter) Write(p []byte) (n int, err error) {
+	if t.t == nil {
+		return
+	}
 	t.t.Logf("%s", p)
 	n = len(p)
 	return
@@ -186,10 +189,46 @@ func TestMoveL(t *testing.T) {
 
 func TestOri(t *testing.T) {
 	p := loadFile(t, "test-op-ori.h68")
+	p.D[2] = 0x22
+	p.D[3] = 0x2222
+	p.D[4] = 0x22222222
 	assertRun(t, p)
 	assertCCRRegister(t, p, 0x1F)
 	assertDataRegister(t, p, 1, 0xFFFFFFFF)
 	assertDataRegister(t, p, 2, 0x33)
 	assertDataRegister(t, p, 3, 0x3333)
 	assertDataRegister(t, p, 4, 0x33333333)
+}
+
+func TestAndi(t *testing.T) {
+	b := []byte{
+		0x02, 0x01, 0x00, 0x0F, // andi.b #$0F,D1
+		0x02, 0x41, 0x0F, 0xFF, // andi.w #$0FFF,D1
+		0x02, 0x81, 0x0F, 0x0F, 0xFF, 0xFF, // andi.l #$0F0FFFFF,D1
+	}
+	// p := loadFile(t, "test-op-andi.h68")
+	p := loadBytes(t, b)
+	p.D[1] = 0x55555555
+	assertRun(t, p)
+	// assertCCRRegister(t, p, 0x1F)
+	assertDataRegister(t, p, 1, 0x05050505)
+}
+
+var progAndiOri = loadBytes(nil, []byte{
+	0x00, 0x80, 0xFF, 0xFF, 0xFF, 0xFF, // ori.l	#$FFFFFFFF,D0
+	0x02, 0x80, 0x55, 0x55, 0x55, 0x55, // andi.l	#$55555555,D0
+	0x00, 0x80, 0xAA, 0xAA, 0xAA, 0xAA, // ori.l	#$AAAAAAAA,D0
+	0x02, 0x80, 0x0F, 0x0F, 0x0F, 0x0F, // andi.l	#$0F0F0F0F,D0
+	0x00, 0x80, 0xF0, 0xF0, 0xF0, 0xF0, // ori.l	#$F0F0F0F0,D0
+	0x02, 0x80, 0x0F, 0x0F, 0x0F, 0x0F, // andi.l	#$0F0F0F0F,D0
+	0x00, 0x80, 0x00, 0xFF, 0xFF, 0x00, // ori.l	#$00FFFF00,D0
+	0x02, 0x80, 0xF0, 0xF0, 0xF0, 0xF0, // andi.l	#$F0F0F0F0,D0
+})
+
+func BenchmarkAndiOri(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		if err := progAndiOri.Run(); err != io.EOF {
+			panic(err)
+		}
+	}
 }
