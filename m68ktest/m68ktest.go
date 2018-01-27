@@ -98,8 +98,8 @@ func AssertAddressRegister(t *testing.T, p *m68k.Processor, r int, v uint32) {
 }
 
 func AssertStatusRegister(t *testing.T, p *m68k.Processor, v uint32) {
-	if p.CCR != v {
-		t.Errorf("expected value 0x%X in CCR, got 0x%X", v, p.CCR)
+	if p.SR != v {
+		t.Errorf("expected value 0x%X in SR, got 0x%X", v, p.SR)
 	}
 }
 

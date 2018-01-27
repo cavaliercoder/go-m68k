@@ -379,10 +379,10 @@ func genMove(op uint16) (fn string, err error) {
 }
 
 // genORI implements the following operations:
-// - ORI to CCR		4-155
+// - ORI to SR		4-155
 // - ORI to SR		6-27
 // - ORI					4-153
-// - ANDI to CCR	4-20
+// - ANDI to SR	4-20
 // - ANDI to SR		6-2
 // - ANDI					4-18
 // - SUBI
@@ -412,7 +412,7 @@ func genORI(op uint16) (fn string, err error) {
 	// read source (always an immediate value)
 	printReadImm(w, "src", sz)
 
-	// dest could be EA, CCR or SR
+	// dest could be EA, SR or SR
 	if mod == 0x07 && reg == 0x04 {
 		switch sz {
 		default:
@@ -421,12 +421,12 @@ func genORI(op uint16) (fn string, err error) {
 
 		case 0x00: // byte to CCR
 			t.dst = "CCR"
-			fmt.Fprintln(w, "c.CCR |= (uint32(src) & 0x1F)")
+			fmt.Fprintln(w, "c.SR |= (uint32(src) & 0x1F)")
 
 		case 0x01: // word to SR
 			// TODO: Is ORI to SR a supervisor only function?
 			t.dst = "SR"
-			fmt.Fprintln(w, "c.CCR |= uint32(src) & 0x1F")
+			fmt.Fprintln(w, "c.SR |= uint32(src) & 0x1F")
 		}
 	} else {
 		// TODO: eliminate where source and destination are the same

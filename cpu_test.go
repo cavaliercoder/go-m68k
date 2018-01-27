@@ -13,7 +13,7 @@ func TestReset(t *testing.T) {
 	for i := 0; i < 8; i++ {
 		p.A[i], p.D[i] = 0xFFFFFFFF, 0xFFFFFFFF
 	}
-	p.CCR = 0xFFFFFFFF
+	p.SR = 0xFFFFFFFF
 	p.PC = 0xFFFFFFFF
 	p.M.Write(0x1000, []byte{0xFF, 0xFF, 0xFF, 0xFF})
 
@@ -27,7 +27,7 @@ func TestReset(t *testing.T) {
 			t.Errorf("Data register %d was not reset", i)
 		}
 	}
-	if p.CCR != 0 {
+	if p.SR != 0 {
 		t.Error("Condition code register was not reset")
 	}
 	if p.PC != 0x1000 {

@@ -458,7 +458,7 @@ func (c *Processor) op003C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -915,7 +915,7 @@ func (c *Processor) op007C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -1816,7 +1816,7 @@ func (c *Processor) op013C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -2273,7 +2273,7 @@ func (c *Processor) op017C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -3174,7 +3174,7 @@ func (c *Processor) op023C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -3631,7 +3631,7 @@ func (c *Processor) op027C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -4532,7 +4532,7 @@ func (c *Processor) op033C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -4989,7 +4989,7 @@ func (c *Processor) op037C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -5890,7 +5890,7 @@ func (c *Processor) op043C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -6347,7 +6347,7 @@ func (c *Processor) op047C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -7248,7 +7248,7 @@ func (c *Processor) op053C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -7705,7 +7705,7 @@ func (c *Processor) op057C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -8606,7 +8606,7 @@ func (c *Processor) op063C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -9063,7 +9063,7 @@ func (c *Processor) op067C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -9964,7 +9964,7 @@ func (c *Processor) op073C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -10421,7 +10421,7 @@ func (c *Processor) op077C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -10878,7 +10878,7 @@ func (c *Processor) op083C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -10891,7 +10891,7 @@ func (c *Processor) op087C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -10904,7 +10904,7 @@ func (c *Processor) op093C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -10917,7 +10917,7 @@ func (c *Processor) op097C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -10930,7 +10930,7 @@ func (c *Processor) op0A3C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -10943,7 +10943,7 @@ func (c *Processor) op0A7C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -10956,7 +10956,7 @@ func (c *Processor) op0B3C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -10969,7 +10969,7 @@ func (c *Processor) op0B7C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -10982,7 +10982,7 @@ func (c *Processor) op0C3C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -10995,7 +10995,7 @@ func (c *Processor) op0C7C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -11008,7 +11008,7 @@ func (c *Processor) op0D3C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -11021,7 +11021,7 @@ func (c *Processor) op0D7C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -11034,7 +11034,7 @@ func (c *Processor) op0E3C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -11047,7 +11047,7 @@ func (c *Processor) op0E7C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 
@@ -11060,7 +11060,7 @@ func (c *Processor) op0F3C() {
 	}
 	c.PC += 2
 	src := c.buf[1]
-	c.CCR |= (uint32(src) & 0x1F)
+	c.SR |= (uint32(src) & 0x1F)
 	c.tracef("%04X ?.b #$%X,CCR\n", pc, src)
 }
 
@@ -11073,7 +11073,7 @@ func (c *Processor) op0F7C() {
 	}
 	c.PC += 2
 	src := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	c.CCR |= uint32(src) & 0x1F
+	c.SR |= uint32(src) & 0x1F
 	c.tracef("%04X ?.w #$%X,SR\n", pc, src)
 }
 

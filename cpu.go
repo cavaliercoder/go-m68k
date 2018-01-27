@@ -14,11 +14,11 @@ var (
 
 // A Processor emulates the Motorola 68000 microprocessor.
 type Processor struct {
-	D   [8]uint32 // Data registers
-	A   [8]uint32 // Address registers
-	CCR uint32    // Condition Code Register
-	PC  uint32    // Program Counter
-	M   Memory    // System memory controller
+	D  [8]uint32 // Data registers
+	A  [8]uint32 // Address registers
+	SR uint32    // Status Register
+	PC uint32    // Program Counter
+	M  Memory    // System memory controller
 
 	// TraceWriter specifies where trace log output should be written to. If
 	// TraceWriter is nil, no logging is performed.
