@@ -15,10 +15,22 @@ import (
 )
 
 const (
-	S_Byte = 0x00
-	S_Word = 0x01
-	S_Long = 0x02
+	SizeByte = iota
+	SizeWord
+	SizeLong
 )
+
+var RegisterMasks = []uint32{
+	0xFFFFFF00, // byte
+	0xFFFF0000, // word
+	0x00,       // long
+}
+
+var SizeTypes = []string{
+	"byte",   // byte
+	"uint16", // word
+	"uint32", // long
+}
 
 var (
 	errNotImplemented = errors.New("not implemented")
@@ -33,29 +45,35 @@ type genFunc func(uint16) (string, error)
 func Generate(w io.Writer) error {
 	printFileHdr(w)
 
-	opcodes := []uint16{}
+	opcodes := make([]bool, 0x10000)
 	for op := uint16(0x0000); op < 0xFFFF; op++ {
 		fn, err := dispatch(op)
 		if err == nil {
 			w.Write([]byte(fn))
-			opcodes = append(opcodes, op)
+			// opcodes[ = append(opcodes, op)]
+			opcodes[op] = true
 		}
 	}
 
 	fmt.Fprintf(w, "func (c *Processor) mapFn(op uint16) func() {\n")
-	fmt.Fprintf(w, "	table := map[uint16]func(){\n")
+	// fmt.Fprintf(w, "	table := map[uint16]func(){\n")
+	fmt.Fprintf(w, "	return []func(){\n")
 	for i := 0; i < len(opcodes); i++ {
-		fmt.Fprintf(w, "		0x%04X: c.op%04X,\n", opcodes[i], opcodes[i])
+		if opcodes[i] {
+			fmt.Fprintf(w, "		c.op%04X,\n", i)
+		} else {
+			fmt.Fprintf(w, "		nil,\n")
+		}
+		// fmt.Fprintf(w, "		0x%04X: c.op%04X,\n", opcodes[i], opcodes[i])
 	}
-	fmt.Fprintf(w, "	}\n")
-	fmt.Fprintf(w, "	return table[op]\n")
+	fmt.Fprintf(w, "	}[op]\n")
 	fmt.Fprintf(w, "}\n")
 	return nil
 }
 
 func dispatch(op uint16) (s string, err error) {
 	funcs := []genFunc{
-		genORI, genMove,
+		genORI, genMove, genTrap,
 	}
 	for _, fn := range funcs {
 		s, err = fn(op)
@@ -103,16 +121,26 @@ type traceMessage struct {
 	op, src, dst string
 	sz           uint16
 	args         []string
+
+	noSize bool
 }
 
 func (t *traceMessage) String() string {
-	b := &bytes.Buffer{}
+	args := &bytes.Buffer{}
 	for i := 0; i < len(t.args); i++ {
-		fmt.Fprintf(b, ", %s", t.args[i])
+		fmt.Fprintf(args, ", %s", t.args[i])
+	}
+	operands := t.dst
+	if t.dst == "" {
+		operands = t.src
+	} else if t.src != "" {
+		operands = fmt.Sprintf("%s,%s", t.src, t.dst)
+	}
+	if t.noSize {
+		return fmt.Sprintf("c.tracef(\"%%04X %s %s\\n\", pc%s)", t.op, operands, args)
 	}
 	sz := []string{"b", "w", "l"}[t.sz]
-	// TODO: improve tracing such that it doesn't cause variables to escape to heap.
-	return fmt.Sprintf("c.tracef(\"%%04X %s.%s %s,%s\\n\", pc%s)", t.op, sz, t.src, t.dst, b)
+	return fmt.Sprintf("c.tracef(\"%%04X %s.%s %s\\n\", pc%s)", t.op, sz, operands, args)
 }
 
 func printReadMem(w io.Writer, name, addr string, sz uint16) {
@@ -280,7 +308,7 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 		t.dst = fmt.Sprintf("-(A%d)", reg)
 
 	case 0x05: // memory address with displacement
-		printReadImm(w, "disp", S_Word)
+		printReadImm(w, "disp", SizeWord)
 		fmt.Fprintf(w, "addr := uint32(disp) + c.A[%d]\n", reg)
 		fmt.Fprint(w, "c.writeLong(addr, uint32(v))\n")
 		t.dst = fmt.Sprintf("(%%d,A%d)", reg)
@@ -292,13 +320,13 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 			return errInvalidAddress
 
 		case 0x00: // absolute word
-			printReadImm(w, "addr", S_Word)
+			printReadImm(w, "addr", SizeWord)
 			fmt.Fprint(w, "c.writeLong(uint32(addr), uint32(v))\n")
 			t.dst = "$%X"
 			t.args = append(t.args, "addr")
 
 		case 0x01: // absolute long
-			printReadImm(w, "addr", S_Long)
+			printReadImm(w, "addr", SizeLong)
 			fmt.Fprint(w, "c.writeLong(addr, uint32(v))\n")
 			t.dst = "$%X"
 			t.args = append(t.args, "addr")
@@ -357,8 +385,10 @@ func genMove(op uint16) (fn string, err error) {
 // - ANDI to CCR	4-20
 // - ANDI to SR		6-2
 // - ANDI					4-18
+// - SUBI
+// - ADDI
 func genORI(op uint16) (fn string, err error) {
-	if op&0xFC00 != 0 {
+	if op&0xF000 != 0 {
 		err = errNotImplemented
 		return
 	}
@@ -370,13 +400,10 @@ func genORI(op uint16) (fn string, err error) {
 		return
 	}
 	t := &traceMessage{
-		op:   "ori",
+		op:   "?",
 		sz:   sz,
 		src:  "#$%X",
 		args: []string{"src"},
-	}
-	if op&0x0200 != 0 {
-		t.op = "andi"
 	}
 	w := bufWriter()
 	printOpFuncHdr(w, op)
@@ -409,21 +436,40 @@ func genORI(op uint16) (fn string, err error) {
 			return
 		}
 
-		// bitwise OR
-		szt := []string{"byte", "uint16", "uint32"}[sz]
-		regMask := []uint32{0xFFFFFF00, 0xFFFF0000, 0x00}[sz]
-		switch op & 0x0200 {
-		case 0: // ori
+		// mutate destination
+		szt := SizeTypes[sz]
+		mask := RegisterMasks[sz]
+		switch op & 0x0E00 { // bits 5 - 7
+		default:
+			err = errNotImplemented
+			return
+
+		case 0x0000: // ori
+			t.op = "ori"
 			fmt.Fprintf(w, "v := %s(dst) | %s(src)\n", szt, szt)
 
-		case 0x200: // andi
+		case 0x0200: // andi
+			t.op = "andi"
 			// we need to ensure that only the bits for the target operand size are
 			// modified in register operations.
 			if mod < 2 && sz < 2 { // data or address register
-				fmt.Fprintf(w, "v := (dst & 0x%X) | uint32(%s(dst) & %s(src))\n", regMask, szt, szt)
+				fmt.Fprintf(w, "v := (dst & 0x%X) | uint32(%s(dst)&%s(src))\n", mask, szt, szt)
 			} else {
 				fmt.Fprintf(w, "v := %s(dst) & %s(src)\n", szt, szt)
 			}
+
+		case 0x0400: // subi
+			t.op = "subi"
+			fmt.Fprintf(w, "v := %s(dst) - %s(src)\n", szt, szt)
+
+		case 0x0600: // addi
+			t.op = "addi"
+			fmt.Fprintf(w, "v := %s(dst) + %s(src)\n", szt, szt)
+
+		case 0x0900: // eori
+			t.op = "eori"
+			fmt.Fprintf(w, "v := %s(dst) ^ %s(src)\n", szt, szt)
+
 		}
 
 		// write to destination
@@ -431,6 +477,38 @@ func genORI(op uint16) (fn string, err error) {
 			return
 		}
 	}
+
+	w.Decrement(1)
+	printOpFuncFtr(w, t)
+	return w.String(), nil
+}
+
+// genTrap implements the following operations:
+// - TRAP						4-118
+//
+func genTrap(op uint16) (fn string, err error) {
+	if op&0xFFF0 != 0x4E40 {
+		err = errNotImplemented
+		return
+	}
+	vec := (op & 0x00F)
+	t := &traceMessage{
+		op:     "trap",
+		src:    fmt.Sprintf("#%d", vec),
+		noSize: true,
+	}
+	vec += 32
+
+	w := bufWriter()
+	printOpFuncHdr(w, op)
+	w.Increment(1)
+
+	// TODO: traps should do something
+	fmt.Fprintf(w, "if c.handlers[%d] != nil {\n", vec)
+	w.Increment(1)
+	fmt.Fprintf(w, "c.err = c.handlers[%d].Exception(c, %d)\n", vec, vec)
+	w.Decrement(1)
+	fmt.Fprintln(w, "}")
 
 	w.Decrement(1)
 	printOpFuncFtr(w, t)

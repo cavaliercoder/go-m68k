@@ -24,9 +24,27 @@ type Processor struct {
 	// TraceWriter is nil, no logging is performed.
 	TraceWriter io.Writer
 
-	buf [64]byte // general purpose buffer
-	op  uint16
-	err error
+	buf      [64]byte // general purpose buffer
+	op       uint16
+	err      error
+	handlers [256]TrapHandler
+}
+
+type TrapHandler interface {
+	Exception(*Processor, int) error
+}
+type TrapHandlerFunc func(*Processor, int) error
+
+func (f TrapHandlerFunc) Exception(p *Processor, v int) error {
+	return f(p, v)
+}
+
+func (c *Processor) RegisterTrapHandler(vector int, f TrapHandler) error {
+	if vector < 0 || vector >= len(c.handlers) {
+		return errors.New("vector out of range")
+	}
+	c.handlers[vector] = f
+	return nil
 }
 
 // Reset resets all processor and memory state.
