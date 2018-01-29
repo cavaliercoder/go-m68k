@@ -86,7 +86,41 @@ func (c *Simulator) Exception(p *m68k.Processor, v int) (err error) {
 
 	case 9: // halt simulator
 		err = io.EOF
-	}
 
+	case 13:
+		// Display the NULL terminated string at (A1) with CR, LF.
+		p := c.Processor()
+		addr := int(p.A[1])
+		b := make([]byte, 1)
+		for {
+			_, err = p.M.Read(addr, b)
+			if err != nil {
+				return
+			}
+			if b[0] == 0 {
+				break
+			}
+			c.w.Write(b)
+			addr++
+		}
+		c.w.Write([]byte{'\r', '\n'})
+
+	case 14:
+		// Display the NULL terminated string at (A1) without CR, LF.
+		p := c.Processor()
+		addr := int(p.A[1])
+		b := make([]byte, 1)
+		for {
+			_, err = p.M.Read(addr, b)
+			if err != nil {
+				return
+			}
+			if b[0] == 0 {
+				break
+			}
+			c.w.Write(b)
+			addr++
+		}
+	}
 	return
 }
