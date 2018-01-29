@@ -11,8 +11,8 @@
 0000100C  4E4F                              11          TRAP    #15                     Write char. to screen
 0000100E  60F4                              12          BRA.S   NEXT                    ..and loop back
 00001010  4E72 2700                         13  FINISH  STOP    #$2700                  Halt
-00001014  54 68 69 73 20 69 73 20 74 ...    14  MESSAGE DC.B    'This is the message',$0D,$0A,0
-0000102A                                    15  
-0000102A                                    16          END     $1000
+00001014  48 65 6C 6C 6F 20 77 6F 72 ...    14  MESSAGE DC.B    'Hello world!',$0D,$0A,0
+00001023                                    15  
+00001023                                    16          END     $1000
 No errors detected
 No warnings generated

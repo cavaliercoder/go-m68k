@@ -134,7 +134,7 @@ func Generate(w io.Writer) error {
 
 func dispatch(op uint16) (s string, err error) {
 	funcs := []genFunc{
-		genORI, genMove, genTrap, gen04, gen06,
+		genORI, genMove, genTrap, gen04, gen06, gen4E,
 	}
 	for _, fn := range funcs {
 		s, err = fn(op)
@@ -201,6 +201,10 @@ func printFileHdr(w io.Writer) {
  * Hand written changes will be overwritten!
  */
 
+import (
+	"io"
+)
+
 `
 	fmt.Fprintf(w, hdr)
 }
@@ -266,11 +270,11 @@ func printReadImm(w io.Writer, name string, sz uint16) {
 	fmt.Fprintln(w, "}")
 	fmt.Fprintf(w, "c.PC += %d\n", n)
 	switch sz {
-	case 0: // byte
+	case SizeByte:
 		fmt.Fprintln(w, name, ":= c.buf[1]")
-	case 1: // word
+	case SizeWord:
 		fmt.Fprintln(w, name, ":= uint16(c.buf[0])<<8 | uint16(c.buf[1])")
-	case 2: // long
+	case SizeLong:
 		fmt.Fprintln(w, name, ":= uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])")
 	}
 }
@@ -780,4 +784,38 @@ func genBcc(op uint16) (fn string, err error) {
 	w.Decrement(1)
 	printOpFuncFtr(w, t)
 	return w.String(), nil
+}
+
+// gen4E implements operations starting in 01001110
+func gen4E(op uint16) (fn string, err error) {
+	err = errNotImplemented
+	if op&0xFF00 != 0x4E00 {
+		return
+	}
+	if op == 0x4E72 {
+		fn, err = genStop(op)
+	}
+	return
+}
+
+// genStop implements STOP (6-85)
+func genStop(op uint16) (fn string, err error) {
+	t := &traceMessage{
+		op:     "stop",
+		noSize: true,
+		dst:    "#$%X",
+		args:   []string{"v"},
+	}
+	w := bufWriter()
+	printOpFuncHdr(w, op)
+	w.Increment(1)
+	printReadImm(w, "v", SizeWord)
+	fmt.Fprintln(w, "c.SR = uint32(v)")
+	fmt.Fprintln(w, "if c.SR&0x0700 == 0x0700 {")
+	fmt.Fprintln(w, "	c.err = io.EOF") // end program is interrupt mask is highest
+	fmt.Fprintln(w, "}")
+	w.Decrement(1)
+	printOpFuncFtr(w, t)
+	fn = w.String()
+	return
 }

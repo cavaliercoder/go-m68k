@@ -5,6 +5,10 @@ package m68k
  * Hand written changes will be overwritten!
  */
 
+import (
+	"io"
+)
+
 func (c *Processor) op0000() {
 	pc := c.PC
 	c.PC += 2
@@ -121739,6 +121743,22 @@ func (c *Processor) op4E4F() {
 	c.tracef("%04X trap #15\n", pc)
 }
 
+func (c *Processor) op4E72() {
+	pc := c.PC
+	c.PC += 2
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	v := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.SR = uint32(v)
+	if c.SR&0x0700 == 0x0700 {
+		c.err = io.EOF
+	}
+	c.tracef("%04X stop #$%X\n", pc, v)
+}
+
 func (c *Processor) op4FF8() {
 	pc := c.PC
 	c.PC += 2
@@ -147815,7 +147835,7 @@ func (c *Processor) mapFn(op uint16) func() {
 		nil,
 		nil,
 		nil,
-		nil,
+		c.op4E72,
 		nil,
 		nil,
 		nil,

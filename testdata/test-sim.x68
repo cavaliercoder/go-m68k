@@ -10,7 +10,8 @@ NEXT    MOVE.B  (A0)+,D1                Get character, increment pointer
         MOVE.B  #WRCHAR,D0              Set up trap to write to screen
         TRAP    #15                     Write char. to screen
         BRA.S   NEXT                    ..and loop back
+
 FINISH  STOP    #$2700                  Halt
-MESSAGE DC.B    'This is the message',$0D,$0A,0
+MESSAGE DC.B    'Hello world!',$0D,$0A,0
 
         END     $1000
