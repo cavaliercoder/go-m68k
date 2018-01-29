@@ -20,6 +20,61 @@ const (
 	SizeLong
 )
 
+// See table 3-19
+const (
+	CondTrue = iota
+	CondFalse
+	CondHigh
+	CondLowOrSame
+	CondCarryClear
+	CondCarrySet
+	CondNotEqual
+	CondEqual
+	CondOverflowClean
+	CondOverflowSet
+	CondPlus
+	CondMinus
+	CondGreaterOrEqual
+	CondLessThan
+	CondGreaterThan
+	CondLessOrEqual
+)
+
+// See section 1.1.4
+const (
+	StatusCarry    = 1 << iota // C
+	StatusOverflow             // V
+	StatusZero                 // Z
+	StatusNegative             // N
+	StatusExtend               // X
+)
+
+type EffectiveAddressMask int
+
+// See table 2-4
+const (
+	EADataRegister = EffectiveAddressMask(1) << iota
+	EAAddressRegister
+	EAAddressRegisterIndirect
+	EAAddressRegisterIndirectPostInc
+	EAAddressRegisterIndirectPreDec
+	EAAddressRegisterIndirectDisplace
+	EAAddressRegisterIndex
+	EAProgramCounterIndirectDisplace
+	EAProgramCounterIndex
+	EAAbsoluteShort
+	EAAbsoluteLong
+	EAImmediate
+
+	EAControlModes = EAAddressRegisterIndex |
+		EAAddressRegisterIndirectDisplace |
+		EAAddressRegisterIndex |
+		EAAbsoluteLong |
+		EAAbsoluteShort |
+		EAProgramCounterIndirectDisplace |
+		EAProgramCounterIndex
+)
+
 var RegisterMasks = []uint32{
 	0xFFFFFF00, // byte
 	0xFFFF0000, // word
@@ -30,6 +85,12 @@ var SizeTypes = []string{
 	"byte",   // byte
 	"uint16", // word
 	"uint32", // long
+}
+
+var SizeLengths = []int{
+	1, // SizeByte
+	2, // SizeWord
+	4, // SizeLong
 }
 
 var (
@@ -73,7 +134,7 @@ func Generate(w io.Writer) error {
 
 func dispatch(op uint16) (s string, err error) {
 	funcs := []genFunc{
-		genORI, genMove, genTrap,
+		genORI, genMove, genTrap, gen04, gen06,
 	}
 	for _, fn := range funcs {
 		s, err = fn(op)
@@ -88,6 +149,44 @@ func dispatch(op uint16) (s string, err error) {
 	}
 	err = errNotImplemented
 	return
+}
+
+func allowEffectiveAddress(ea byte, mask EffectiveAddressMask) bool {
+	mod := ea & 0x38 >> 3
+	reg := ea & 0x07
+	switch mod {
+	default:
+		return false
+	case 0x00:
+		return mask&EADataRegister != 0
+	case 0x01:
+		return mask&EAAddressRegister != 0
+	case 0x02:
+		return mask&EAAddressRegisterIndirect != 0
+	case 0x03:
+		return mask&EAAddressRegisterIndirectPostInc != 0
+	case 0x04:
+		return mask&EAAddressRegisterIndirectPreDec != 0
+	case 0x05:
+		return mask&EAAddressRegisterIndirectDisplace != 0
+	case 0x06:
+		return mask&EAAddressRegisterIndex != 0
+	case 0x07:
+		switch reg {
+		default:
+			return false
+		case 0x00:
+			return mask&EAAbsoluteShort != 0
+		case 0x01:
+			return mask&EAAbsoluteLong != 0
+		case 0x02:
+			return mask&EAProgramCounterIndirectDisplace != 0
+		case 0x03:
+			return mask&EAProgramCounterIndex != 0
+		case 0x04:
+			return mask&EAImmediate != 0
+		}
+	}
 }
 
 func bufWriter() *IndentWriter {
@@ -218,6 +317,26 @@ func printSourceRead(w io.Writer, name string, ea byte, sz uint16, t *traceMessa
 		printReadMem(w, name, fmt.Sprintf("c.A[%d]", reg), sz)
 		t.src = fmt.Sprintf("(A%d)", reg)
 
+	case 0x03: // address indirect with post-increment
+		printReadMem(w, name, fmt.Sprintf("c.A[%d]", reg), sz)
+		inc := SizeLengths[sz]
+		if reg == 0x07 && sz == 0 {
+			// align stack pointer to 16-bit boundary (see: 2.2.4)
+			inc = 2
+		}
+		fmt.Fprintf(w, "c.A[%d] += %d\n", reg, inc)
+		t.src = fmt.Sprintf("(A%d)+", reg)
+
+	case 0x04: // address indirect with pre-decrement
+		inc := SizeLengths[sz]
+		if reg == 0x07 && sz == 0 {
+			// align stack pointer to 16-bit boundary (see: 2.2.4)
+			inc = 2
+		}
+		fmt.Fprintf(w, "c.A[%d] -= %d\n", reg, inc)
+		printReadMem(w, name, fmt.Sprintf("c.A[%d]", reg), sz)
+		t.src = fmt.Sprintf("-(A%d)", reg)
+
 	case 0x07:
 		switch reg {
 		default:
@@ -227,6 +346,12 @@ func printSourceRead(w io.Writer, name string, ea byte, sz uint16, t *traceMessa
 			printReadImm(w, name, sz)
 			t.src = "$%X"
 			t.args = append(t.args, name)
+
+		case 0x02: // program counter with displacement
+			printReadImm(w, "d", SizeWord)
+			fmt.Fprintf(w, "%s := c.PC + uint32(d) - 2\n", name) // -2 because readImm bumped the PC
+			t.src = "$%X(PC)"
+			t.args = append(t.args, "d")
 
 		case 0x04: // immediate
 			printReadImm(w, name, sz)
@@ -370,6 +495,12 @@ func genMove(op uint16) (fn string, err error) {
 	if err = printSourceRead(w, "v", src, sz, t); err != nil {
 		return
 	}
+	// reset status register
+	fmt.Fprintln(w, "c.SR &= 0xFFFFFFF0")
+	fmt.Fprintln(w, "if v == 0 {")
+	fmt.Fprintln(w, "	c.SR |= 0x04")
+	fmt.Fprintln(w, "}")
+	// TODO: set status bit for negative values
 	if err = printDestWrite(w, dst, t); err != nil {
 		return
 	}
@@ -382,7 +513,7 @@ func genMove(op uint16) (fn string, err error) {
 // - ORI to SR		4-155
 // - ORI to SR		6-27
 // - ORI					4-153
-// - ANDI to SR	4-20
+// - ANDI to SR		4-20
 // - ANDI to SR		6-2
 // - ANDI					4-18
 // - SUBI
@@ -510,6 +641,142 @@ func genTrap(op uint16) (fn string, err error) {
 	w.Decrement(1)
 	fmt.Fprintln(w, "}")
 
+	w.Decrement(1)
+	printOpFuncFtr(w, t)
+	return w.String(), nil
+}
+
+func gen04(op uint16) (fn string, err error) {
+	err = errNotImplemented
+	if op&0xF000 != 0x4000 {
+		return
+	}
+
+	// lea always sets bits 6 - 8 to 111
+	if op&0x01C0 == 0x01C0 {
+		fn, err = genLea(op)
+		return
+	}
+	return
+}
+
+// genLea implements the following operations:
+// - LEA					4-110
+func genLea(op uint16) (fn string, err error) {
+	err = errNotImplemented
+	ea := byte(op & 0x3F)
+	if !allowEffectiveAddress(ea, EAControlModes) {
+		return
+	}
+	an := (op & 0x0E00) >> 9
+	t := &traceMessage{
+		op:     "lea",
+		dst:    fmt.Sprintf("A%d", an),
+		noSize: true,
+	}
+	w := bufWriter()
+	printOpFuncHdr(w, op)
+	w.Increment(1)
+	if err = printSourceRead(w, "addr", ea, SizeLong, t); err == errInvalidAddress {
+		return
+	}
+	fmt.Fprintf(w, "c.A[%d] = addr\n", an)
+	w.Decrement(1)
+	printOpFuncFtr(w, t)
+	return w.String(), nil
+}
+
+// gen06 implements operations starting in 0110
+func gen06(op uint16) (fn string, err error) {
+	err = errNotImplemented
+	if op&0xF000 != 0x6000 {
+		return
+	}
+	cnd := op & 0x0F00
+	if cnd == 0x01 { // BSR
+		return
+	}
+	fn, err = genBcc(op)
+	return
+}
+
+// genBcc implements:
+// - Bcc (4-25)
+// - BRA (4-55)
+func genBcc(op uint16) (fn string, err error) {
+	cc := op & 0x0F00 >> 8
+	ops := []string{
+		"bra", // bra
+		"bsr", // bsr (this should never happen)
+		"bhi", // high
+		"bls", // low or same
+		"bcc", // (hi) carry clear
+		"bcs", // (lo) carry set
+		"bne", // not equal
+		"beq", // equal
+		"bvc", // overflow clear
+		"bvs", // overflow set
+		"bpl", // plus
+		"bmi", // minus
+		"bge", // greater or equal
+		"blt", // less than
+		"bgt", // greater than
+		"ble", // less or equal
+	}[cc]
+
+	// TODO: implement other conditions
+	switch cc {
+	case 0x00:
+	case 0x07:
+		// continue
+
+	default:
+		err = errNotImplemented
+		return
+	}
+
+	d := op & 0x000F
+	t := &traceMessage{
+		op:     ops,
+		noSize: true,
+		dst:    "$%d(PC)",
+		args:   []string{"int32(d)"},
+	}
+
+	w := bufWriter()
+	printOpFuncHdr(w, op)
+	w.Increment(1)
+
+	switch cc {
+	default:
+		// TODO: implement other conditions
+		err = errNotImplemented
+		return
+
+	case CondTrue:
+		// branch always
+		fmt.Fprintln(w, "branch := true")
+
+	case CondEqual:
+		// branch if equal
+		fmt.Fprintf(w, "branch := c.SR&0x%X != 0\n", StatusZero)
+	}
+
+	if d == 0 {
+		// 16-bit displacement
+		printReadImm(w, "d", SizeWord)
+	} else if d == 0x0F {
+		// 32-bit displacement
+		printReadImm(w, "d", SizeLong)
+	} else {
+		// 8-bit displacement
+		fmt.Fprintln(w, "d := byteToInt32(byte(c.op))")
+	}
+
+	// TODO: implement conditions
+	fmt.Fprintln(w, "if branch {")
+	fmt.Fprintln(w, "	c.PC = uint32(int32(c.PC) + int32(d))")
+	fmt.Fprintln(w, "}")
 	w.Decrement(1)
 	printOpFuncFtr(w, t)
 	return w.String(), nil

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"unsafe"
 )
 
 var (
@@ -49,6 +50,7 @@ func (c *Processor) RegisterTrapHandler(vector int, f TrapHandler) error {
 
 // Reset resets all processor and memory state.
 func (c *Processor) Reset() {
+	// TODO: this seems important: https://stackoverflow.com/a/38244832/5809680
 	*c = Processor{
 		TraceWriter: c.TraceWriter,
 	}
@@ -191,4 +193,12 @@ func DumpState(w io.Writer, p *Processor) {
 	for i := 0; i < len(p.D); i++ {
 		fmt.Fprintf(w, "D%d: %08X A%d: %08X\n", i, p.D[i], i, p.A[i])
 	}
+}
+
+func byteToInt32(b byte) int32 {
+	if b&0x80 == 0 {
+		return int32(b)
+	}
+	v := 0xFFFFFF00 | uint32(b)
+	return *(*int32)(unsafe.Pointer(&v))
 }

@@ -8,7 +8,7 @@ import (
 
 func TestSim(t *testing.T) {
 	p := m68ktest.LoadBytes(t, []byte{0x4E, 0x4F})
-	_, err := New(p)
+	_, err := New(p, p.TraceWriter, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
