@@ -88,6 +88,22 @@ func TestMoveL(t *testing.T) {
 	m68ktest.AssertLong(t, p, 0x1F000, 0x49334933)
 }
 
+func TestMove(t *testing.T) {
+	p := m68ktest.LoadBytes(t, []byte{
+		0x20, 0x3C, 0xFF, 0xFF, 0xFF, 0xFF, // move.l #$FFFFFFFF,D0
+		0x22, 0x00, // move.l D0,D1
+		0x22, 0x40, // movea.l D0,A1
+		0x20, 0x7C, 0x00, 0x00, 0x20, 0x00, // movea.l #$2000,A0
+		0x20, 0x80, // move.l D0,(A0)
+	})
+	m68ktest.AssertRun(t, p)
+	m68ktest.AssertDataRegister(t, p, 0, 0xFFFFFFFF)
+	m68ktest.AssertDataRegister(t, p, 1, 0xFFFFFFFF)
+	m68ktest.AssertAddressRegister(t, p, 1, 0xFFFFFFFF)
+	m68ktest.AssertAddressRegister(t, p, 0, 0x2000)
+	m68ktest.AssertLong(t, p, 0x2000, 0xFFFFFFFF)
+}
+
 func TestOri(t *testing.T) {
 	p := m68ktest.LoadFile(t, "testdata/test-op-ori.h68")
 	p.D[2] = 0x22

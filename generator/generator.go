@@ -9,9 +9,12 @@ package generator
 
 import (
 	"bytes"
+	"crypto/md5"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 )
 
 const (
@@ -99,45 +102,89 @@ var (
 	errInvalidAddress = errors.New("invalid effect address")
 )
 
-type genFunc func(uint16) (string, error)
+type genFunc func(*IndentWriter, uint16) error
+
+type opFunc struct {
+	Name, Body string
+}
+
+func (f *opFunc) Hash() string {
+	h := md5.New()
+	r := strings.NewReader(f.Body)
+	io.Copy(h, r)
+	return hex.EncodeToString(h.Sum(nil))
+}
 
 // Generate writes Go code to the given Writer which implements all supported
 // 68000 operation codes.
-func Generate(w io.Writer) error {
+func Generate(w io.Writer) (err error) {
 	printFileHdr(w)
 
-	opcodes := make([]bool, 0x10000)
+	uniq := make(map[string]*opFunc, 0)
+	fmap := make([]string, 0x10000)
+
+	b := &bytes.Buffer{}
+	fw := NewIndentWriter(b, "\t", 0)
 	for op := uint16(0x0000); op < 0xFFFF; op++ {
-		fn, err := dispatch(op)
-		if err == nil {
-			w.Write([]byte(fn))
-			// opcodes[ = append(opcodes, op)]
-			opcodes[op] = true
+		b.Reset()
+		fw.Reset()
+
+		// write function header
+		fn := &opFunc{
+			Name: fmt.Sprintf("op%04X", op),
 		}
+		fmt.Fprintf(fw, "func (c *Processor) op%04X() {\n", op)
+		fw.Increment(1)
+
+		// dispatch to generate function body
+		err = dispatch(fw, op)
+		if err == errNotImplemented {
+			err = nil
+			continue
+		} else if err != nil {
+			return
+		}
+
+		// write function footer
+		fw.Decrement(1)
+		fmt.Fprint(fw, "}\n\n")
+
+		// search for existing implementation
+		fn.Body = b.String()
+		h := fn.Hash()
+		if v, ok := uniq[h]; ok {
+			fn.Name = v.Name
+		} else {
+			uniq[h] = fn
+		}
+		fmap[op] = fn.Name
+	}
+
+	for _, fn := range uniq {
+		w.Write([]byte(fn.Body))
 	}
 
 	fmt.Fprintf(w, "func (c *Processor) mapFn(op uint16) func() {\n")
 	// fmt.Fprintf(w, "	table := map[uint16]func(){\n")
 	fmt.Fprintf(w, "	return []func(){\n")
-	for i := 0; i < len(opcodes); i++ {
-		if opcodes[i] {
-			fmt.Fprintf(w, "		c.op%04X,\n", i)
+	for i := 0; i < len(fmap); i++ {
+		if fmap[i] != "" {
+			fmt.Fprintf(w, "		c.%s,\n", fmap[i])
 		} else {
 			fmt.Fprintf(w, "		nil,\n")
 		}
-		// fmt.Fprintf(w, "		0x%04X: c.op%04X,\n", opcodes[i], opcodes[i])
 	}
 	fmt.Fprintf(w, "	}[op]\n")
 	fmt.Fprintf(w, "}\n")
-	return nil
+	return
 }
 
-func dispatch(op uint16) (s string, err error) {
+func dispatch(w *IndentWriter, op uint16) (err error) {
 	funcs := []genFunc{
-		genORI, genMove, genTrap, gen04, gen06, gen4E,
+		genORI, genTrap, gen04, gen06, gen4E,
 	}
 	for _, fn := range funcs {
-		s, err = fn(op)
+		err = fn(w, op)
 		if err == errNotImplemented {
 			continue
 		}
@@ -189,10 +236,6 @@ func allowEffectiveAddress(ea byte, mask EffectiveAddressMask) bool {
 	}
 }
 
-func bufWriter() *IndentWriter {
-	return NewIndentWriter(&bytes.Buffer{}, "\t", 0)
-}
-
 func printFileHdr(w io.Writer) {
 	hdr := `package m68k
 
@@ -210,14 +253,12 @@ import (
 }
 
 func printOpFuncHdr(w io.Writer, op uint16) {
-	fmt.Fprintf(w, "func (c *Processor) op%04X() {\n", op)
-	fmt.Fprintln(w, "	pc := c.PC")
-	fmt.Fprintln(w, "	c.PC += 2")
+	fmt.Fprintln(w, "pc := c.PC")
+	fmt.Fprintln(w, "c.PC += 2")
 }
 
 func printOpFuncFtr(w io.Writer, t *traceMessage) {
-	fmt.Fprintf(w, "	%s\n", t)
-	fmt.Fprint(w, "}\n\n")
+	fmt.Fprintf(w, "%s\n", t)
 }
 
 type traceMessage struct {
@@ -279,27 +320,28 @@ func printReadImm(w io.Writer, name string, sz uint16) {
 	}
 }
 
-// func printWriteMem(w io.Writer, addr string, sz uint16) {
-// 	n := []int{1, 2, 4}[sz]
-// 	switch sz {
-// 	case 0: // byte
-// 		fmt.Println(w, "c.buf[0] = byte(v)")
+func printWriteMem(w io.Writer, name, addr string, sz uint16) {
 
-// 	case 1: // word
-// 		fmt.Println(w, "c.buf[0] = byte(v >> 8)")
-// 		fmt.Println(w, "c.buf[1] = byte(v)")
+	n := []int{1, 2, 4}[sz]
+	switch sz {
+	case 0: // byte
+		fmt.Fprintf(w, "c.buf[0] = byte(%s)\n", name)
 
-// 	case 2: // long
-// 		fmt.Println(w, "c.buf[0] = byte(v >> 24)")
-// 		fmt.Println(w, "c.buf[1] = byte(v >> 16)")
-// 		fmt.Println(w, "c.buf[2] = byte(v >> 8)")
-// 		fmt.Println(w, "c.buf[3] = byte(v)")
-// 	}
-// 	fmt.Fprintf(w, "_, c.err = c.M.Write(int(%s), c.buf[:%d]\n", addr, n)
-// 	fmt.Fprintln(w, "if c.err != nil {")
-// 	fmt.Fprintln(w, "	return")
-// 	fmt.Fprintln(w, "}")
-// }
+	case 1: // word
+		fmt.Fprintf(w, "c.buf[0] = byte(%s >> 8)\n", name)
+		fmt.Fprintf(w, "c.buf[1] = byte(%s)\n", name)
+
+	case 2: // long
+		fmt.Fprintf(w, "c.buf[0] = byte(%s >> 24)\n", name)
+		fmt.Fprintf(w, "c.buf[1] = byte(%s >> 16)\n", name)
+		fmt.Fprintf(w, "c.buf[2] = byte(%s >> 8)\n", name)
+		fmt.Fprintf(w, "c.buf[3] = byte(%s)\n", name)
+	}
+	fmt.Fprintf(w, "_, c.err = c.M.Write(int(%s), c.buf[:%d])\n", addr, n)
+	fmt.Fprintln(w, "if c.err != nil {")
+	fmt.Fprintln(w, "	return")
+	fmt.Fprintln(w, "}")
+}
 
 func printSourceRead(w io.Writer, name string, ea byte, sz uint16, t *traceMessage) (err error) {
 	mod := ea & 0x38 >> 3
@@ -423,23 +465,23 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 		t.op = "movea"
 
 	case 0x02: // memory address
-		fmt.Fprintf(w, "c.writeLong(c.A[%d], uint32(v))\n", reg)
+		printWriteMem(w, "v", fmt.Sprintf("c.A[%d]", reg), SizeLong)
 		t.dst = fmt.Sprintf("(A%d)", reg)
 
 	case 0x03: // memory address with post-increment
-		fmt.Fprintf(w, "c.writeLong(c.A[%d], uint32(v))\n", reg)
+		printWriteMem(w, "v", fmt.Sprintf("c.A[%d]", reg), SizeLong)
 		fmt.Fprintf(w, "c.A[%d] += 4\n", reg)
 		t.dst = fmt.Sprintf("(A%d)+", reg)
 
 	case 0x04: // memory address with pre-decrement
 		fmt.Fprintf(w, "c.A[%d] -= 4\n", reg)
-		fmt.Fprintf(w, "c.writeLong(c.A[%d], uint32(v))\n", reg)
+		printWriteMem(w, "v", fmt.Sprintf("c.A[%d]", reg), SizeLong)
 		t.dst = fmt.Sprintf("-(A%d)", reg)
 
 	case 0x05: // memory address with displacement
 		printReadImm(w, "disp", SizeWord)
 		fmt.Fprintf(w, "addr := uint32(disp) + c.A[%d]\n", reg)
-		fmt.Fprint(w, "c.writeLong(addr, uint32(v))\n")
+		printWriteMem(w, "v", "addr", SizeLong)
 		t.dst = fmt.Sprintf("(%%d,A%d)", reg)
 		t.args = append(t.args, "disp")
 
@@ -450,13 +492,13 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 
 		case 0x00: // absolute word
 			printReadImm(w, "addr", SizeWord)
-			fmt.Fprint(w, "c.writeLong(uint32(addr), uint32(v))\n")
+			printWriteMem(w, "v", "uint32(addr)", SizeLong)
 			t.dst = "$%X"
 			t.args = append(t.args, "addr")
 
 		case 0x01: // absolute long
 			printReadImm(w, "addr", SizeLong)
-			fmt.Fprint(w, "c.writeLong(addr, uint32(v))\n")
+			printWriteMem(w, "v", "addr", SizeLong)
 			t.dst = "$%X"
 			t.args = append(t.args, "addr")
 		}
@@ -464,7 +506,7 @@ func printDestWrite(w io.Writer, ea byte, t *traceMessage) (err error) {
 	return
 }
 
-func genMove(op uint16) (fn string, err error) {
+func genMove(w *IndentWriter, op uint16) (err error) {
 	if op&0xC000 != 0 {
 		err = errNotImplemented
 		return
@@ -493,12 +535,40 @@ func genMove(op uint16) (fn string, err error) {
 	if dst&0x38 == 0x08 {
 		t.op = "movea"
 	}
-	w := bufWriter()
 	printOpFuncHdr(w, op)
-	w.Increment(1)
-	if err = printSourceRead(w, "v", src, sz, t); err != nil {
-		return
+
+	// EDIT
+	if sz == SizeByte {
+		fmt.Fprintf(w, "v, src, err := c.readByte(c.op)\n")
+		fmt.Fprintln(w, "if err != nil {")
+		fmt.Fprintln(w, "	c.err = err")
+		fmt.Fprintln(w, "	return")
+		fmt.Fprintln(w, "}")
+		t.src = "%s"
+		t.args = append(t.args, "src")
+	} else if sz == SizeWord {
+		fmt.Fprintf(w, "v, src, err := c.readWord(c.op)\n")
+		fmt.Fprintln(w, "if err != nil {")
+		fmt.Fprintln(w, "	c.err = err")
+		fmt.Fprintln(w, "	return")
+		fmt.Fprintln(w, "}")
+		t.src = "%s"
+		t.args = append(t.args, "src")
+	} else if sz == SizeLong {
+		fmt.Fprintf(w, "v, src, err := c.readLong(c.op)\n")
+		fmt.Fprintln(w, "if err != nil {")
+		fmt.Fprintln(w, "	c.err = err")
+		fmt.Fprintln(w, "	return")
+		fmt.Fprintln(w, "}")
+		t.src = "%s"
+		t.args = append(t.args, "src")
+
+	} else {
+		if err = printSourceRead(w, "v", src, sz, t); err != nil {
+			return
+		}
 	}
+
 	// reset status register
 	fmt.Fprintln(w, "c.SR &= 0xFFFFFFF0")
 	fmt.Fprintln(w, "if v == 0 {")
@@ -508,9 +578,8 @@ func genMove(op uint16) (fn string, err error) {
 	if err = printDestWrite(w, dst, t); err != nil {
 		return
 	}
-	w.Decrement(1)
 	printOpFuncFtr(w, t)
-	return w.String(), nil
+	return
 }
 
 // genORI implements the following operations:
@@ -522,7 +591,7 @@ func genMove(op uint16) (fn string, err error) {
 // - ANDI					4-18
 // - SUBI
 // - ADDI
-func genORI(op uint16) (fn string, err error) {
+func genORI(w *IndentWriter, op uint16) (err error) {
 	if op&0xF000 != 0 {
 		err = errNotImplemented
 		return
@@ -540,9 +609,7 @@ func genORI(op uint16) (fn string, err error) {
 		src:  "#$%X",
 		args: []string{"src"},
 	}
-	w := bufWriter()
 	printOpFuncHdr(w, op)
-	w.Increment(1)
 
 	// read source (always an immediate value)
 	printReadImm(w, "src", sz)
@@ -615,13 +682,13 @@ func genORI(op uint16) (fn string, err error) {
 
 	w.Decrement(1)
 	printOpFuncFtr(w, t)
-	return w.String(), nil
+	return
 }
 
 // genTrap implements the following operations:
 // - TRAP						4-118
 //
-func genTrap(op uint16) (fn string, err error) {
+func genTrap(w *IndentWriter, op uint16) (err error) {
 	if op&0xFFF0 != 0x4E40 {
 		err = errNotImplemented
 		return
@@ -634,9 +701,7 @@ func genTrap(op uint16) (fn string, err error) {
 	}
 	vec += 32
 
-	w := bufWriter()
 	printOpFuncHdr(w, op)
-	w.Increment(1)
 
 	// TODO: traps should do something
 	fmt.Fprintf(w, "if c.handlers[%d] != nil {\n", vec)
@@ -645,12 +710,11 @@ func genTrap(op uint16) (fn string, err error) {
 	w.Decrement(1)
 	fmt.Fprintln(w, "}")
 
-	w.Decrement(1)
 	printOpFuncFtr(w, t)
-	return w.String(), nil
+	return
 }
 
-func gen04(op uint16) (fn string, err error) {
+func gen04(w *IndentWriter, op uint16) (err error) {
 	err = errNotImplemented
 	if op&0xF000 != 0x4000 {
 		return
@@ -658,7 +722,7 @@ func gen04(op uint16) (fn string, err error) {
 
 	// lea always sets bits 6 - 8 to 111
 	if op&0x01C0 == 0x01C0 {
-		fn, err = genLea(op)
+		err = genLea(w, op)
 		return
 	}
 	return
@@ -666,7 +730,7 @@ func gen04(op uint16) (fn string, err error) {
 
 // genLea implements the following operations:
 // - LEA					4-110
-func genLea(op uint16) (fn string, err error) {
+func genLea(w *IndentWriter, op uint16) (err error) {
 	err = errNotImplemented
 	ea := byte(op & 0x3F)
 	if !allowEffectiveAddress(ea, EAControlModes) {
@@ -678,20 +742,17 @@ func genLea(op uint16) (fn string, err error) {
 		dst:    fmt.Sprintf("A%d", an),
 		noSize: true,
 	}
-	w := bufWriter()
 	printOpFuncHdr(w, op)
-	w.Increment(1)
 	if err = printSourceRead(w, "addr", ea, SizeLong, t); err == errInvalidAddress {
 		return
 	}
 	fmt.Fprintf(w, "c.A[%d] = addr\n", an)
-	w.Decrement(1)
 	printOpFuncFtr(w, t)
-	return w.String(), nil
+	return
 }
 
 // gen06 implements operations starting in 0110
-func gen06(op uint16) (fn string, err error) {
+func gen06(w *IndentWriter, op uint16) (err error) {
 	err = errNotImplemented
 	if op&0xF000 != 0x6000 {
 		return
@@ -700,14 +761,14 @@ func gen06(op uint16) (fn string, err error) {
 	if cnd == 0x01 { // BSR
 		return
 	}
-	fn, err = genBcc(op)
+	err = genBcc(w, op)
 	return
 }
 
 // genBcc implements:
 // - Bcc (4-25)
 // - BRA (4-55)
-func genBcc(op uint16) (fn string, err error) {
+func genBcc(w *IndentWriter, op uint16) (err error) {
 	cc := op & 0x0F00 >> 8
 	ops := []string{
 		"bra", // bra
@@ -747,9 +808,7 @@ func genBcc(op uint16) (fn string, err error) {
 		args:   []string{"int32(d)"},
 	}
 
-	w := bufWriter()
 	printOpFuncHdr(w, op)
-	w.Increment(1)
 
 	switch cc {
 	default:
@@ -781,41 +840,36 @@ func genBcc(op uint16) (fn string, err error) {
 	fmt.Fprintln(w, "if branch {")
 	fmt.Fprintln(w, "	c.PC = uint32(int32(c.PC) + int32(d))")
 	fmt.Fprintln(w, "}")
-	w.Decrement(1)
 	printOpFuncFtr(w, t)
-	return w.String(), nil
+	return
 }
 
 // gen4E implements operations starting in 01001110
-func gen4E(op uint16) (fn string, err error) {
+func gen4E(w *IndentWriter, op uint16) (err error) {
 	err = errNotImplemented
 	if op&0xFF00 != 0x4E00 {
 		return
 	}
 	if op == 0x4E72 {
-		fn, err = genStop(op)
+		err = genStop(w, op)
 	}
 	return
 }
 
 // genStop implements STOP (6-85)
-func genStop(op uint16) (fn string, err error) {
+func genStop(w *IndentWriter, op uint16) (err error) {
 	t := &traceMessage{
 		op:     "stop",
 		noSize: true,
 		dst:    "#$%X",
 		args:   []string{"v"},
 	}
-	w := bufWriter()
 	printOpFuncHdr(w, op)
-	w.Increment(1)
 	printReadImm(w, "v", SizeWord)
 	fmt.Fprintln(w, "c.SR = uint32(v)")
 	fmt.Fprintln(w, "if c.SR&0x0700 == 0x0700 {")
 	fmt.Fprintln(w, "	c.err = io.EOF") // end program is interrupt mask is highest
 	fmt.Fprintln(w, "}")
-	w.Decrement(1)
 	printOpFuncFtr(w, t)
-	fn = w.String()
 	return
 }

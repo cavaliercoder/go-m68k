@@ -1,16 +1,18 @@
 00000000                                     1  * Test 68000 simulator program
 00000000                                     2  
-00000000  =0000000E                          3  WRSTRZ  EQU     $0E                     Trap # for write A1 string to screen
+00000000  =00000006                          3  WRCHAR  EQU     6                       Trap # for write D1.B char to screen
 00000000                                     4  
 00001000                                     5          ORG $1000
 00001000                                     6  
-00001000  43FA 000C                          7          LEA     MESSAGE(PC),A1          Point A0 to start of message
-00001004  103C 000E                          8          MOVE.B  #WRSTRZ,D0              Set up trap to write to screen
-00001008  4E4F                               9          TRAP    #15                     Write char. to screen
-0000100A                                    10  
-0000100A  4E72 2700                         11  FINISH  STOP    #$2700                  Halt
-0000100E  48 65 6C 6C 6F 20 77 6F 72 ...    12  MESSAGE DC.B    'Hello world!',$0D,$0A,0
-0000101D                                    13  
-0000101D                                    14          END     $1000
+00001000  41FA 0012                          7          LEA      MESSAGE(PC),A0         Point A0 to start of message
+00001004  1218                               8  NEXT    MOVE.B  (A0)+,D1                Get character, increment pointer
+00001006  6708                               9          BEQ.S   FINISH                  Exit if end
+00001008  103C 0006                         10          MOVE.B  #WRCHAR,D0              Set up trap to write to screen
+0000100C  4E4F                              11          TRAP    #15                     Write char. to screen
+0000100E  60F4                              12          BRA.S   NEXT                    ..and loop back
+00001010  4E72 2700                         13  FINISH  STOP    #$2700                  Halt
+00001014  48 65 6C 6C 6F 20 77 6F 72 ...    14  MESSAGE DC.B    'Hello world!',$0D,$0A,0
+00001023                                    15  
+00001023                                    16          END     $1000
 No errors detected
 No warnings generated
