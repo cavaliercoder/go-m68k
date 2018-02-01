@@ -2,10 +2,6 @@ package m68k
 
 // This file contains opcodes starting in 0x0000
 
-import (
-	"fmt"
-)
-
 // opMove implements MOVE, MOVEA and MOVEP
 func opMove(c *Processor) (t *stepTrace) {
 	t = &stepTrace{
@@ -85,15 +81,11 @@ func opOri(c *Processor) (t *stepTrace) {
 
 	case SizeByte:
 		// read immediate byte
-		var n uint16
-		n, c.err = c.Word(int(c.PC))
+		var src, dst byte
+		src, t.src, c.err = c.readImmByte()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		src := byte(n)
-		t.src = fmt.Sprintf("#$%X", src)
-
 		if ea == 0x3C { // ori.b to CCR
 			c.SR |= uint32(src) & StatusMask
 			t.sz = noSize
@@ -102,7 +94,6 @@ func opOri(c *Processor) (t *stepTrace) {
 		}
 
 		// ori.b
-		var dst byte
 		dst, _, c.err = c.readByte(ea)
 		if c.err != nil {
 			break
@@ -112,14 +103,11 @@ func opOri(c *Processor) (t *stepTrace) {
 
 	case SizeWord:
 		// read immediate word
-		var src uint16
-		src, c.err = c.Word(int(c.PC))
+		var src, dst uint16
+		src, t.src, c.err = c.readImmWord()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		t.src = fmt.Sprintf("#$%X", src)
-
 		if ea == 0x3C { // ori.w to SR
 			c.SR |= uint32(src) & StatusMask
 			t.sz = noSize
@@ -128,7 +116,6 @@ func opOri(c *Processor) (t *stepTrace) {
 		}
 
 		// ori.w
-		var dst uint16
 		dst, _, c.err = c.readWord(ea)
 		if c.err != nil {
 			break
@@ -138,16 +125,11 @@ func opOri(c *Processor) (t *stepTrace) {
 
 	case SizeLong:
 		// read immediate long
-		var src uint32
-		src, c.err = c.Long(int(c.PC))
+		var src, dst uint32
+		src, t.src, c.err = c.readImmLong()
 		if c.err != nil {
 			break
 		}
-		c.PC += 4
-		t.src = fmt.Sprintf("#$%X", src)
-
-		// ori.l
-		var dst uint32
 		dst, _, c.err = c.readLong(ea)
 		if c.err != nil {
 			break
@@ -176,14 +158,8 @@ func opAndi(c *Processor) (t *stepTrace) {
 
 	case SizeByte:
 		// read immediate byte
-		var n uint16
-		n, c.err = c.Word(int(c.PC))
-		if c.err != nil {
-			break
-		}
-		c.PC += 2
-		src := byte(n)
-		t.src = fmt.Sprintf("#$%X", src)
+		var src, dst byte
+		src, t.src, c.err = c.readImmByte()
 
 		if ea == 0x3C { // and.b to CCR
 			c.SR |= uint32(src) & StatusMask
@@ -193,7 +169,6 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 
 		// and.b
-		var dst byte
 		dst, _, c.err = c.readByte(ea)
 		if c.err != nil {
 			break
@@ -203,13 +178,8 @@ func opAndi(c *Processor) (t *stepTrace) {
 
 	case SizeWord:
 		// read immediate word
-		var src uint16
-		src, c.err = c.Word(int(c.PC))
-		if c.err != nil {
-			break
-		}
-		c.PC += 2
-		t.src = fmt.Sprintf("#$%X", src)
+		var src, dst uint16
+		src, t.src, c.err = c.readImmWord()
 
 		if ea == 0x3C { // andi.w to SR
 			c.SR |= uint32(src) & StatusMask
@@ -219,7 +189,6 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 
 		// ori.w
-		var dst uint16
 		dst, _, c.err = c.readWord(ea)
 		if c.err != nil {
 			break
@@ -229,16 +198,10 @@ func opAndi(c *Processor) (t *stepTrace) {
 
 	case SizeLong:
 		// read immediate long
-		var src uint32
-		src, c.err = c.Long(int(c.PC))
-		if c.err != nil {
-			break
-		}
-		c.PC += 4
-		t.src = fmt.Sprintf("#$%X", src)
+		var src, dst uint32
+		src, t.src, c.err = c.readImmLong()
 
 		// andi.l
-		var dst uint32
 		dst, _, c.err = c.readLong(ea)
 		if c.err != nil {
 			break
@@ -268,58 +231,45 @@ func opSubi(c *Processor) (t *stepTrace) {
 
 	case SizeByte:
 		// read immediate byte
-		var n uint16
-		n, c.err = c.Word(int(c.PC))
+		var src, dst byte
+		src, t.src, c.err = c.readImmByte()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		src := byte(n)
-		t.src = fmt.Sprintf("#$%X", src)
-
-		var dst byte
 		dst, _, c.err = c.readByte(ea)
 		if c.err != nil {
 			break
 		}
-		b := dst - src
-		t.dst, c.err = c.writeByte(ea, b)
+		dst -= src
+		t.dst, c.err = c.writeByte(ea, dst)
 
 	case SizeWord:
 		// read immediate word
-		var src uint16
-		src, c.err = c.Word(int(c.PC))
+		var src, dst uint16
+		src, t.src, c.err = c.readImmWord()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		t.src = fmt.Sprintf("#$%X", src)
-
-		var dst uint16
 		dst, _, c.err = c.readWord(ea)
 		if c.err != nil {
 			break
 		}
-		v := dst - src
-		t.dst, c.err = c.writeWord(ea, v)
+		dst -= src
+		t.dst, c.err = c.writeWord(ea, dst)
 
 	case SizeLong:
 		// read immediate long
-		var src uint32
-		src, c.err = c.Long(int(c.PC))
+		var src, dst uint32
+		src, t.src, c.err = c.readImmLong()
 		if c.err != nil {
 			break
 		}
-		c.PC += 4
-		t.src = fmt.Sprintf("#$%X", src)
-
-		var dst uint32
 		dst, _, c.err = c.readLong(ea)
 		if c.err != nil {
 			break
 		}
-		v := dst - src
-		t.dst, c.err = c.writeLong(ea, v)
+		dst -= src
+		t.dst, c.err = c.writeLong(ea, dst)
 	}
 	return
 }
@@ -342,16 +292,11 @@ func opAddi(c *Processor) (t *stepTrace) {
 		return
 	case SizeByte:
 		// read immediate byte
-		var n uint16
-		n, c.err = c.Word(int(c.PC))
+		var src, dst byte
+		src, t.src, c.err = c.readImmByte()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		src := byte(n)
-		t.src = fmt.Sprintf("#$%X", src)
-
-		var dst byte
 		dst, _, c.err = c.readByte(ea)
 		if c.err != nil {
 			break
@@ -361,15 +306,11 @@ func opAddi(c *Processor) (t *stepTrace) {
 
 	case SizeWord:
 		// read immediate word
-		var src uint16
-		src, c.err = c.Word(int(c.PC))
+		var src, dst uint16
+		src, t.src, c.err = c.readImmWord()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		t.src = fmt.Sprintf("#$%X", src)
-
-		var dst uint16
 		dst, _, c.err = c.readWord(ea)
 		if c.err != nil {
 			break
@@ -379,15 +320,11 @@ func opAddi(c *Processor) (t *stepTrace) {
 
 	case SizeLong:
 		// read immediate long
-		var src uint32
-		src, c.err = c.Long(int(c.PC))
+		var src, dst uint32
+		src, t.src, c.err = c.readImmLong()
 		if c.err != nil {
 			break
 		}
-		c.PC += 4
-		t.src = fmt.Sprintf("#$%X", src)
-
-		var dst uint32
 		dst, _, c.err = c.readLong(ea)
 		if c.err != nil {
 			break
@@ -415,14 +352,11 @@ func opEori(c *Processor) (t *stepTrace) {
 
 	case SizeByte:
 		// read immediate byte
-		var n uint16
-		n, c.err = c.Word(int(c.PC))
+		var src, dst byte
+		src, t.src, c.err = c.readImmByte()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		src := byte(n)
-		t.src = fmt.Sprintf("#$%X", src)
 
 		if ea == 0x3C { // eori.b to CCR
 			c.SR = (c.SR ^ uint32(src)) & StatusMask
@@ -432,7 +366,6 @@ func opEori(c *Processor) (t *stepTrace) {
 		}
 
 		// eori.b
-		var dst byte
 		dst, _, c.err = c.readByte(ea)
 		if c.err != nil {
 			break
@@ -442,13 +375,11 @@ func opEori(c *Processor) (t *stepTrace) {
 
 	case SizeWord:
 		// read immediate word
-		var src uint16
-		src, c.err = c.Word(int(c.PC))
+		var src, dst uint16
+		src, t.src, c.err = c.readImmWord()
 		if c.err != nil {
 			break
 		}
-		c.PC += 2
-		t.src = fmt.Sprintf("#$%X", src)
 
 		if ea == 0x3C { // eori.w to SR
 			c.SR = (c.SR ^ uint32(src)) & StatusMask
@@ -458,7 +389,6 @@ func opEori(c *Processor) (t *stepTrace) {
 		}
 
 		// eori.w
-		var dst uint16
 		dst, _, c.err = c.readWord(ea)
 		if c.err != nil {
 			break
@@ -468,16 +398,13 @@ func opEori(c *Processor) (t *stepTrace) {
 
 	case SizeLong:
 		// read immediate long
-		var src uint32
-		src, c.err = c.Long(int(c.PC))
+		var src, dst uint32
+		src, t.src, c.err = c.readImmLong()
 		if c.err != nil {
 			break
 		}
-		c.PC += 4
-		t.src = fmt.Sprintf("#$%X", src)
 
 		// eori.l
-		var dst uint32
 		dst, _, c.err = c.readLong(ea)
 		if c.err != nil {
 			break

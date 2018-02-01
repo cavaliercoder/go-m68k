@@ -65,31 +65,19 @@ func opLea(c *Processor) (t *stepTrace) {
 
 		case 0x00: // absolute word
 			var n uint16
-			n, c.err = c.Word(int(c.PC))
-			if c.err != nil {
-				break
-			}
-			c.PC += 2
-			c.A[an] = uint32(n)
-			t.src = fmt.Sprintf("$%X.w", n)
+			n, _, c.err = c.readImmWord()
+			c.A[an] = uint32(wordToInt32(n))
+			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x01: // absolute long
 			var n uint32
-			n, c.err = c.Long(int(c.PC))
-			if c.err != nil {
-				break
-			}
-			c.PC += 4
+			n, _, c.err = c.readImmLong()
 			c.A[an] = n
-			t.src = fmt.Sprintf("$%X.l", n)
+			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x02: // program counter with displacement
 			var n uint16
-			n, c.err = c.Word(int(c.PC))
-			if c.err != nil {
-				break
-			}
-			c.PC += 2
+			n, _, c.err = c.readImmWord()
 			disp := wordToInt32(n)
 			c.A[an] = uint32(int32(c.PC) + disp - 2)
 			t.src = fmt.Sprintf("$%X(PC)", disp)

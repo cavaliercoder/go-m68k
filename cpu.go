@@ -332,7 +332,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 			n, err = c.Word(int(c.PC))
 			b = byte(n)
 			c.PC += 2
-			opr = fmt.Sprintf("#$%X", b)
+			opr = fmt.Sprintf("#$%X", byteToInt32(b))
 		}
 	}
 	return
@@ -408,7 +408,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 		case 0x04: // immediate word
 			n, c.err = c.Word(int(c.PC))
 			c.PC += 2
-			opr = fmt.Sprintf("#$%X", n)
+			opr = fmt.Sprintf("#$%X", wordToInt32(n))
 		}
 	}
 	return
@@ -484,9 +484,41 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 		case 0x04: // immediate long
 			n, c.err = c.Long(int(c.PC))
 			c.PC += 4
-			opr = fmt.Sprintf("#$%X", n)
+			opr = fmt.Sprintf("#$%X", int32(n))
 		}
 	}
+	return
+}
+
+func (c *Processor) readImmByte() (b byte, opr string, err error) {
+	var n uint16
+	n, err = c.Word(int(c.PC))
+	if err != nil {
+		return
+	}
+	b = byte(n) // are bytes signed???
+	c.PC += 2
+	opr = fmt.Sprintf("#$%X", byteToInt32(b))
+	return
+}
+
+func (c *Processor) readImmWord() (n uint16, opr string, err error) {
+	n, err = c.Word(int(c.PC))
+	if err != nil {
+		return
+	}
+	c.PC += 2
+	opr = fmt.Sprintf("#$%X", wordToInt32(n))
+	return
+}
+
+func (c *Processor) readImmLong() (n uint32, opr string, err error) {
+	n, err = c.Long(int(c.PC))
+	if err != nil {
+		return
+	}
+	c.PC += 4
+	opr = fmt.Sprintf("#$%X", int32(n))
 	return
 }
 
