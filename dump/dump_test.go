@@ -12,7 +12,6 @@ func ExampleProcessor() {
 	p.Run()
 
 	dump.Processor(os.Stdout, p)
-	dump.Memory(os.Stdout, p.M)
 
 	// output:
 	// SR: 00002700 PC: 00001014
@@ -24,6 +23,15 @@ func ExampleProcessor() {
 	// D5: 00000000 A5: 00000000
 	// D6: 00000000 A6: 00000000
 	// D7: 00000000 A7: 00000000
+}
+
+func ExampleMemory() {
+	p := LoadFile(nil, "../testdata/test-sim.h68")
+	p.Run()
+
+	dump.Memory(os.Stdout, p.M)
+
+	// output:
 	// *
 	// 00001000  41 FA 00 12 12 18 67 08  10 3C 00 06 4E 4F 60 F4  |A.....g..<..NO`.|
 	// 00001010  4E 72 27 00 48 65 6C 6C  6F 20 77 6F 72 6C 64 21  |Nr'.Hello world!|
