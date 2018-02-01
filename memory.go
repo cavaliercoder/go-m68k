@@ -1,8 +1,13 @@
 package m68k
 
 import (
+	"errors"
 	"fmt"
 	"io"
+)
+
+var (
+	ErrAddressOutOfBounds = errors.New("memory address out of bounds")
 )
 
 // Memory is an interface for any IO device that is addressable via memory
@@ -26,7 +31,7 @@ func NewRAM(size uint32) Memory {
 }
 
 func (m *ram) Read(addr int, p []byte) (n int, err error) {
-	if addr >= len(m.b) {
+	if addr < 0 || addr >= len(m.b) {
 		return 0, io.EOF
 	}
 	n = copy(p, m.b[addr:])
@@ -34,6 +39,9 @@ func (m *ram) Read(addr int, p []byte) (n int, err error) {
 }
 
 func (m *ram) Write(addr int, p []byte) (n int, err error) {
+	if addr < 0 || addr >= len(m.b) {
+		return 0, ErrAddressOutOfBounds
+	}
 	n = copy(m.b[addr:], p)
 	// TODO: raise exception vector instead of returning errors?
 	if n < len(p) {

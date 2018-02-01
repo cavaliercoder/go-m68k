@@ -640,25 +640,21 @@ func genORI(w *IndentWriter, op uint16) (err error) {
 
 		// mutate destination
 		szt := SizeTypes[sz]
-		mask := RegisterMasks[sz]
+		// mask := RegisterMasks[sz]
 		switch op & 0x0E00 { // bits 5 - 7
 		default:
 			err = errNotImplemented
 			return
 
-		case 0x0000: // ori
-			t.op = "ori"
-			fmt.Fprintf(w, "v := %s(dst) | %s(src)\n", szt, szt)
-
-		case 0x0200: // andi
-			t.op = "andi"
-			// we need to ensure that only the bits for the target operand size are
-			// modified in register operations.
-			if mod < 2 && sz < 2 { // data or address register
-				fmt.Fprintf(w, "v := (dst & 0x%X) | uint32(%s(dst)&%s(src))\n", mask, szt, szt)
-			} else {
-				fmt.Fprintf(w, "v := %s(dst) & %s(src)\n", szt, szt)
-			}
+		// case 0x0200: // andi
+		// 	t.op = "andi"
+		// 	// we need to ensure that only the bits for the target operand size are
+		// 	// modified in register operations.
+		// 	if mod < 2 && sz < 2 { // data or address register
+		// 		fmt.Fprintf(w, "v := (dst & 0x%X) | uint32(%s(dst)&%s(src))\n", mask, szt, szt)
+		// 	} else {
+		// 		fmt.Fprintf(w, "v := %s(dst) & %s(src)\n", szt, szt)
+		// 	}
 
 		case 0x0400: // subi
 			t.op = "subi"

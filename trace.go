@@ -8,8 +8,8 @@ type stepTrace struct {
 	addr         uint32
 	op, src, dst string
 	sz           uint16
-	err          error
-	n            int // cycle count
+	// err          error
+	n int // cycle count
 }
 
 func (c *stepTrace) String() string {

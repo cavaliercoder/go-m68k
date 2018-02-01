@@ -18,7 +18,7 @@ type testLogWriter struct {
 }
 
 func (t *testLogWriter) Write(p []byte) (n int, err error) {
-	if t.t == nil {
+	if t.t == nil || p == nil {
 		return
 	}
 	t.t.Logf("%s", p)

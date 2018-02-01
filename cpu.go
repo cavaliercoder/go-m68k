@@ -16,6 +16,16 @@ const (
 	SizeLong
 )
 
+// Status Register bits.
+// See section 1.1.4
+const (
+	StatusCarry    = 1 << iota // C
+	StatusOverflow             // V
+	StatusZero                 // Z
+	StatusNegative             // N
+	StatusExtend               // X
+)
+
 var (
 	ErrNoProgram = errors.New("no program loaded or memory device attached")
 	ErrBadOpCode = errors.New("unrecognized opcode")
@@ -77,7 +87,7 @@ func clearMemory(m Memory) {
 	zero := [32]byte{}
 	for {
 		n, err := m.Write(addr, zero[:])
-		if err == io.ErrShortWrite {
+		if err == io.ErrShortWrite || err == ErrAddressOutOfBounds {
 			break
 		}
 		if err != nil {
@@ -122,17 +132,11 @@ func (c *Processor) Step() error {
 
 	// try new fnmap
 	done := false
-	b1 := int(c.op >> 12)
-	if b1 < len(fnmap) {
-		b2 := int(c.op >> 8 & 0x000F)
-		if b2 < len(fnmap[b1]) {
-			if fnmap[b1][b2] != nil {
-				t := fnmap[b1][b2](c)
-				c.trace(t)
-				c.err = t.err
-				done = true
-			}
-		}
+	fn := defaultFuncMap.Resolve(c.op)
+	if fn != nil {
+		t := fn(c)
+		c.trace(t)
+		done = true
 	}
 
 	// use generated opcodes
@@ -176,6 +180,19 @@ func byteToInt32(b byte) int32 {
 	}
 	v := 0xFFFFFF00 | uint32(b)
 	return *(*int32)(unsafe.Pointer(&v))
+}
+
+// ea returns the effective address segment (bits 0 - 5) of an opcode.
+func ea(op uint16) uint16 {
+	return op & 0x003F
+}
+
+// exea returns the effective destination address segment of an opcode, for
+// instructions that have an effective address in bit 6 - 11. The result is
+// flipped so that the mode and register portions of the ea match the encoding
+// used by typical ea fields.
+func exea(op uint16) uint16 {
+	return ((op & 0x01C0) >> 3) | ((op & 0x0E00) >> 9)
 }
 
 func (c *Processor) Byte(addr int) (b byte, err error) {
@@ -296,7 +313,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 
 		case 0x04: // immediate byte
 			var n uint16
-			n, c.err = c.Word(int(c.PC))
+			n, err = c.Word(int(c.PC))
 			b = byte(n)
 			c.PC += 2
 			opr = fmt.Sprintf("#$%X", b)
@@ -689,74 +706,3 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 }
 
 type stepFunc func(*Processor) *stepTrace
-
-// srcea returns the source effective address portion of an opcode.
-func srcea(op uint16) uint16 {
-	return op & 0x003F
-}
-
-// dstea returns the destination effective address segment of an opcode,
-// re-encoded in the same form a a source effective address.
-func dstea(op uint16) uint16 {
-	return ((op & 0x01C0) >> 3) | ((op & 0x0E00) >> 9)
-}
-
-func opMove(c *Processor) (t *stepTrace) {
-	t = &stepTrace{
-		addr: c.PC,
-		op:   "move",
-		n:    1,
-
-		// decode unusual size encoding for move instructions
-		sz: []uint16{0xFFFF, SizeByte, SizeLong, SizeWord}[(c.op&0x3000)>>12],
-	}
-	c.PC += 2
-
-	src, dst := srcea(c.op), dstea(c.op)
-	if src&0x38 == 0x08 && dst&0x20 == 0x20 {
-		t.op = "movep"
-	}
-	if dst&0x38 == 0x08 {
-		t.op = "movea"
-		// TODO: sign extension and drop support for bytes
-	}
-
-	c.SR &= 0xFFFFFFF0
-
-	switch t.sz {
-	case SizeByte:
-		var b byte
-		b, t.src, c.err = c.readByte(src)
-		if c.err != nil {
-			break
-		}
-		t.dst, c.err = c.writeByte(dst, b)
-		if b == 0 {
-			c.SR |= 0x04
-		}
-
-	case SizeWord:
-		var v uint16
-		v, t.src, c.err = c.readWord(src)
-		if c.err != nil {
-			break
-		}
-		t.dst, c.err = c.writeWord(dst, v)
-		if v == 0 {
-			c.SR |= 0x04
-		}
-
-	case SizeLong:
-		var v uint32
-		v, t.src, c.err = c.readLong(src)
-		if c.err != nil {
-			break
-		}
-		t.dst, c.err = c.writeLong(dst, v)
-		if v == 0 {
-			c.SR |= 0x04
-		}
-	}
-
-	return
-}

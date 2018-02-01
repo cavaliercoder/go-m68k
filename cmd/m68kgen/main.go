@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cavaliercoder/go-m68k/generator"
+	"github.com/cavaliercoder/go-m68k/internal/generator"
 )
 
 var (
