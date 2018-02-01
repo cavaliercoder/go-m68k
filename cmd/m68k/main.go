@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cavaliercoder/go-m68k"
+	"github.com/cavaliercoder/go-m68k/dump"
 	"github.com/cavaliercoder/go-m68k/sim"
 	"github.com/cavaliercoder/go-m68k/srec"
 )
@@ -47,8 +47,8 @@ func main() {
 	}
 
 	// dump state
-	m68k.DumpState(os.Stderr, s.Processor())
-	m68k.Dump(os.Stderr, s.Processor().M)
+	dump.Processor(os.Stderr, s.Processor())
+	dump.Memory(os.Stderr, s.Processor().M)
 }
 
 func usage(n int) {

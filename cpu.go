@@ -154,14 +154,6 @@ func (c *Processor) trace(v ...interface{}) {
 	fmt.Fprintln(c.TraceWriter, v...)
 }
 
-// DumpState prints the state of of a 68000 processor to the given writer in
-// hexidecimal format.
-func DumpState(w io.Writer, p *Processor) {
-	for i := 0; i < len(p.D); i++ {
-		fmt.Fprintf(w, "D%d: %08X A%d: %08X\n", i, p.D[i], i, p.A[i])
-	}
-}
-
 // byteToInt32 sign extends the given byte to an Int32.
 func byteToInt32(b byte) int32 {
 	if b&0x80 == 0 {

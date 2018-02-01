@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/cavaliercoder/go-m68k"
+	"github.com/cavaliercoder/go-m68k/dump"
 	"github.com/cavaliercoder/go-m68k/srec"
 )
 
@@ -81,7 +82,7 @@ func AssertRun(t *testing.T, p *m68k.Processor) {
 	}
 	if err != nil {
 		t.Errorf("error running program: %v", err)
-		m68k.Dump(p.TraceWriter, p.M)
+		dump.Memory(p.TraceWriter, p.M)
 	}
 }
 
@@ -112,7 +113,7 @@ func AssertLong(t *testing.T, p *m68k.Processor, addr uint32, v uint32) {
 	actual := uint32(b[3]) | uint32(b[2])<<8 | uint32(b[1])<<16 | uint32(b[0])<<24
 	if actual != v {
 		t.Errorf("expected value 0x%08X at 0x%08X, got 0x%08X", v, addr, actual)
-		m68k.DumpState(os.Stdout, p)
-		m68k.Dump(os.Stdout, p.M)
+		dump.Processor(os.Stdout, p)
+		dump.Memory(os.Stdout, p.M)
 	}
 }

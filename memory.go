@@ -2,7 +2,6 @@ package m68k
 
 import (
 	"errors"
-	"fmt"
 	"io"
 )
 
@@ -50,15 +49,6 @@ func (m *ram) Write(addr int, p []byte) (n int, err error) {
 	return
 }
 
-func bytesZero(b []byte) bool {
-	for i := 0; i < len(b); i++ {
-		if b[i] != 0 {
-			return false
-		}
-	}
-	return true
-}
-
 // clear wipes the given Memory device, resetting all reachable addresses to
 // zero.
 func clear(m Memory) {
@@ -76,47 +66,5 @@ func clear(m Memory) {
 			panic(err)
 		}
 		addr += n
-	}
-}
-
-// Dump prints the content of a Memory device to the given writer in hexidecimal
-// format.
-func Dump(w io.Writer, m Memory) {
-	b := make([]byte, 16)
-	elip := false
-	for i := 0; ; i += 16 {
-		_, err := m.Read(i, b)
-		if err == io.EOF {
-			return
-		}
-		if err != nil {
-			fmt.Fprintf(w, "%v\n", err)
-			return
-		}
-		if bytesZero(b) {
-			if !elip {
-				fmt.Fprint(w, "*\n")
-				elip = true
-			}
-			continue
-		}
-		elip = false
-		fmt.Fprintf(w, "%08X ", i)
-		for j := 0; j < 8; j++ {
-			fmt.Fprintf(w, " %02X", b[j])
-		}
-		w.Write([]byte{' '})
-		for j := 8; j < 16; j++ {
-			fmt.Fprintf(w, " %02X", b[j])
-		}
-		w.Write([]byte("  |"))
-		for j := 0; j < 16; j++ {
-			if b[j] > 31 && b[j] < 126 {
-				w.Write([]byte{b[j]})
-			} else {
-				w.Write([]byte{'.'})
-			}
-		}
-		w.Write([]byte("|\n"))
 	}
 }
