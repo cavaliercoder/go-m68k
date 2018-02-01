@@ -1,7 +1,15 @@
 package m68k
 
+// A stepFunc is a function that executes a single processor instruction and
+// returns trace information. Any errors should be returned by Processor.err.
+type stepFunc func(*Processor) *stepTrace
+
+// A funcMap maps stepFuncs to operation codes using the first two nibbles of
+// the opcode.
 type funcMap [][]stepFunc
 
+// Resolve returns the stepFunc associated with the given opcode or nil if none
+// exists.
 func (f funcMap) Resolve(n uint16) stepFunc {
 	i := int(n >> 12)
 	if i < len(f) && f[i] != nil {
@@ -13,6 +21,7 @@ func (f funcMap) Resolve(n uint16) stepFunc {
 	return nil
 }
 
+// defaultFuncMap maps opcodes to all implemented stepFuncs.
 var defaultFuncMap = funcMap{
 	[]stepFunc{ // 0x0n
 		opOri, nil, opAndi, nil, opSubi, nil, opAddi, nil,

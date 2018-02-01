@@ -77,25 +77,7 @@ func (c *Processor) Reset() {
 	if c.M == nil {
 		c.M = NewRAM(0x40000) // 256KB
 	}
-	clearMemory(c.M)
-}
-
-func clearMemory(m Memory) {
-	if m == nil {
-		return
-	}
-	addr := 0
-	zero := [32]byte{}
-	for {
-		n, err := m.Write(addr, zero[:])
-		if err == io.ErrShortWrite || err == ErrAddressOutOfBounds {
-			break
-		}
-		if err != nil {
-			panic(err)
-		}
-		addr += n
-	}
+	clear(c.M)
 }
 
 // Jump sets the value of the program counter to the given memory address.
@@ -196,6 +178,11 @@ func wordToInt32(n uint16) int32 {
 	}
 	v := 0xFFFF0000 | uint32(n)
 	return *(*int32)(unsafe.Pointer(&v))
+}
+
+// longToInt32 decodes the given long as a signed Int32.
+func longToInt32(n uint32) int32 {
+	return int32(n)
 }
 
 // decodeEA returns the effective address segment (bits 0 - 5) of an opcode.
@@ -752,5 +739,3 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 	}
 	return
 }
-
-type stepFunc func(*Processor) *stepTrace

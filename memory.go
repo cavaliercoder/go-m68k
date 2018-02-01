@@ -59,6 +59,26 @@ func bytesZero(b []byte) bool {
 	return true
 }
 
+// clear wipes the given Memory device, resetting all reachable addresses to
+// zero.
+func clear(m Memory) {
+	if m == nil {
+		return
+	}
+	addr := 0
+	zero := [32]byte{}
+	for {
+		n, err := m.Write(addr, zero[:])
+		if err == io.ErrShortWrite || err == ErrAddressOutOfBounds {
+			break
+		}
+		if err != nil {
+			panic(err)
+		}
+		addr += n
+	}
+}
+
 // Dump prints the content of a Memory device to the given writer in hexidecimal
 // format.
 func Dump(w io.Writer, m Memory) {

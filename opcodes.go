@@ -5,7 +5,7 @@ package m68k
  * Hand written changes will be overwritten!
  */
 
-func (c *Processor) op67F9() {
+func (c *Processor) op67E5() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -16,7 +16,158 @@ func (c *Processor) op67F9() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op601D() {
+func (c *Processor) op6727() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6750() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6783() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67AE() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E43() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[35] != nil {
+		c.err = c.handlers[35].Exception(c, 35)
+	}
+	c.tracef("%04X trap #3\n", pc)
+}
+
+func (c *Processor) op6037() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6075() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op677F() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67DE() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6032() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6722() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6754() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C8() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60D9() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -43,45 +194,7 @@ func (c *Processor) op601F() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6030() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6752() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67F3() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6003() {
+func (c *Processor) op6069() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -92,427 +205,7 @@ func (c *Processor) op6003() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6092() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6096() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60A5() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67E5() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6061() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60BD() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60D1() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60D9() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67A8() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6058() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60D6() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60ED() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60F4() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67EA() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C4() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67DC() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67E8() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6050() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op606E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op607B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op674E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op675D() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B0() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60DC() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6770() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67FD() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op600F() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6068() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6082() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6090() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B9() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op602B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B4() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op678F() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67CF() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C6() {
+func (c *Processor) op6079() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -534,7 +227,7 @@ func (c *Processor) op60D4() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6743() {
+func (c *Processor) op67ED() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -545,7 +238,7 @@ func (c *Processor) op6743() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6758() {
+func (c *Processor) op678B() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -556,180 +249,7 @@ func (c *Processor) op6758() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op4E45() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[37] != nil {
-		c.err = c.handlers[37].Exception(c, 37)
-	}
-	c.tracef("%04X trap #5\n", pc)
-}
-
-func (c *Processor) op6712() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6776() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6799() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67D5() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60AD() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6747() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op679C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op676F() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op670E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67A0() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6087() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B1() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6014() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60BB() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op677B() {
+func (c *Processor) op679A() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -751,7 +271,7 @@ func (c *Processor) op67A3() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67A9() {
+func (c *Processor) op67A6() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -760,59 +280,6 @@ func (c *Processor) op67A9() {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E44() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[36] != nil {
-		c.err = c.handlers[36].Exception(c, 36)
-	}
-	c.tracef("%04X trap #4\n", pc)
-}
-
-func (c *Processor) op600E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67AC() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B3() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op605E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
 func (c *Processor) op67DB() {
@@ -826,7 +293,7 @@ func (c *Processor) op67DB() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67D4() {
+func (c *Processor) op67EA() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -837,7 +304,7 @@ func (c *Processor) op67D4() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6049() {
+func (c *Processor) op606B() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -848,23 +315,197 @@ func (c *Processor) op6049() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6060() {
+func (c *Processor) op60C3() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op672E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op675E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F9() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op600D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6097() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op609C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C2() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C1() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op673B() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6762() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E4A() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[42] != nil {
+		c.err = c.handlers[42].Exception(c, 42)
+	}
+	c.tracef("%04X trap #10\n", pc)
+}
+
+func (c *Processor) op6001() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6027() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60A4() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6058() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op606F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
 	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6746() {
+func (c *Processor) op67F2() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -875,29 +516,7 @@ func (c *Processor) op6746() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6787() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C1() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60EA() {
+func (c *Processor) op608B() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -908,40 +527,7 @@ func (c *Processor) op60EA() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60FD() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67F7() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6035() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E2() {
+func (c *Processor) op60AD() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -968,49 +554,7 @@ func (c *Processor) op670F() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op4E41() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[33] != nil {
-		c.err = c.handlers[33].Exception(c, 33)
-	}
-	c.tracef("%04X trap #1\n", pc)
-}
-
-func (c *Processor) op6034() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60FB() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6067() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op677E() {
+func (c *Processor) op673C() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -1021,29 +565,7 @@ func (c *Processor) op677E() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op674A() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67BB() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op600D() {
+func (c *Processor) op60EC() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -1052,258 +574,6 @@ func (c *Processor) op600D() {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6073() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C9() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C2() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B6() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6008() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op607F() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6086() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60DD() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E3() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6786() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6016() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op602D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6031() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6085() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6738() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67D6() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67EE() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op606A() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6730() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op673A() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6772() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6788() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
 func (c *Processor) op6711() {
@@ -1317,71 +587,7 @@ func (c *Processor) op6711() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op4E4A() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[42] != nil {
-		c.err = c.handlers[42].Exception(c, 42)
-	}
-	c.tracef("%04X trap #10\n", pc)
-}
-
-func (c *Processor) op6071() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op607D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6095() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60AB() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6009() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6725() {
+func (c *Processor) op6746() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -1392,7 +598,7 @@ func (c *Processor) op6725() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6736() {
+func (c *Processor) op675A() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -1403,29 +609,25 @@ func (c *Processor) op6736() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67E9() {
+func (c *Processor) op4E44() {
 	pc := c.PC
 	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
+	if c.handlers[36] != nil {
+		c.err = c.handlers[36].Exception(c, 36)
 	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+	c.tracef("%04X trap #4\n", pc)
 }
 
-func (c *Processor) op6048() {
+func (c *Processor) op4E45() {
 	pc := c.PC
 	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
+	if c.handlers[37] != nil {
+		c.err = c.handlers[37].Exception(c, 37)
 	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+	c.tracef("%04X trap #5\n", pc)
 }
 
-func (c *Processor) op604A() {
+func (c *Processor) op6046() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -1436,23 +638,7 @@ func (c *Processor) op604A() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60A0() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60D8() {
+func (c *Processor) op60E8() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -1463,18 +649,7 @@ func (c *Processor) op60D8() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67A4() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67CA() {
+func (c *Processor) op67FC() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -1501,7 +676,7 @@ func (c *Processor) op602F() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60B5() {
+func (c *Processor) op603B() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -1512,7 +687,7 @@ func (c *Processor) op60B5() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60D2() {
+func (c *Processor) op60BA() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -1523,546 +698,7 @@ func (c *Processor) op60D2() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op670B() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op675C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op605F() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op606B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op607E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6793() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67AD() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6722() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op677A() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op600A() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60CB() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op678E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6797() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6084() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60CD() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op670C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6784() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op678A() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C3() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6002() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op604E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60DA() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60DF() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67AF() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60AE() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B0() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C0() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67CB() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op605B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op609F() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6733() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6735() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B2() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E43() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[35] != nil {
-		c.err = c.handlers[35].Exception(c, 35)
-	}
-	c.tracef("%04X trap #3\n", pc)
-}
-
-func (c *Processor) op603D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6098() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60EB() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6709() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60CF() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60D3() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60D7() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op601A() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6038() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op603C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6063() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C5() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E1() {
+func (c *Processor) op60CA() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -2084,7 +720,7 @@ func (c *Processor) op60F8() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67B4() {
+func (c *Processor) op677C() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -2095,137 +731,7 @@ func (c *Processor) op67B4() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60D5() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E49() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[41] != nil {
-		c.err = c.handlers[41].Exception(c, 41)
-	}
-	c.tracef("%04X trap #9\n", pc)
-}
-
-func (c *Processor) op6019() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6077() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6093() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6097() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op677D() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67F1() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67FC() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6015() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60BE() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op672C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op673F() {
+func (c *Processor) op678F() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -2235,586 +741,6 @@ func (c *Processor) op673F() {
 	}
 	c.PC += 4
 	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op676B() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6037() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6721() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67D9() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6734() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op676E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67E2() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6017() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6057() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op608C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60F1() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6710() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67F5() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E4C() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[44] != nil {
-		c.err = c.handlers[44].Exception(c, 44)
-	}
-	c.tracef("%04X trap #12\n", pc)
-}
-
-func (c *Processor) op601B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6094() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op671B() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op674D() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6044() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op671A() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C3() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60F2() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67BE() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67DE() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6006() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6083() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6714() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6748() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op679E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60EE() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6771() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6779() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6078() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E7() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6761() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6767() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6768() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6065() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6728() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op603B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B8() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6011() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6053() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60F7() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op606C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6076() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60EC() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60BF() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E4() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6707() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6763() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op679D() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
@@ -2837,381 +763,6 @@ func (c *Processor) op6020() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6040() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C4() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op673E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6791() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B5() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60A1() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6729() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6780() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67FA() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op609E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6756() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6798() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E4F() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[47] != nil {
-		c.err = c.handlers[47].Exception(c, 47)
-	}
-	c.tracef("%04X trap #15\n", pc)
-}
-
-func (c *Processor) op60A4() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op670D() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6778() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6724() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6753() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op677F() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6012() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6033() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6072() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60A7() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E8() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67BD() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67EF() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6032() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6047() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6091() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6757() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67A5() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6720() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
 func (c *Processor) op6043() {
 	pc := c.PC
 	c.PC += 2
@@ -3223,258 +774,7 @@ func (c *Processor) op6043() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6055() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6070() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op608B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6716() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60AF() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6715() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6754() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6790() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67F6() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67A2() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op601E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60FE() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op672E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6737() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6795() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op671E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6727() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6751() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67BC() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67DF() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op602E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60A3() {
+func (c *Processor) op6086() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3496,7 +796,7 @@ func (c *Processor) op60A8() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6775() {
+func (c *Processor) op67BA() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3507,18 +807,7 @@ func (c *Processor) op6775() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6783() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6039() {
+func (c *Processor) op6041() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3529,7 +818,7 @@ func (c *Processor) op6039() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60FC() {
+func (c *Processor) op6095() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3540,7 +829,7 @@ func (c *Processor) op60FC() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op604C() {
+func (c *Processor) op60B1() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3551,23 +840,7 @@ func (c *Processor) op604C() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60F0() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6717() {
+func (c *Processor) op6772() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3578,7 +851,18 @@ func (c *Processor) op6717() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op605A() {
+func (c *Processor) op675C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op600E() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3589,7 +873,7 @@ func (c *Processor) op605A() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op678D() {
+func (c *Processor) op675B() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3600,34 +884,7 @@ func (c *Processor) op678D() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67F8() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67FF() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C1() {
+func (c *Processor) op609E() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3638,7 +895,7 @@ func (c *Processor) op60C1() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60C7() {
+func (c *Processor) op60E1() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3649,7 +906,7 @@ func (c *Processor) op60C7() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op675A() {
+func (c *Processor) op6725() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3660,7 +917,7 @@ func (c *Processor) op675A() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6773() {
+func (c *Processor) op67AA() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3671,99 +928,7 @@ func (c *Processor) op6773() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67AB() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67EC() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6700() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6705() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6036() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op604F() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6740() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6792() {
+func (c *Processor) op67BE() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3790,18 +955,7 @@ func (c *Processor) op67F0() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67CE() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6028() {
+func (c *Processor) op6074() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -3812,29 +966,7 @@ func (c *Processor) op6028() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6042() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6062() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6781() {
+func (c *Processor) op6714() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3843,138 +975,6 @@ func (c *Processor) op6781() {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C7() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C8() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6704() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67F4() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6018() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6745() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6059() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6741() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op678B() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67ED() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6051() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B6() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
 func (c *Processor) op6719() {
@@ -3988,7 +988,7 @@ func (c *Processor) op6719() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op674F() {
+func (c *Processor) op672F() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -3998,890 +998,6 @@ func (c *Processor) op674F() {
 	}
 	c.PC += 4
 	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67DD() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E4D() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[45] != nil {
-		c.err = c.handlers[45].Exception(c, 45)
-	}
-	c.tracef("%04X trap #13\n", pc)
-}
-
-func (c *Processor) op6022() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6702() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op603E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6739() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6774() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67AA() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67AE() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6000() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60DE() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60A6() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60F9() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6045() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6079() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op607A() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6718() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op675F() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6789() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op602C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6081() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B3() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op671C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6731() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6054() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op609D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60CE() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op675E() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op604D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op606D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6088() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6089() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B1() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B9() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67E4() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op601C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6069() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60EF() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op674C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6755() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op609C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67B7() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op605C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C5() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B8() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6764() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67A7() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6759() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6794() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67FE() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op600B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op608A() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E6() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6701() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6732() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E48() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[40] != nil {
-		c.err = c.handlers[40].Exception(c, 40)
-	}
-	c.tracef("%04X trap #8\n", pc)
-}
-
-func (c *Processor) op605D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6760() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6796() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67DA() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6024() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6074() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6080() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op608F() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6769() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op609B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6708() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op670A() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op673B() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67E3() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6066() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op608D() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60AA() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B7() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E9() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op602A() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6726() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op675B() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
@@ -4899,7 +1015,7 @@ func (c *Processor) op6765() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op676C() {
+func (c *Processor) op678E() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -4910,34 +1026,7 @@ func (c *Processor) op676C() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6010() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
-	if c.err != nil {
-		return
-	}
-	c.PC += 2
-	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op604B() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op671D() {
+func (c *Processor) op6795() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -4948,7 +1037,40 @@ func (c *Processor) op671D() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6777() {
+func (c *Processor) op6078() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6084() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60CD() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6748() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -4959,25 +1081,7 @@ func (c *Processor) op6777() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op4E40() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[32] != nil {
-		c.err = c.handlers[32].Exception(c, 32)
-	}
-	c.tracef("%04X trap #0\n", pc)
-}
-
-func (c *Processor) op4E42() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[34] != nil {
-		c.err = c.handlers[34].Exception(c, 34)
-	}
-	c.tracef("%04X trap #2\n", pc)
-}
-
-func (c *Processor) op6056() {
+func (c *Processor) op606D() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -4988,7 +1092,18 @@ func (c *Processor) op6056() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60E5() {
+func (c *Processor) op67E8() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B3() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -4999,7 +1114,172 @@ func (c *Processor) op60E5() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67A6() {
+func (c *Processor) op60F3() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6707() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6782() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B5() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67DC() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6717() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B8() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6063() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op607E() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F5() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6729() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op677A() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6789() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67AB() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6094() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6731() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5026,7 +1306,7 @@ func (c *Processor) op67E0() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6007() {
+func (c *Processor) op60A6() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5037,7 +1317,7 @@ func (c *Processor) op6007() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60A9() {
+func (c *Processor) op604C() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5048,7 +1328,7 @@ func (c *Processor) op60A9() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60F6() {
+func (c *Processor) op60CE() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5059,62 +1339,7 @@ func (c *Processor) op60F6() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6744() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op678C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op679B() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67A1() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67F2() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6027() {
+func (c *Processor) op60DB() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5125,7 +1350,29 @@ func (c *Processor) op6027() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op672A() {
+func (c *Processor) op6045() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60A1() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6736() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5136,7 +1383,29 @@ func (c *Processor) op672A() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op606F() {
+func (c *Processor) op67C7() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6756() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60BF() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5152,7 +1421,18 @@ func (c *Processor) op606F() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op673D() {
+func (c *Processor) op60D3() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6713() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5163,11 +1443,125 @@ func (c *Processor) op673D() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6749() {
+func (c *Processor) op671F() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6033() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60FA() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op677B() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
 	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67EE() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6004() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op602E() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6752() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op675F() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B0() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
@@ -5190,18 +1584,7 @@ func (c *Processor) op67BF() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67E6() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6023() {
+func (c *Processor) op6036() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5212,7 +1595,7 @@ func (c *Processor) op6023() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60CC() {
+func (c *Processor) op608D() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5223,7 +1606,18 @@ func (c *Processor) op60CC() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op674B() {
+func (c *Processor) op609B() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op676B() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5234,7 +1628,18 @@ func (c *Processor) op674B() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67C8() {
+func (c *Processor) op6071() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6723() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5245,7 +1650,51 @@ func (c *Processor) op67C8() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op603F() {
+func (c *Processor) op6786() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67FD() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op605A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6062() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60AF() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5261,7 +1710,18 @@ func (c *Processor) op603F() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6742() {
+func (c *Processor) op60F7() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6709() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5272,7 +1732,7 @@ func (c *Processor) op6742() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67CD() {
+func (c *Processor) op671A() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5283,7 +1743,7 @@ func (c *Processor) op67CD() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67FB() {
+func (c *Processor) op6766() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5294,266 +1754,16 @@ func (c *Processor) op67FB() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6004() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6026() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6064() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60BC() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6713() {
+func (c *Processor) op67A0() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6001() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67D1() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6013() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60E0() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
 	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
 	if c.err != nil {
 		return
 	}
 	c.PC += 2
 	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op677C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67BA() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67EB() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op608E() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60B2() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C9() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60FF() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op676A() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op4E46() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[38] != nil {
-		c.err = c.handlers[38].Exception(c, 38)
-	}
-	c.tracef("%04X trap #6\n", pc)
-}
-
-func (c *Processor) op6706() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6785() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67C2() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60DB() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op671F() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
-	if c.err != nil {
-		return
-	}
-	c.PC += 4
-	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
@@ -5571,16 +1781,7 @@ func (c *Processor) op67D7() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op4E4B() {
-	pc := c.PC
-	c.PC += 2
-	if c.handlers[43] != nil {
-		c.err = c.handlers[43].Exception(c, 43)
-	}
-	c.tracef("%04X trap #11\n", pc)
-}
-
-func (c *Processor) op603A() {
+func (c *Processor) op603E() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5591,18 +1792,7 @@ func (c *Processor) op603A() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6099() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60C0() {
+func (c *Processor) op6050() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5634,29 +1824,7 @@ func (c *Processor) op60D0() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6021() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6075() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op679A() {
+func (c *Processor) op678D() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5667,7 +1835,407 @@ func (c *Processor) op679A() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67E1() {
+func (c *Processor) op67FB() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60E5() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op674F() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6777() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67AC() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6747() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6755() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B7() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67BC() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67EB() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op676C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6776() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C1() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C2() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6088() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60CB() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op678C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op675D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67A7() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67BB() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6739() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6757() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6056() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6066() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B4() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60EE() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6055() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op608A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6082() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6768() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6775() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6030() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op606E() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60F0() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op671C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6774() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5687,7 +2255,18 @@ func (c *Processor) op4E4E() {
 	c.tracef("%04X trap #14\n", pc)
 }
 
-func (c *Processor) op6052() {
+func (c *Processor) op6077() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6083() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5709,7 +2288,7 @@ func (c *Processor) op609A() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6723() {
+func (c *Processor) op67A5() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5720,18 +2299,25 @@ func (c *Processor) op6723() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op672D() {
+func (c *Processor) op4E49() {
 	pc := c.PC
 	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
+	if c.handlers[41] != nil {
+		c.err = c.handlers[41].Exception(c, 41)
 	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+	c.tracef("%04X trap #9\n", pc)
 }
 
-func (c *Processor) op60FA() {
+func (c *Processor) op4E4C() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[44] != nil {
+		c.err = c.handlers[44].Exception(c, 44)
+	}
+	c.tracef("%04X trap #12\n", pc)
+}
+
+func (c *Processor) op60FC() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5742,10 +2328,174 @@ func (c *Processor) op60FA() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op672F() {
+func (c *Processor) op6767() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op671B() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6769() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6778() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C5() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60BB() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C9() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op670A() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6718() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op672B() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6780() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67D1() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6000() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6054() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op605F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
 	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
 	if c.err != nil {
 		return
@@ -5755,65 +2505,10 @@ func (c *Processor) op672F() {
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op673C() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67CC() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op676D() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6782() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op67E7() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6041() {
+func (c *Processor) op607A() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5824,29 +2519,7 @@ func (c *Processor) op6041() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6046() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60CA() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6703() {
+func (c *Processor) op679D() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5868,7 +2541,337 @@ func (c *Processor) op67D3() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6750() {
+func (c *Processor) op601E() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6052() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6053() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op676E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E4B() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[43] != nil {
+		c.err = c.handlers[43].Exception(c, 43)
+	}
+	c.tracef("%04X trap #11\n", pc)
+}
+
+func (c *Processor) op6796() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F1() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F8() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E47() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[39] != nil {
+		c.err = c.handlers[39].Exception(c, 39)
+	}
+	c.tracef("%04X trap #7\n", pc)
+}
+
+func (c *Processor) op60A3() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60AE() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B7() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6070() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op679C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op601A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6076() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6798() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6031() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60A0() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6721() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op676D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op600F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op602A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6061() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op679E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6735() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op678A() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6797() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C3() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6720() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5878,6 +2881,250 @@ func (c *Processor) op6750() {
 	}
 	c.PC += 2
 	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67E6() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E46() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[38] != nil {
+		c.err = c.handlers[38].Exception(c, 38)
+	}
+	c.tracef("%04X trap #6\n", pc)
+}
+
+func (c *Processor) op6068() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B5() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60FB() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op602C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6734() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67D2() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60E0() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60F4() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60F5() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60D6() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6710() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op672C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op673A() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op600A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op601B() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op604A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6092() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6740() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6785() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
@@ -5900,7 +3147,29 @@ func (c *Processor) op67D0() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op67D2() {
+func (c *Processor) op6059() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60DC() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6743() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5911,16 +3180,18 @@ func (c *Processor) op67D2() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op4E47() {
+func (c *Processor) op676A() {
 	pc := c.PC
 	c.PC += 2
-	if c.handlers[39] != nil {
-		c.err = c.handlers[39].Exception(c, 39)
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
 	}
-	c.tracef("%04X trap #7\n", pc)
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6005() {
+func (c *Processor) op6098() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5931,7 +3202,7 @@ func (c *Processor) op6005() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6025() {
+func (c *Processor) op6099() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -5942,26 +3213,15 @@ func (c *Processor) op6025() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6029() {
+func (c *Processor) op6791() {
 	pc := c.PC
 	c.PC += 2
-	branch := true
+	branch := c.SR&0x4 != 0
 	d := byteToInt32(byte(c.op))
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op60AC() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
 func (c *Processor) op67D8() {
@@ -5975,7 +3235,7 @@ func (c *Processor) op67D8() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op672B() {
+func (c *Processor) op67E9() {
 	pc := c.PC
 	c.PC += 2
 	branch := c.SR&0x4 != 0
@@ -5986,40 +3246,7 @@ func (c *Processor) op672B() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op6762() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op6766() {
-	pc := c.PC
-	c.PC += 2
-	branch := c.SR&0x4 != 0
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op600C() {
-	pc := c.PC
-	c.PC += 2
-	branch := true
-	d := byteToInt32(byte(c.op))
-	if branch {
-		c.PC = uint32(int32(c.PC) + int32(d))
-	}
-	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
-}
-
-func (c *Processor) op607C() {
+func (c *Processor) op6025() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -6041,7 +3268,7 @@ func (c *Processor) op60A2() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60BA() {
+func (c *Processor) op60E2() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -6052,7 +3279,45 @@ func (c *Processor) op60BA() {
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60F5() {
+func (c *Processor) op6770() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67AD() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67BD() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6073() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -6061,6 +3326,468 @@ func (c *Processor) op60F5() {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60F2() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op670B() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op673F() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B0() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6703() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6728() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op673D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6005() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6010() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op604F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6090() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op603D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60ED() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6730() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67E4() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E4D() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[45] != nil {
+		c.err = c.handlers[45].Exception(c, 45)
+	}
+	c.tracef("%04X trap #13\n", pc)
+}
+
+func (c *Processor) op603A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67E1() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6039() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op606C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60E9() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6788() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6779() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67A9() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6006() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6019() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C5() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60DA() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67A1() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67E3() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op602D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C6() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6745() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B1() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67D6() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6040() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op604B() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60F6() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6705() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
 func (c *Processor) op67C6() {
@@ -6074,7 +3801,18 @@ func (c *Processor) op67C6() {
 	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
-func (c *Processor) op60F3() {
+func (c *Processor) op67CA() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6012() {
 	pc := c.PC
 	c.PC += 2
 	branch := true
@@ -6083,6 +3821,278 @@ func (c *Processor) op60F3() {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
 	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op604E() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6089() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op608E() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6744() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6764() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6793() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6008() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6028() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60DD() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60F9() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67D5() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E48() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[40] != nil {
+		c.err = c.handlers[40].Exception(c, 40)
+	}
+	c.tracef("%04X trap #8\n", pc)
+}
+
+func (c *Processor) op603F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60D5() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6715() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C7() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6700() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6708() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6724() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6048() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6067() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op606A() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60AB() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6751() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
 }
 
 func (c *Processor) op679F() {
@@ -6095,6 +4105,1996 @@ func (c *Processor) op679F() {
 	}
 	c.PC += 4
 	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6026() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op674D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67CD() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6749() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67FF() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6034() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C8() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60CC() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6716() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op670D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B3() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6002() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6018() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C0() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60D8() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60BE() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60FF() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6706() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6763() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6003() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6049() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6087() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60AA() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6753() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6072() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60FD() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6702() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6737() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op604D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op607D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op679B() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C0() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6016() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op605B() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60EA() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B2() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op600C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6029() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60F1() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6732() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6051() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op605E() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6080() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60DF() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6057() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op670C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67CF() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67DD() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op605C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6726() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op674A() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67A4() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6047() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6741() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E40() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[32] != nil {
+		c.err = c.handlers[32].Exception(c, 32)
+	}
+	c.tracef("%04X trap #0\n", pc)
+}
+
+func (c *Processor) op60EF() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op607B() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F4() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6759() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6760() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6784() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C4() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67CC() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F3() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6014() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op601D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6042() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60D1() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6022() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60FE() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6712() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op672A() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6011() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op609F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B6() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67A8() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op677D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67E2() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op608C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60EB() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6704() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op673E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F6() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6009() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6060() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60CF() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6787() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67C9() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60BC() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6738() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op600B() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60C4() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B4() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67F7() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6085() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B9() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op671E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67CB() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B8() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60E7() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op674E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6773() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6038() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6064() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6093() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60A7() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6790() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:2])
+	if c.err != nil {
+		return
+	}
+	c.PC += 2
+	d := uint16(c.buf[0])<<8 | uint16(c.buf[1])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67AF() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67E7() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60D2() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op677E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67A2() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E4F() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[47] != nil {
+		c.err = c.handlers[47].Exception(c, 47)
+	}
+	c.tracef("%04X trap #15\n", pc)
+}
+
+func (c *Processor) op6021() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6024() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op607F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6733() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67CE() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6015() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6023() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op603C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60BD() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6007() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op602B() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6781() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6794() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6013() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6035() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6096() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6742() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op672D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6758() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67DA() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E41() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[33] != nil {
+		c.err = c.handlers[33].Exception(c, 33)
+	}
+	c.tracef("%04X trap #1\n", pc)
+}
+
+func (c *Processor) op609D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60E6() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op671D() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op676F() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op4E42() {
+	pc := c.PC
+	c.PC += 2
+	if c.handlers[34] != nil {
+		c.err = c.handlers[34].Exception(c, 34)
+	}
+	c.tracef("%04X trap #2\n", pc)
+}
+
+func (c *Processor) op6091() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60A5() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6701() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67EC() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67FE() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6044() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op605D() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60D7() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60E3() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6065() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B6() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op601C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60AC() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67FA() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67DF() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6081() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67D4() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op607C() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op608F() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60DE() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6799() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60E4() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6761() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67B9() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60B2() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op674C() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67EF() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	_, c.err = c.M.Read(int(c.PC), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC += 4
+	d := uint32(c.buf[0])<<24 | uint32(c.buf[1])<<16 | uint32(c.buf[2])<<8 | uint32(c.buf[3])
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op60A9() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op674B() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6792() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op67D9() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op670E() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X beq $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6017() {
+	pc := c.PC
+	c.PC += 2
+	branch := true
+	d := byteToInt32(byte(c.op))
+	if branch {
+		c.PC = uint32(int32(c.PC) + int32(d))
+	}
+	c.tracef("%04X bra $%d(PC)\n", pc, int32(d))
+}
+
+func (c *Processor) op6771() {
+	pc := c.PC
+	c.PC += 2
+	branch := c.SR&0x4 != 0
+	d := byteToInt32(byte(c.op))
 	if branch {
 		c.PC = uint32(int32(c.PC) + int32(d))
 	}
