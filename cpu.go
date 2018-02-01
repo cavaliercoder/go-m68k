@@ -24,11 +24,12 @@ const (
 	StatusZero                 // Z
 	StatusNegative             // N
 	StatusExtend               // X
+
+	StatusMask = 0xA71F // Section 1.3.2
 )
 
 var (
 	ErrNoProgram = errors.New("no program loaded or memory device attached")
-	ErrBadOpCode = errors.New("unrecognized opcode")
 )
 
 // A Processor emulates the Motorola 68000 microprocessor.
@@ -135,15 +136,21 @@ func (c *Processor) Step() error {
 	fn := defaultFuncMap.Resolve(c.op)
 	if fn != nil {
 		t := fn(c)
-		c.trace(t)
-		done = true
+		if c.err == nil {
+			c.trace(t)
+			done = true
+		} else if _, ok := c.err.(opcodeError); ok {
+			c.err = nil
+		} else {
+			done = true
+		}
 	}
 
 	// use generated opcodes
 	if !done {
 		f := c.mapFn(c.op)
 		if f == nil {
-			c.err = fmt.Errorf("unrecognised opcode: %04X @ %04X", c.op, c.PC)
+			c.err = newOpcodeError(c.op)
 		} else {
 			f()
 		}
@@ -182,16 +189,25 @@ func byteToInt32(b byte) int32 {
 	return *(*int32)(unsafe.Pointer(&v))
 }
 
-// ea returns the effective address segment (bits 0 - 5) of an opcode.
-func ea(op uint16) uint16 {
+// wordToInt32 sign extends the given word to an Int32.
+func wordToInt32(n uint16) int32 {
+	if n&0x8000 == 0 {
+		return int32(n)
+	}
+	v := 0xFFFF0000 | uint32(n)
+	return *(*int32)(unsafe.Pointer(&v))
+}
+
+// decodeEA returns the effective address segment (bits 0 - 5) of an opcode.
+func decodeEA(op uint16) uint16 {
 	return op & 0x003F
 }
 
-// exea returns the effective destination address segment of an opcode, for
-// instructions that have an effective address in bit 6 - 11. The result is
+// decodeExEA returns the effective destination address segment of an opcode,
+// for instructions that have an effective address in bit 6 - 11. The result is
 // flipped so that the mode and register portions of the ea match the encoding
 // used by typical ea fields.
-func exea(op uint16) uint16 {
+func decodeExEA(op uint16) uint16 {
 	return ((op & 0x01C0) >> 3) | ((op & 0x0E00) >> 9)
 }
 
@@ -243,7 +259,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadOpCode
+		err = newOpcodeError(c.op)
 		return
 
 	case 0x00: // data register
@@ -288,7 +304,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadOpCode
+			err = newOpcodeError(c.op)
 			return
 
 		case 0x00: // absolute word
@@ -327,7 +343,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadOpCode
+		err = newOpcodeError(c.op)
 		return
 
 	case 0x00: // data register
@@ -366,7 +382,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadOpCode
+			err = newOpcodeError(c.op)
 			return
 
 		case 0x00: // absolute word
@@ -403,7 +419,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadOpCode
+		err = newOpcodeError(c.op)
 		return
 
 	case 0x00: // data register
@@ -442,7 +458,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadOpCode
+			err = newOpcodeError(c.op)
 			return
 
 		case 0x00: // absolute word
@@ -479,7 +495,7 @@ func (c *Processor) writeByte(ea uint16, b byte) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadOpCode
+		err = newOpcodeError(c.op)
 		return
 
 	case 0x00: // data register
@@ -524,7 +540,7 @@ func (c *Processor) writeByte(ea uint16, b byte) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadOpCode
+			err = newOpcodeError(c.op)
 			return
 
 		case 0x00: // absolute word
@@ -556,7 +572,7 @@ func (c *Processor) writeWord(ea uint16, v uint16) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadOpCode
+		err = newOpcodeError(c.op)
 		return
 
 	case 0x00: // data register
@@ -599,7 +615,7 @@ func (c *Processor) writeWord(ea uint16, v uint16) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadOpCode
+			err = newOpcodeError(c.op)
 			return
 
 		case 0x00: // absolute word
@@ -633,7 +649,7 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadOpCode
+		err = newOpcodeError(c.op)
 		return
 
 	case 0x00: // data register
@@ -676,7 +692,7 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadOpCode
+			err = newOpcodeError(c.op)
 			return
 
 		case 0x00: // absolute word

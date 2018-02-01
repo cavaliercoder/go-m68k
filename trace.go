@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+const noSize = uint16(0xFFFF)
+
 type stepTrace struct {
 	addr         uint32
 	op, src, dst string
@@ -19,7 +21,7 @@ func (c *stepTrace) String() string {
 	} else if c.src != "" {
 		operands = fmt.Sprintf("%s,%s", c.src, c.dst)
 	}
-	if c.sz < 0 {
+	if c.sz == noSize {
 		return fmt.Sprintf("%04X %s %s", c.addr, c.op, operands)
 	}
 	sz := []string{"b", "w", "l"}[c.sz]
