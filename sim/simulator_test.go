@@ -10,10 +10,11 @@ import (
 
 func TestSim(t *testing.T) {
 	p := m68ktest.LoadBytes(t, []byte{0x4E, 0x4F})
-	_, err := New(p, p.TraceWriter, nil)
-	if err != nil {
-		t.Fatal(err)
+	s := &Simulator{
+		Processor: p,
+		Writer:    p.TraceWriter,
 	}
+	s.Register()
 	m68ktest.AssertRun(t, p)
 }
 
@@ -29,9 +30,9 @@ func TestStdout(t *testing.T) {
 		0x4E, 0x72, 0x27, 0x00,
 		0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21, 0x0D, 0x0A, 0x00,
 	})
-	s, err := New(p, b, nil)
-	if err != nil {
-		t.Fatal(err)
+	s := &Simulator{
+		Processor: p,
+		Writer:    b,
 	}
 	if err := s.Run(); err != io.EOF {
 		t.Fatal(err)

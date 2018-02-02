@@ -66,11 +66,9 @@ func (c *Processor) RegisterTrapHandler(vector int, f TrapHandler) error {
 func (c *Processor) Reset() {
 	// TODO: this seems important: https://stackoverflow.com/a/38244832/5809680
 	*c = Processor{
+		M:           c.M,
 		TraceWriter: c.TraceWriter,
-	}
-	c.PC = 0x1000
-	if c.M == nil {
-		c.M = &MemoryDecoder{M: NewRAM(0x40000)} // 256KB
+		handlers:    c.handlers,
 	}
 	clear(c.M)
 }

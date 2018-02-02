@@ -30,7 +30,7 @@ func TestReset(t *testing.T) {
 	if p.SR != 0 {
 		t.Error("Condition code register was not reset")
 	}
-	if p.PC != 0x1000 {
+	if p.PC != 0 {
 		t.Error("Program counter not reset")
 	}
 	b := make([]byte, 4)

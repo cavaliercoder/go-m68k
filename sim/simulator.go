@@ -10,6 +10,7 @@ See: http://www.easy68k.com/QuickStart/TrapTasks.htm
 package sim
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -17,43 +18,70 @@ import (
 	"github.com/cavaliercoder/go-m68k"
 )
 
+var (
+	ErrNoProcessor = errors.New("no processor configured")
+	ErrNoWriter    = errors.New("write operations requested but no writer is attached")
+	ErrNoReader    = errors.New("read operation requested but no reader is attached")
+)
+
+// A Simulator provides standard I/O for a Motorola 68000 emulator using a
+// similar protocol to the Teesside simulator.
 type Simulator struct {
-	p *m68k.Processor
-	w io.Writer
-	r io.Reader
+	Processor *m68k.Processor
+	Writer    io.Writer
+	Reader    io.Reader
 
 	b [255]byte
 }
 
-func NewClassic() (s *Simulator, err error) {
-	p := &m68k.Processor{}
-	p.Reset()
-	s = &Simulator{
-		p: p,
-		w: os.Stdout,
-		r: os.Stdin,
+// New returns a new simulator with default configuration.
+func New() (s *Simulator, err error) {
+	p := &m68k.Processor{
+		PC: 0x1000,
+		M:  &m68k.MemoryDecoder{M: m68k.NewRAM(0x10000)}, // 64KB
 	}
-	err = p.RegisterTrapHandler(47, s)
+	s = &Simulator{
+		Processor: p,
+		Writer:    os.Stdout,
+		Reader:    os.Stdin,
+	}
+	err = s.Register()
 	return
 }
 
-// New returns a new Simulator and registers each of its trap handlers with
-// the given processor.
-func New(p *m68k.Processor, w io.Writer, r io.Reader) (s *Simulator, err error) {
-	s = &Simulator{p: p, w: w, r: r}
-	err = p.RegisterTrapHandler(47, s)
+// Register configures the given Processor for use with the Simulator.
+func (c *Simulator) Register() (err error) {
+	if c.Processor == nil {
+		return ErrNoProcessor
+	}
+	err = c.Processor.RegisterTrapHandler(47, c)
 	return
 }
 
-func (c *Simulator) Run() error {
-	return c.p.Run()
+// Run configures the underlying Processor and executes any program loaded
+// into memory, starting from the location of the Program Counter.
+func (c *Simulator) Run() (err error) {
+	if err = c.Register(); err != nil {
+		return
+	}
+	return c.Processor.Run()
 }
 
-func (c *Simulator) Processor() *m68k.Processor {
-	return c.p
+func (c *Simulator) write(p []byte) (n int, err error) {
+	if c.Writer == nil {
+		return 0, ErrNoWriter
+	}
+	return c.Writer.Write(p)
 }
 
-// Exception handler TRAP 15 instructions from the underlying processor.
+func (c *Simulator) read(p []byte) (n int, err error) {
+	if c.Reader == nil {
+		return 0, ErrNoReader
+	}
+	return c.Reader.Read(p)
+}
+
+// Exception handles TRAP 15 instructions from the underlying Processor.
 func (c *Simulator) Exception(p *m68k.Processor, v int) (err error) {
 	switch p.D[0] {
 	default:
@@ -62,34 +90,34 @@ func (c *Simulator) Exception(p *m68k.Processor, v int) (err error) {
 	case 0:
 		// Display string at (A1), D1.W bytes long (max 255) with carriage return
 		// and line feed (CR, LF). (see task 13)
-		n := uint16(c.p.D[1])
-		_, err = c.p.M.Read(int(c.p.A[1]), c.b[:n])
+		n := uint16(c.Processor.D[1])
+		_, err = c.Processor.M.Read(int(c.Processor.A[1]), c.b[:n])
 		if err != nil {
 			return
 		}
 		c.b[n], c.b[n+1] = '\r', '\n'
-		_, err = c.w.Write(c.b[:n+2])
+		_, err = c.write(c.b[:n+2])
 
 	case 1:
 		// Display string at (A1), D1.W bytes long (max 255) without CR, LF. (see
 		// task 14)
-		n := uint16(c.p.D[1])
-		_, err = c.p.M.Read(int(c.p.A[1]), c.b[:n])
+		n := uint16(c.Processor.D[1])
+		_, err = c.Processor.M.Read(int(c.Processor.A[1]), c.b[:n])
 		if err != nil {
 			return
 		}
-		_, err = c.w.Write(c.b[:n])
+		_, err = c.write(c.b[:n])
 
 	case 6:
 		// Display single character in D1.B.
-		_, err = c.w.Write([]byte{byte(c.p.D[1])})
+		_, err = c.write([]byte{byte(c.Processor.D[1])})
 
-	case 9: // halt simulator
+	case 9:
+		// halt simulator
 		err = io.EOF
 
 	case 13:
 		// Display the NULL terminated string at (A1) with CR, LF.
-		p := c.Processor()
 		addr := int(p.A[1])
 		b := make([]byte, 1)
 		for {
@@ -100,14 +128,13 @@ func (c *Simulator) Exception(p *m68k.Processor, v int) (err error) {
 			if b[0] == 0 {
 				break
 			}
-			c.w.Write(b)
+			c.write(b)
 			addr++
 		}
-		c.w.Write([]byte{'\r', '\n'})
+		c.write([]byte{'\r', '\n'})
 
 	case 14:
 		// Display the NULL terminated string at (A1) without CR, LF.
-		p := c.Processor()
 		addr := int(p.A[1])
 		b := make([]byte, 1)
 		for {
@@ -118,7 +145,7 @@ func (c *Simulator) Exception(p *m68k.Processor, v int) (err error) {
 			if b[0] == 0 {
 				break
 			}
-			c.w.Write(b)
+			c.write(b)
 			addr++
 		}
 	}

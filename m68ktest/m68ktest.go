@@ -31,9 +31,10 @@ func (t *testLogWriter) Write(p []byte) (n int, err error) {
 // given test context.
 func NewProcessor(t *testing.T) *m68k.Processor {
 	p := &m68k.Processor{
+		PC:          0x1000,
+		M:           &m68k.MemoryDecoder{M: m68k.NewRAM(0x40000)}, // 256KB
 		TraceWriter: &testLogWriter{t},
 	}
-	p.Reset()
 	return p
 }
 

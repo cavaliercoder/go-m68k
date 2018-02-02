@@ -2,12 +2,15 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 
 	"github.com/cavaliercoder/go-m68k/dump"
 	"github.com/cavaliercoder/go-m68k/sim"
 	"github.com/cavaliercoder/go-m68k/srec"
 )
+
+var debug = os.Getenv("DEBUG") == "1"
 
 func main() {
 	if len(os.Args) < 2 {
@@ -23,12 +26,14 @@ func main() {
 	defer f.Close()
 
 	// create simulator
-	s, err := sim.NewClassic()
+	s, err := sim.New()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	s.Processor().TraceWriter = os.Stderr
+	if debug {
+		s.Processor.TraceWriter = os.Stderr
+	}
 
 	// load program into memory
 	records, err := srec.Read(f)
@@ -36,19 +41,21 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	if err := srec.Load(s.Processor().M, records); err != nil {
+	if err := srec.Load(s.Processor.M, records); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
 	// run program
-	if err := s.Run(); err != nil {
+	if err := s.Run(); err != nil && err != io.EOF {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
 	// dump state
-	dump.Processor(os.Stderr, s.Processor())
-	dump.Memory(os.Stderr, s.Processor().M)
+	if debug {
+		dump.Processor(os.Stderr, s.Processor)
+		dump.Memory(os.Stderr, s.Processor.M)
+	}
 }
 
 func usage(n int) {
