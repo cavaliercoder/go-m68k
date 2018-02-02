@@ -19,11 +19,11 @@ const (
 // Status Register bits.
 // See section 1.1.4
 const (
-	StatusCarry    = 1 << iota // C
-	StatusOverflow             // V
-	StatusZero                 // Z
-	StatusNegative             // N
-	StatusExtend               // X
+	StatusCarry    = uint32(1) << iota // C
+	StatusOverflow                     // V
+	StatusZero                         // Z
+	StatusNegative                     // N
+	StatusExtend                       // X
 
 	StatusMask = 0xA71F // Section 1.3.2
 )
@@ -513,10 +513,6 @@ func (c *Processor) writeByte(ea uint16, b byte) (opr string, err error) {
 		c.D[reg] = c.D[reg]&0xFFFFFF00 | uint32(b)
 		opr = fmt.Sprintf("D%d", reg)
 
-	case 0x01: // address register
-		c.A[reg] = c.A[reg]&0xFFFFFF00 | uint32(b)
-		opr = fmt.Sprintf("A%d", reg)
-
 	case 0x02: // memory address
 		_, err = c.M.Write(int(c.A[reg]), []byte{b})
 		opr = fmt.Sprintf("(A%d)", reg)
@@ -591,7 +587,7 @@ func (c *Processor) writeWord(ea uint16, v uint16) (opr string, err error) {
 		opr = fmt.Sprintf("D%d", reg)
 
 	case 0x01: // address register
-		c.A[reg] = c.A[reg]&0xFFFF0000 | uint32(v)
+		c.A[reg] = uint32(wordToInt32(v))
 		opr = fmt.Sprintf("A%d", reg)
 
 	case 0x02: // memory address

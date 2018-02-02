@@ -95,6 +95,7 @@ func opStop(c *Processor) (t *stepTrace) {
 		sz:   noSize,
 	}
 	c.PC += 2
+
 	var n uint16
 	n, c.err = c.Word(int(c.PC))
 	if c.err != nil {

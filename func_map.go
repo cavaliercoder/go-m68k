@@ -43,4 +43,48 @@ var defaultFuncMap = funcMap{
 		nil, op41, nil, op41, nil, op41, nil, op41,
 		nil, op41, nil, op41, nil, op41, op4E, op41,
 	},
+	[]stepFunc{ // 0x5n
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0x6n
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0x7n
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0x8n
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0x9n
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0xAn
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0xBn
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0xCn
+		opC0, opC0, opC0, opC0, opC0, opC0, opC0, opC0,
+		opC0, opC0, opC0, opC0, opC0, opC0, opC0, opC0,
+	},
+	[]stepFunc{ // 0xDn
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0xEn
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
+	[]stepFunc{ // 0xFn
+		nil, nil, nil, nil, nil, nil, nil, nil,
+		nil, nil, nil, nil, nil, nil, nil, nil,
+	},
 }
