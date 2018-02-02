@@ -38,11 +38,11 @@ func opAbcd(c *Processor) (t *stepTrace) {
 		t.src = fmt.Sprintf("-(A%d)", ry)
 		c.A[rx]--
 		c.A[ry]--
-		vx, c.err = c.Byte(int(c.A[rx]))
+		vx, c.err = c.M.Byte(int(c.A[rx]))
 		if c.err != nil {
 			return
 		}
-		vy, c.err = c.Byte(int(c.A[ry]))
+		vy, c.err = c.M.Byte(int(c.A[ry]))
 		if c.err != nil {
 			return
 		}

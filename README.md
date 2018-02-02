@@ -23,7 +23,7 @@ $ go get github.com/cavaliercoder/go-m68k/...
 
 Compile the following Motorola 68000 assembly using a supported compiler:
 
-```asm
+```plain
 * Test 68000 simulator program
 
 WRCHAR  EQU     6                       Trap # for write D1.B char to screen
@@ -44,7 +44,7 @@ MESSAGE DC.B    'Hello world!',$0D,$0A,0
 
 Run the program:
 
-```bash
+```plain
 $ m68k hello-world.h68
 Hello world!
 ```

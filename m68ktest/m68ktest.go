@@ -72,11 +72,8 @@ func LoadBytes(t *testing.T, b []byte) *m68k.Processor {
 
 // AssertRun assert that the processor can run the program loaded into memory.
 func AssertRun(t *testing.T, p *m68k.Processor) {
-	err := p.Jump(0x1000)
-	if err != nil {
-		t.Errorf("error resetting program counter: %v", err)
-	}
-	err = p.Run()
+	p.PC = 0x1000
+	err := p.Run()
 	if err == io.EOF {
 		return
 	}

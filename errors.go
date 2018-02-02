@@ -1,6 +1,14 @@
 package m68k
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+var (
+	ErrNoProgram          = errors.New("no program loaded or memory device attached")
+	ErrAddressOutOfBounds = errors.New("memory address out of bounds")
+)
 
 type opcodeError uint16
 
