@@ -6,22 +6,22 @@ import (
 )
 
 // op41 routes for:
+// - MOVEM (pg. 4-128)
 // - LEA (pg. 4-110)
 // - CHK (pg. 4-69)
 func op41(c *Processor) (t *stepTrace) {
-	// ensure bits 7 - 8 are set
-	if c.op&0x0180 != 0x0180 {
-		c.err = newOpcodeError(c.op)
-		return
-	}
-	if c.op&0x40 == 0 {
-		// TODO: CHK
-		c.err = newOpcodeError(c.op)
-		return
-	}
+	switch c.op & 0x01C0 >> 6 {
+	case 0x07: // LEA
+		return opLea(c)
 
-	// LEA
-	return opLea(c)
+	case 0x06: // CKH
+		c.err = newOpcodeError(c.op)
+		return
+
+	default: // MOVEM
+		c.err = newOpcodeError(c.op)
+		return
+	}
 }
 
 // op4A routes for:
@@ -103,7 +103,7 @@ func opLea(c *Processor) (t *stepTrace) {
 			n, _, c.err = c.readImmWord()
 			disp := wordToInt32(n)
 			c.A[an] = uint32(int32(c.PC) + disp - 2)
-			t.src = fmt.Sprintf("$%X(PC)", disp)
+			t.src = fmt.Sprintf("($%X,PC)", disp)
 		}
 	}
 
@@ -197,7 +197,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 			n, _, c.err = c.readImmWord()
 			disp := wordToInt32(n)
 			c.PC = uint32(int32(c.PC) + disp - 2)
-			t.src = fmt.Sprintf("$%X(PC)", disp)
+			t.src = fmt.Sprintf("($%X,PC)", disp)
 		}
 	}
 	return

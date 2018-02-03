@@ -123,11 +123,13 @@ func (c *Processor) Step() error {
 
 	// map to function
 	fn := defaultFuncMap.Resolve(c.op)
-	if fn != nil {
-		t := fn(c)
-		if c.err == nil {
-			c.trace(t)
-		}
+	if fn == nil {
+		c.err = newOpcodeError(c.op)
+		return c.err
+	}
+	t := fn(c)
+	if c.err == nil {
+		c.trace(t)
 	}
 	return c.err
 }
