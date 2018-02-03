@@ -1,7 +1,7 @@
 package m68kmem
 
-import "errors"
-
+// A Mapper allows a Motorola 68000 processor to communicate with external
+// devices using a memory address, mapped into its addressable range.
 type Mapper struct {
 	mappings *mapping
 }
@@ -17,18 +17,13 @@ func NewMapper() *Mapper {
 }
 
 func (mm *Mapper) Map(m Memory, start, end int) error {
-	for p := mm.mappings; p != nil; p = p.next {
-		if p.end < start && (p.next == nil || p.next.start > end) {
-			p.next = &mapping{
-				m:     m,
-				start: start,
-				end:   end,
-				next:  p.next,
-			}
-			return nil
-		}
+	mm.mappings = &mapping{
+		m:     m,
+		start: start,
+		end:   end,
+		next:  mm.mappings,
 	}
-	return errors.New("mapping collision")
+	return nil
 }
 
 func (mm *Mapper) Read(addr int, p []byte) (n int, err error) {
@@ -38,8 +33,7 @@ func (mm *Mapper) Read(addr int, p []byte) (n int, err error) {
 			return m.m.Read(addr, p)
 		}
 	}
-	err = ErrAccessViolation
-	return
+	return 0, accessViolationError(addr)
 }
 
 func (mm *Mapper) Write(addr int, p []byte) (n int, err error) {
@@ -49,6 +43,5 @@ func (mm *Mapper) Write(addr int, p []byte) (n int, err error) {
 			return m.m.Write(addr, p)
 		}
 	}
-	err = ErrAccessViolation
-	return
+	return 0, accessViolationError(addr)
 }

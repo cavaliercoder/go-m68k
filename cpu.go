@@ -18,7 +18,7 @@ const (
 )
 
 // Status Register bits.
-// See section 1.1.4
+// See section 1.1.4.
 const (
 	StatusCarry    = uint32(1) << iota // C
 	StatusOverflow                     // V
@@ -27,6 +27,27 @@ const (
 	StatusExtend                       // X
 
 	StatusMask = 0xA71F // Section 1.3.2
+)
+
+// Comparison conditions.
+// See table 3-19.
+const (
+	CondTrue = iota
+	CondFalse
+	CondHigh
+	CondLowOrSame
+	CondCarryClear
+	CondCarrySet
+	CondNotEqual
+	CondEqual
+	CondOverflowClean
+	CondOverflowSet
+	CondPlus
+	CondMinus
+	CondGreaterOrEqual
+	CondLessThan
+	CondGreaterThan
+	CondLessOrEqual
 )
 
 // A Processor emulates the Motorola 68000 microprocessor.

@@ -181,7 +181,7 @@ func Generate(w io.Writer) (err error) {
 
 func dispatch(w *IndentWriter, op uint16) (err error) {
 	funcs := []genFunc{
-		genTrap, gen06,
+		genTrap,
 	}
 	for _, fn := range funcs {
 		err = fn(w, op)
@@ -527,99 +527,6 @@ func genTrap(w *IndentWriter, op uint16) (err error) {
 	w.Decrement(1)
 	fmt.Fprintln(w, "}")
 
-	printOpFuncFtr(w, t)
-	return
-}
-
-// gen06 implements operations starting in 0110
-func gen06(w *IndentWriter, op uint16) (err error) {
-	err = errNotImplemented
-	if op&0xF000 != 0x6000 {
-		return
-	}
-	cnd := op & 0x0F00
-	if cnd == 0x01 { // BSR
-		return
-	}
-	err = genBcc(w, op)
-	return
-}
-
-// genBcc implements:
-// - Bcc (4-25)
-// - BRA (4-55)
-func genBcc(w *IndentWriter, op uint16) (err error) {
-	cc := op & 0x0F00 >> 8
-	ops := []string{
-		"bra", // bra
-		"bsr", // bsr (this should never happen)
-		"bhi", // high
-		"bls", // low or same
-		"bcc", // (hi) carry clear
-		"bcs", // (lo) carry set
-		"bne", // not equal
-		"beq", // equal
-		"bvc", // overflow clear
-		"bvs", // overflow set
-		"bpl", // plus
-		"bmi", // minus
-		"bge", // greater or equal
-		"blt", // less than
-		"bgt", // greater than
-		"ble", // less or equal
-	}[cc]
-
-	// TODO: implement other conditions
-	switch cc {
-	case 0x00:
-	case 0x07:
-		// continue
-
-	default:
-		err = errNotImplemented
-		return
-	}
-
-	d := op & 0x000F
-	t := &traceMessage{
-		op:     ops,
-		noSize: true,
-		dst:    "$%d(PC)",
-		args:   []string{"int32(d)"},
-	}
-
-	printOpFuncHdr(w, op)
-
-	switch cc {
-	default:
-		// TODO: implement other conditions
-		err = errNotImplemented
-		return
-
-	case CondTrue:
-		// branch always
-		fmt.Fprintln(w, "branch := true")
-
-	case CondEqual:
-		// branch if equal
-		fmt.Fprintf(w, "branch := c.SR&0x%X != 0\n", StatusZero)
-	}
-
-	if d == 0 {
-		// 16-bit displacement
-		printReadImm(w, "d", SizeWord)
-	} else if d == 0x0F {
-		// 32-bit displacement
-		printReadImm(w, "d", SizeLong)
-	} else {
-		// 8-bit displacement
-		fmt.Fprintln(w, "d := byteToInt32(byte(c.op))")
-	}
-
-	// TODO: implement conditions
-	fmt.Fprintln(w, "if branch {")
-	fmt.Fprintln(w, "	c.PC = uint32(int32(c.PC) + int32(d))")
-	fmt.Fprintln(w, "}")
 	printOpFuncFtr(w, t)
 	return
 }

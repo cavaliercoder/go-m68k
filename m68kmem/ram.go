@@ -24,7 +24,7 @@ func (m *ram) Read(addr int, p []byte) (n int, err error) {
 
 func (m *ram) Write(addr int, p []byte) (n int, err error) {
 	if addr < 0 || addr >= len(m.b) {
-		return 0, ErrAccessViolation
+		return 0, accessViolationError(addr)
 	}
 	n = copy(m.b[addr:], p)
 	// TODO: raise exception vector instead of returning errors?

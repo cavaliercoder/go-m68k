@@ -24,6 +24,21 @@ func op41(c *Processor) (t *stepTrace) {
 	return opLea(c)
 }
 
+// op4A routes for:
+// - TST (pg. 4-192)
+// - ILLEGAL
+// - TAS
+func op4A(c *Processor) (t *stepTrace) {
+	if c.op == 0x4AFC { // ILLEGAL
+		c.err = newOpcodeError(c.op)
+		return
+	}
+	if c.op&0xC0 == 0xC0 { // TAS
+		c.err = newOpcodeError(c.op)
+	}
+	return opTst(c) // TST
+}
+
 // op4E routes for:
 // - STOP (pg.6-85)
 func op4E(c *Processor) (t *stepTrace) {
@@ -106,6 +121,56 @@ func opStop(c *Processor) (t *stepTrace) {
 	c.SR = uint32(n) & StatusMask
 	if c.SR&0x0700 == 0x0700 {
 		c.err = io.EOF // end program if interrupt mask is maximum
+	}
+	return
+}
+
+// opTst implements TST (4-192)
+func opTst(c *Processor) (t *stepTrace) {
+	if c.op&0x38 == 0x08 {
+		// not valid when < ea > is an addres register
+		c.err = newOpcodeError(c.op)
+		return
+	}
+
+	t = &stepTrace{
+		addr: c.PC,
+		op:   "tst",
+		sz:   c.op & 0xC0 >> 6,
+		n:    1,
+	}
+	c.PC += 2
+	c.SR &= 0xFFF0
+	switch t.sz {
+	case SizeByte:
+		var b byte
+		b, t.src, c.err = c.readByte(c.op)
+		if b == 0 {
+			c.SR |= StatusZero
+		}
+		if b&0x80 != 0 {
+			c.SR |= StatusNegative
+		}
+
+	case SizeWord:
+		var n uint16
+		n, t.src, c.err = c.readWord(c.op)
+		if n == 0 {
+			c.SR |= StatusZero
+		}
+		if n&0x8000 != 0 {
+			c.SR |= StatusNegative
+		}
+
+	case SizeLong:
+		var n uint32
+		n, t.src, c.err = c.readLong(c.op)
+		if n == 0 {
+			c.SR |= StatusZero
+		}
+		if n&0x8000000 != 0 {
+			c.SR |= StatusNegative
+		}
 	}
 	return
 }

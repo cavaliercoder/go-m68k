@@ -1,11 +1,8 @@
 package m68kmem
 
 import (
-	"errors"
 	"io"
 )
-
-var ErrAccessViolation = errors.New("access violation")
 
 // Memory is an interface for any IO device that is addressable via memory
 // mapping. This interface will be satisfied by random access memory, a virtual
@@ -26,7 +23,7 @@ func Clear(m Memory) {
 	for {
 		n, err := m.Write(addr, zero[:])
 		// TODO: clear breaks on access violation
-		if err == io.ErrShortWrite || err == ErrAccessViolation {
+		if err == io.ErrShortWrite || isAccessViolationError(err) {
 			break
 		}
 		if err != nil {
