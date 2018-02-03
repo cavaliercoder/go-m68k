@@ -1,7 +1,5 @@
 package m68k
 
-//go:generate ./cmd/m68kgen/m68kgen -out opcodes.go
-
 import (
 	"encoding/binary"
 	"errors"
@@ -123,28 +121,12 @@ func (c *Processor) Step() error {
 		return c.err
 	}
 
-	// try new fnmap
-	done := false
+	// map to function
 	fn := defaultFuncMap.Resolve(c.op)
 	if fn != nil {
 		t := fn(c)
 		if c.err == nil {
 			c.trace(t)
-			done = true
-		} else if _, ok := c.err.(opcodeError); ok {
-			c.err = nil
-		} else {
-			done = true
-		}
-	}
-
-	// use generated opcodes
-	if !done {
-		f := c.mapFn(c.op)
-		if f == nil {
-			c.err = newOpcodeError(c.op)
-		} else {
-			f()
 		}
 	}
 	return c.err

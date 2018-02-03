@@ -40,8 +40,12 @@ func op4A(c *Processor) (t *stepTrace) {
 }
 
 // op4E routes for:
-// - STOP (pg.6-85)
+// - TRAP (pg. 4-188)
+// - STOP (pg. 6-85)
 func op4E(c *Processor) (t *stepTrace) {
+	if c.op&0x00F0 == 0x0040 {
+		return opTrap(c)
+	}
 	if c.op == 0x4E72 {
 		return opStop(c)
 	}
@@ -99,6 +103,24 @@ func opLea(c *Processor) (t *stepTrace) {
 		}
 	}
 
+	return
+}
+
+// opTrap implements TRAP (4-188)
+func opTrap(c *Processor) (t *stepTrace) {
+	v := c.op & 0x000F
+	t = &stepTrace{
+		addr: c.PC,
+		n:    1,
+		op:   "trap",
+		sz:   noSize,
+		src:  fmt.Sprintf("#%d", v),
+	}
+	c.PC += 2
+	v += 32
+	if c.handlers[v] != nil {
+		c.err = c.handlers[v].Exception(c, int(v))
+	}
 	return
 }
 
