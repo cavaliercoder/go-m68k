@@ -7,6 +7,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/cavaliercoder/go-m68k/m68kmem"
 )
 
 const (
@@ -29,11 +31,11 @@ const (
 
 // A Processor emulates the Motorola 68000 microprocessor.
 type Processor struct {
-	D  [8]uint32      // Data registers
-	A  [8]uint32      // Address registers
-	SR uint32         // Status Register
-	PC uint32         // Program Counter
-	M  *MemoryDecoder // System memory controller
+	D  [8]uint32        // Data registers
+	A  [8]uint32        // Address registers
+	SR uint32           // Status Register
+	PC uint32           // Program Counter
+	M  *m68kmem.Decoder // System memory controller
 
 	// TraceWriter specifies where trace log output should be written to. If
 	// TraceWriter is nil, no logging is performed.
@@ -70,7 +72,7 @@ func (c *Processor) Reset() {
 		TraceWriter: c.TraceWriter,
 		handlers:    c.handlers,
 	}
-	clear(c.M)
+	m68kmem.Clear(c.M)
 }
 
 // Run executes any program loaded into memory, starting from the program

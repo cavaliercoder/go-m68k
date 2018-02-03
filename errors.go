@@ -6,8 +6,7 @@ import (
 )
 
 var (
-	ErrNoProgram          = errors.New("no program loaded or memory device attached")
-	ErrAddressOutOfBounds = errors.New("memory address out of bounds")
+	ErrNoProgram = errors.New("no program loaded or memory device attached")
 )
 
 type opcodeError uint16

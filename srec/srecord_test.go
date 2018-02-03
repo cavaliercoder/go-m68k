@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cavaliercoder/go-m68k"
+	"github.com/cavaliercoder/go-m68k/m68kmem"
 )
 
 func TestDecode(t *testing.T) {
@@ -29,7 +29,7 @@ S9030000FC
 		if err != nil {
 			t.Fatal(err)
 		}
-		m := m68k.NewRAM(0x2000)
+		m := m68kmem.NewRAM(0x2000)
 		if err := Load(m, records); err != nil {
 			t.Fatal(err)
 		}

@@ -14,7 +14,7 @@ func ExampleProcessor() {
 	dump.Processor(os.Stdout, p)
 
 	// output:
-	// SR: 00002700 PC: 00001014
+	// PC: 00001014 SR: 00002700
 	// D0: 00000006 A0: 00001023
 	// D1: 00000000 A1: 00000000
 	// D2: 00000000 A2: 00000000

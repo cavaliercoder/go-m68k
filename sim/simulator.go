@@ -16,11 +16,12 @@ import (
 	"os"
 
 	"github.com/cavaliercoder/go-m68k"
+	"github.com/cavaliercoder/go-m68k/m68kmem"
 )
 
 var (
 	ErrNoProcessor = errors.New("no processor configured")
-	ErrNoWriter    = errors.New("write operations requested but no writer is attached")
+	ErrNoWriter    = errors.New("write operation requested but no writer is attached")
 	ErrNoReader    = errors.New("read operation requested but no reader is attached")
 )
 
@@ -38,7 +39,7 @@ type Simulator struct {
 func New() (s *Simulator, err error) {
 	p := &m68k.Processor{
 		PC: 0x1000,
-		M:  &m68k.MemoryDecoder{M: m68k.NewRAM(0x10000)}, // 64KB
+		M:  &m68kmem.Decoder{M: m68kmem.NewRAM(0x10000)}, // 64KB
 	}
 	s = &Simulator{
 		Processor: p,

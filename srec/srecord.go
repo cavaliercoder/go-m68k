@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/cavaliercoder/go-m68k"
+	"github.com/cavaliercoder/go-m68k/m68kmem"
 )
 
 var (
@@ -67,7 +67,7 @@ func Parse(b []byte) (*Record, error) {
 
 // Load copies all data from the given slice of records into a 68000 memory
 // bank.
-func Load(m m68k.Memory, records []*Record) error {
+func Load(m m68kmem.Memory, records []*Record) error {
 	for _, s := range records {
 		if s.IsData() {
 			_, err := m.Write(s.Address(), s.Data())
