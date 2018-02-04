@@ -42,9 +42,13 @@ func op4A(c *Processor) (t *stepTrace) {
 // - TRAP (pg. 4-188)
 // - STOP (pg. 6-85)
 // - JSR (pg. 4-109)
+// - Move USP (pg. 6-21)
 func op4E(c *Processor) (t *stepTrace) {
 	if c.op&0x00F0 == 0x0040 {
 		return opTrap(c)
+	}
+	if c.op&0xFFF0 == 0x4E60 {
+		return opMoveUsp(c)
 	}
 	if c.op == 0x4E72 {
 		return opStop(c)
@@ -171,6 +175,27 @@ func opTrap(c *Processor) (t *stepTrace) {
 	if c.handlers[v] != nil {
 		// TODO: should trap handlers be executed inline?
 		c.err = c.handlers[v].Exception(c, int(v))
+	}
+	return
+}
+
+// opMoveUsp implements MOVE USP (pg. 6-21)
+func opMoveUsp(c *Processor) (t *stepTrace) {
+	reg := c.op & 0x07
+	t = &stepTrace{
+		addr: c.PC,
+		op:   "move",
+		n:    1,
+		sz:   noSize,
+	}
+	c.PC += 2
+	dir := c.op & 0x08 >> 3
+	if dir == 0 { // An to USP
+		t.src, t.dst = fmt.Sprintf("A%d", reg), "USP"
+		c.A[7] = c.A[reg]
+	} else { // USP to An
+		t.src, t.dst = "USP", fmt.Sprintf("A%d", reg)
+		c.A[reg] = c.A[7]
 	}
 	return
 }

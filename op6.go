@@ -58,7 +58,7 @@ func opBcc(c *Processor) (t *stepTrace) {
 	if c.err != nil {
 		return
 	}
-	t.src = fmt.Sprintf("%d(PC)", disp)
+	t.src = fmt.Sprintf("($%X,PC)", disp)
 
 	// decide if to branch
 	switch cc {

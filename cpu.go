@@ -193,7 +193,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 		c.PC += 2
 		addr := int(c.A[reg]) + int(d)
 		b, err = c.M.Byte(addr)
-		opr = fmt.Sprintf("(%d,A%d)", d, reg)
+		opr = fmt.Sprintf("($%X,A%d)", d, reg)
 
 	case 0x07: // other
 		switch reg {
@@ -271,7 +271,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 		c.PC += 2
 		addr := int(c.A[reg]) + int(d)
 		n, err = c.M.Word(addr)
-		opr = fmt.Sprintf("(%d,A%d)", d, reg)
+		opr = fmt.Sprintf("($%X,A%d)", d, reg)
 
 	case 0x07: // other
 		switch reg {
@@ -347,7 +347,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 		c.PC += 2
 		addr := int(c.A[reg]) + int(d)
 		n, err = c.M.Long(addr)
-		opr = fmt.Sprintf("(%d,A%d)", d, reg)
+		opr = fmt.Sprintf("($%X,A%d)", d, reg)
 
 	case 0x07: // other
 		switch reg {

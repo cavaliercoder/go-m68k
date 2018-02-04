@@ -15,7 +15,7 @@ func opMove(c *Processor) (t *stepTrace) {
 	c.PC += 2
 
 	src, dst := decodeEA(c.op), decodeExEA(c.op)
-	if src&0x38 == 0x08 && dst&0x20 == 0x20 {
+	if src&0x38 == 0x08 && dst&0x40 == 0x40 {
 		t.op = "movep"
 	}
 	if dst&0x38 == 0x08 {
