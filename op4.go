@@ -6,7 +6,6 @@ import (
 )
 
 // op41 routes for:
-// - MOVEM (pg. 4-128)
 // - LEA (pg. 4-110)
 // - CHK (pg. 4-69)
 func op41(c *Processor) (t *stepTrace) {
@@ -14,11 +13,11 @@ func op41(c *Processor) (t *stepTrace) {
 	case 0x07: // LEA
 		return opLea(c)
 
-	case 0x06: // CKH
+	case 0x06: // TODO: CHK
 		c.err = newOpcodeError(c.op)
 		return
 
-	default: // MOVEM
+	default:
 		c.err = newOpcodeError(c.op)
 		return
 	}
@@ -104,6 +103,53 @@ func opLea(c *Processor) (t *stepTrace) {
 			disp := wordToInt32(n)
 			c.A[an] = uint32(int32(c.PC) + disp - 2)
 			t.src = fmt.Sprintf("($%X,PC)", disp)
+		}
+	}
+
+	return
+}
+
+// opMovem implementes MOVEM (pg. 4-128)
+func opMovem(c *Processor) (t *stepTrace) {
+	t = &stepTrace{
+		addr: c.PC,
+		n:    1,
+		op:   "movem",
+		sz:   []uint16{SizeWord, SizeLong}[c.op&0x0040>>6],
+	}
+	c.PC += 2
+	regl, _, _ := c.readImmWord() // register list
+	dir := c.op & 0x0400 >> 10    // direction
+
+	if dir == 0 { // register to memory
+		// TODO: implement movem register to memory
+		c.err = newOpcodeError(c.op)
+		return
+
+	} else { // memory to register
+		t.dst = fmt.Sprintf("$%X", regl)
+		for i := uint16(0); i < 16; i++ {
+			ok := regl & (1 << i)
+			if ok == 0 {
+				continue // skip unset registers
+			}
+			if t.sz == SizeWord { // movem.w <ea>,<list>
+				var n uint16
+				n, t.src, c.err = c.readWord(c.op)
+				if i < 8 {
+					c.D[i] = uint32(wordToInt32(n))
+				} else {
+					c.A[i-8] = uint32(wordToInt32(n))
+				}
+			} else { // movem.l <ea>,<list>
+				var n uint32
+				n, t.src, c.err = c.readLong(c.op)
+				if i < 8 {
+					c.D[i] = n
+				} else {
+					c.A[i-8] = n
+				}
+			}
 		}
 	}
 

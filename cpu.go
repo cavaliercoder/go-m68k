@@ -396,6 +396,7 @@ func (c *Processor) readImmByte() (b byte, opr string, err error) {
 	return
 }
 
+// readImmWord reads an immediate word value and increments the program counter.
 func (c *Processor) readImmWord() (n uint16, opr string, err error) {
 	n, err = c.M.Word(int(c.PC))
 	if err != nil {

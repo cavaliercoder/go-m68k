@@ -6,15 +6,18 @@ import (
 )
 
 var (
-	ErrNoProgram = errors.New("no program loaded or memory device attached")
+	ErrNoProgram  = errors.New("no program loaded or memory device attached")
+	ErrBadAddress = errors.New("unrecognized effective address")
 )
 
-type opcodeError uint16
+type opcodeError struct {
+	op uint16
+}
 
-func (e opcodeError) Error() string {
-	return fmt.Sprintf("unrecognized opcode: %04X", uint16(e))
+func (e *opcodeError) Error() string {
+	return fmt.Sprintf("unrecognized opcode: %04X", e.op)
 }
 
 func newOpcodeError(op uint16) error {
-	return opcodeError(op)
+	return &opcodeError{op}
 }

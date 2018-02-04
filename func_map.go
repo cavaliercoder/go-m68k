@@ -41,7 +41,7 @@ var defaultFuncMap = funcMap{
 	},
 	[]stepFunc{ // 0x4n
 		nil, op41, nil, op41, nil, op41, nil, op41,
-		nil, op41, op4A, op41, nil, op41, op4E, op41,
+		opMovem, op41, op4A, op41, opMovem, op41, op4E, op41,
 	},
 	[]stepFunc{ // 0x5n
 		nil, nil, nil, nil, nil, nil, nil, nil,

@@ -1,7 +1,10 @@
 package m68k_test
 
 import (
+	"os"
 	"testing"
+
+	"github.com/cavaliercoder/go-m68k/dump"
 
 	. "github.com/cavaliercoder/go-m68k/m68ktest"
 )
@@ -22,4 +25,13 @@ func TestLea(t *testing.T) {
 		AssertRun(t, p)
 		AssertAddressRegister(t, p, 0, 0xFFFFFFFF)
 	})
+}
+
+func TestMovem(t *testing.T) {
+	// TODO: improve movem tests
+	p := LoadBytes(t, []byte{
+		0x4c, 0x9d, 0x00, 0xe0, // movem.w (A5)+,$E0
+	})
+	AssertRun(t, p)
+	dump.Processor(os.Stdout, p)
 }
