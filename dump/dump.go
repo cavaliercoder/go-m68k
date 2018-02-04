@@ -37,14 +37,10 @@ func Memory(w io.Writer, m m68kmem.Memory) {
 	elip := false
 	for i := 0; ; i += 16 {
 		_, err := m.Read(i, b)
-		if err == io.EOF {
-			return
-		}
 		if err != nil {
-			fmt.Fprintf(w, "%v\n", err)
 			return
 		}
-		if bytesZero(b) {
+		if bytesZero(b) || err != nil {
 			if !elip {
 				fmt.Fprint(w, "*\n")
 				elip = true

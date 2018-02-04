@@ -23,7 +23,7 @@ func Clear(m Memory) {
 	for {
 		n, err := m.Write(addr, zero[:])
 		// TODO: clear breaks on access violation
-		if err == io.ErrShortWrite || isAccessViolationError(err) {
+		if err == io.ErrShortWrite || err == io.EOF || isAccessViolationError(err) {
 			break
 		}
 		if err != nil {

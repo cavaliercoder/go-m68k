@@ -16,7 +16,7 @@ func NewRAM(size uint32) Memory {
 
 func (m *ram) Read(addr int, p []byte) (n int, err error) {
 	if addr < 0 || addr >= len(m.b) {
-		return 0, io.EOF
+		return 0, accessViolationError(addr)
 	}
 	n = copy(p, m.b[addr:])
 	return
