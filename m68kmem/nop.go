@@ -9,6 +9,9 @@ func NewNop() Memory {
 }
 
 func (c *nop) Read(addr int, p []byte) (n int, err error) {
+	for i := 0; i < len(p); i++ {
+		p[i] = 0
+	}
 	n = len(p)
 	return
 }
