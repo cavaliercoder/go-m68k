@@ -16,7 +16,7 @@ func ExampleMapper() {
 	dev2 := NewROM([]byte("This is device two.............\n"))
 	m.Map(dev2, 0x20, 0x3F)
 
-	// map a ROM dvice to 0x40
+	// map a ROM device to 0x40
 	dev3 := NewROM([]byte("This is device three...........\n"))
 	m.Map(dev3, 0x40, 0x5F)
 

@@ -9,6 +9,7 @@ type Decoder struct {
 	buf [4]byte
 }
 
+// NewDecoder returns a new Decoder for the given Memory interface.
 func NewDecoder(m Memory) *Decoder {
 	return &Decoder{M: m}
 }

@@ -60,27 +60,10 @@ func opBcc(c *Processor) (t *stepTrace) {
 	}
 	t.src = fmt.Sprintf("($%X,PC)", disp)
 
-	// decide if to branch
-	switch cc {
-	default:
-		c.err = newOpcodeError(c.op)
-		return
-
-	case 0: // bra
-		// always branch
-
-	case CondNotEqual: // bne
-		if c.SR&StatusZero != 0 {
-			return
-		}
-
-	case CondEqual: // beq
-		if c.SR&StatusZero == 0 {
-			return
-		}
-	}
-
 	// branch
+	if !testCond(c, cc) {
+		return
+	}
 	c.PC = uint32((int32(t.addr+2) + disp))
 	return
 }

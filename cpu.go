@@ -48,6 +48,27 @@ const (
 	CondLessOrEqual
 )
 
+// string suffix for conditional opcodes
+// see: table 3-19
+var conditionStrings = []string{
+	"t",  // true
+	"f",  // false
+	"hi", // high
+	"ls", // low or same
+	"cc", // (hi) carry clear
+	"cs", // (lo) carry set
+	"ne", // not equal
+	"eq", // equal
+	"vc", // overflow clear
+	"vs", // overflow set
+	"pl", // plus
+	"mi", // minus
+	"ge", // greater or equal
+	"lt", // less than
+	"gt", // greater than
+	"le", // less or equal
+}
+
 // A Processor emulates the Motorola 68000 microprocessor.
 type Processor struct {
 	D  [8]uint32        // Data registers
@@ -121,8 +142,8 @@ func (c *Processor) Step() error {
 		return c.err
 	}
 
-	// map to function
-	fn := defaultFuncMap.Resolve(c.op)
+	// dispatch opcode to function
+	fn := dispatch(c.op)
 	if fn == nil {
 		c.err = newOpcodeError(c.op)
 		return c.err
@@ -146,6 +167,25 @@ func (c *Processor) trace(v ...interface{}) {
 		return
 	}
 	fmt.Fprintln(c.TraceWriter, v...)
+}
+
+// testCode returns true if the given condition code is true for the current
+// processor state.
+func testCond(c *Processor, cc uint16) bool {
+	switch cc {
+	case CondTrue:
+		return true
+
+	case CondFalse:
+		return false
+
+	case CondNotEqual:
+		return c.SR&StatusZero == 0
+
+	case CondEqual:
+		return c.SR&StatusZero != 0
+	}
+	return false
 }
 
 func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {

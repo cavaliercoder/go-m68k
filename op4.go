@@ -5,61 +5,6 @@ import (
 	"io"
 )
 
-// op41 routes for:
-// - LEA (pg. 4-110)
-// - CHK (pg. 4-69)
-func op41(c *Processor) (t *stepTrace) {
-	switch c.op & 0x01C0 >> 6 {
-	case 0x07: // LEA
-		return opLea(c)
-
-	case 0x06: // TODO: CHK
-		c.err = newOpcodeError(c.op)
-		return
-
-	default:
-		c.err = newOpcodeError(c.op)
-		return
-	}
-}
-
-// op4A routes for:
-// - TST (pg. 4-192)
-// - ILLEGAL
-// - TAS
-func op4A(c *Processor) (t *stepTrace) {
-	if c.op == 0x4AFC { // ILLEGAL
-		c.err = newOpcodeError(c.op)
-		return
-	}
-	if c.op&0xC0 == 0xC0 { // TAS
-		c.err = newOpcodeError(c.op)
-	}
-	return opTst(c) // TST
-}
-
-// op4E routes for:
-// - TRAP (pg. 4-188)
-// - STOP (pg. 6-85)
-// - JSR (pg. 4-109)
-// - Move USP (pg. 6-21)
-func op4E(c *Processor) (t *stepTrace) {
-	if c.op&0x00F0 == 0x0040 {
-		return opTrap(c)
-	}
-	if c.op&0xFFF0 == 0x4E60 {
-		return opMoveUsp(c)
-	}
-	if c.op == 0x4E72 {
-		return opStop(c)
-	}
-	if c.op&0x00C0 == 0x0080 {
-		return opJsr(c)
-	}
-	c.err = newOpcodeError(c.op)
-	return
-}
-
 // opLea implements LEA (pg. 4-110)
 func opLea(c *Processor) (t *stepTrace) {
 	an := (c.op & 0x0E00) >> 9

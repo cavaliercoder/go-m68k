@@ -1,7 +1,5 @@
 package m68k
 
-// This file contains opcodes starting in 0x0000
-
 // opMove implements MOVE, MOVEA and MOVEP
 func opMove(c *Processor) (t *stepTrace) {
 	t = &stepTrace{

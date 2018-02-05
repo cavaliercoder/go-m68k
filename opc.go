@@ -2,16 +2,6 @@ package m68k
 
 import "fmt"
 
-// opC0 routes for:
-// - ABCD (pg. 4-2)
-func opC0(c *Processor) (t *stepTrace) {
-	if c.op&0x00F0 == 0 && c.op&0x0100 != 0 {
-		return opAbcd(c)
-	}
-	c.err = newOpcodeError(c.op)
-	return
-}
-
 // opAbcd implements ABCD (pg. 4-2)
 func opAbcd(c *Processor) (t *stepTrace) {
 	t = &stepTrace{
