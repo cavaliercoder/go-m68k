@@ -32,7 +32,7 @@ func main() {
 		os.Exit(1)
 	}
 	if debug {
-		s.Processor.TraceWriter = os.Stderr
+		s.Trace(os.Stderr)
 	}
 
 	// load program into memory

@@ -59,6 +59,11 @@ func (c *Simulator) Register() (err error) {
 	return
 }
 
+// Trace configures the simulator to write trace messages to the given Writer.
+func (c *Simulator) Trace(w io.Writer) {
+	c.Processor.TraceWriter = w
+}
+
 // Run configures the underlying Processor and executes any program loaded
 // into memory, starting from the location of the Program Counter.
 func (c *Simulator) Run() (err error) {

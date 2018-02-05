@@ -22,8 +22,8 @@ func (c *stepTrace) String() string {
 		operands = fmt.Sprintf("%s,%s", c.src, c.dst)
 	}
 	if c.sz == noSize {
-		return fmt.Sprintf("%04X %s %s", c.addr, c.op, operands)
+		return fmt.Sprintf("%08X %s %s", c.addr, c.op, operands)
 	}
 	sz := []string{"b", "w", "l"}[c.sz]
-	return fmt.Sprintf("%04X %s.%s %s", c.addr, c.op, sz, operands)
+	return fmt.Sprintf("%08X %s.%s %s", c.addr, c.op, sz, operands)
 }

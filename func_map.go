@@ -76,8 +76,8 @@ var defaultFuncMap = funcMap{
 		opC0, opC0, opC0, opC0, opC0, opC0, opC0, opC0,
 	},
 	[]stepFunc{ // 0xDn
-		nil, nil, nil, nil, nil, nil, nil, nil,
-		nil, nil, nil, nil, nil, nil, nil, nil,
+		opAdd, opAdd, opAdd, opAdd, opAdd, opAdd, opAdd, opAdd,
+		opAdd, opAdd, opAdd, opAdd, opAdd, opAdd, opAdd, opAdd,
 	},
 	[]stepFunc{ // 0xEn
 		nil, nil, nil, nil, nil, nil, nil, nil,
