@@ -221,12 +221,6 @@ func opJsr(c *Processor) (t *stepTrace) {
 
 // opTst implements TST (4-192)
 func opTst(c *Processor) (t *stepTrace) {
-	if c.op&0x38 == 0x08 {
-		// not valid when < ea > is an addres register
-		c.err = newOpcodeError(c.op)
-		return
-	}
-
 	t = &stepTrace{
 		addr: c.PC,
 		op:   "tst",
