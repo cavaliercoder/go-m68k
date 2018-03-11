@@ -74,7 +74,7 @@ func opOri(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadOpSize
 		return
 
 	case SizeByte:
@@ -138,7 +138,7 @@ func opOri(c *Processor) (t *stepTrace) {
 	return
 }
 
-// opAndi implements ANDI, ANDI to CCR and ANDI to SR
+// opAndi implements ANDI (4-18), ANDI to CCR and ANDI to SR
 func opAndi(c *Processor) (t *stepTrace) {
 	t = &stepTrace{
 		addr: c.PC,
@@ -148,10 +148,10 @@ func opAndi(c *Processor) (t *stepTrace) {
 	}
 	c.PC += 2
 	ea := decodeEA(c.op)
-
+	sr := c.SR & 0xFFFFFFF0
 	switch t.sz {
 	default:
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadOpSize
 		return
 
 	case SizeByte:
@@ -173,6 +173,9 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 		b := dst & src
 		t.dst, c.err = c.writeByte(ea, b)
+		if b == 0 {
+			sr |= StatusZero
+		}
 
 	case SizeWord:
 		// read immediate word
@@ -193,6 +196,9 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 		v := dst & src
 		t.dst, c.err = c.writeWord(ea, v)
+		if v == 0 {
+			sr |= StatusZero
+		}
 
 	case SizeLong:
 		// read immediate long
@@ -206,6 +212,14 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 		v := dst & src
 		t.dst, c.err = c.writeLong(ea, v)
+		if v == 0 {
+			sr |= StatusZero
+		}
+	}
+
+	// set status register if EA is not SR or CCR
+	if ea != 0x3C {
+		c.SR = sr
 	}
 	return
 }
@@ -224,7 +238,7 @@ func opSubi(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadOpSize
 		return
 
 	case SizeByte:
@@ -286,7 +300,7 @@ func opAddi(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadOpSize
 		return
 	case SizeByte:
 		// read immediate byte
@@ -345,7 +359,7 @@ func opEori(c *Processor) (t *stepTrace) {
 	ea := decodeEA(c.op)
 	switch t.sz {
 	default:
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadOpSize
 		return
 
 	case SizeByte:

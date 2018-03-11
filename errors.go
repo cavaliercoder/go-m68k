@@ -6,8 +6,10 @@ import (
 )
 
 var (
-	ErrNoProgram  = errors.New("no program loaded or memory device attached")
-	ErrBadAddress = errors.New("unrecognized effective address")
+	ErrNoProgram      = errors.New("no program loaded or memory device attached")
+	ErrBadAddress     = errors.New("illegal effective address")
+	ErrBadOpSize      = errors.New("illegal operand size")
+	ErrNotImplemented = errors.New("opcode not implemented")
 )
 
 type opcodeError struct {

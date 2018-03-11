@@ -145,7 +145,7 @@ func (c *Processor) Step() error {
 	// dispatch opcode to function
 	fn := dispatch(c.op)
 	if fn == nil {
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadAddress
 		return c.err
 	}
 	t := fn(c)
@@ -193,7 +193,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = newOpcodeError(c.op)
+		err = ErrBadAddress
 		return
 
 	case 0x00: // data register
@@ -238,7 +238,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = newOpcodeError(c.op)
+			err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -277,7 +277,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = newOpcodeError(c.op)
+		err = ErrBadAddress
 		return
 
 	case 0x00: // data register
@@ -316,7 +316,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = newOpcodeError(c.op)
+			err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -353,7 +353,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = newOpcodeError(c.op)
+		err = ErrBadAddress
 		return
 
 	case 0x00: // data register
@@ -392,7 +392,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = newOpcodeError(c.op)
+			err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -462,7 +462,7 @@ func (c *Processor) writeByte(ea uint16, b byte) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = newOpcodeError(c.op)
+		err = ErrBadAddress
 		return
 
 	case 0x00: // data register
@@ -503,7 +503,7 @@ func (c *Processor) writeByte(ea uint16, b byte) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = newOpcodeError(c.op)
+			err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -535,7 +535,7 @@ func (c *Processor) writeWord(ea uint16, v uint16) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = newOpcodeError(c.op)
+		err = ErrBadAddress
 		return
 
 	case 0x00: // data register
@@ -578,7 +578,7 @@ func (c *Processor) writeWord(ea uint16, v uint16) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = newOpcodeError(c.op)
+			err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -612,7 +612,7 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = newOpcodeError(c.op)
+		err = ErrBadAddress
 		return
 
 	case 0x00: // data register
@@ -655,7 +655,7 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = newOpcodeError(c.op)
+			err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word

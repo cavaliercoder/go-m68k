@@ -21,7 +21,7 @@ func opLea(c *Processor) (t *stepTrace) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadAddress
 		return
 
 	case 0x02: // memory address
@@ -31,7 +31,7 @@ func opLea(c *Processor) (t *stepTrace) {
 	case 0x07: // other
 		switch reg {
 		default:
-			c.err = newOpcodeError(c.op)
+			c.err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -72,9 +72,8 @@ func opMovem(c *Processor) (t *stepTrace) {
 
 	if dir == 0 { // register to memory
 		// TODO: implement movem register to memory
-		c.err = newOpcodeError(c.op)
+		c.err = ErrNotImplemented
 		return
-
 	} else { // memory to register
 		t.dst = fmt.Sprintf("$%X", regl)
 		for i := uint16(0); i < 16; i++ {
@@ -183,7 +182,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 	switch mod {
 	// TODO: implement remaining address modes for JSR
 	default:
-		c.err = newOpcodeError(c.op)
+		c.err = ErrBadAddress
 		return
 
 	case 0x02: // address register
@@ -193,7 +192,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 	case 0x07: // other
 		switch reg {
 		default:
-			c.err = newOpcodeError(c.op)
+			c.err = ErrBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -260,5 +259,18 @@ func opTst(c *Processor) (t *stepTrace) {
 			c.SR |= StatusNegative
 		}
 	}
+	return
+}
+
+// opRts implements RTS (Return from Subroutine) (4-169)
+func opRts(c *Processor) (t *stepTrace) {
+	t = &stepTrace{
+		addr: c.PC,
+		op:   "rts",
+		sz:   noSize,
+		n:    1,
+	}
+	c.PC = c.A[7]
+	c.A[7] += 4
 	return
 }
