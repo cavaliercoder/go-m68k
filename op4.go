@@ -1,6 +1,7 @@
 package m68k
 
 import (
+	"encoding/binary"
 	"fmt"
 	"io"
 )
@@ -177,6 +178,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 	}
 	c.PC += 2
 
+	var jmp uint32 // jump address
 	mod := c.op & 0x38 >> 3
 	reg := c.op & 0x07
 	switch mod {
@@ -186,7 +188,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 		return
 
 	case 0x02: // address register
-		c.PC = c.A[reg]
+		jmp = c.A[reg]
 		t.src = fmt.Sprintf("(A%d)", reg)
 
 	case 0x07: // other
@@ -198,23 +200,32 @@ func opJsr(c *Processor) (t *stepTrace) {
 		case 0x00: // absolute word
 			var n uint16
 			n, _, c.err = c.readImmWord()
-			c.PC = uint32(wordToInt32(n))
+			jmp = uint32(wordToInt32(n))
 			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x01: // absolute long
 			var n uint32
 			n, _, c.err = c.readImmLong()
-			c.PC = n
+			jmp = n
 			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x02: // program counter with displacement
 			var n uint16
 			n, _, c.err = c.readImmWord()
 			disp := wordToInt32(n)
-			c.PC = uint32(int32(c.PC) + disp - 2)
+			jmp = uint32(int32(c.PC) + disp - 2)
 			t.src = fmt.Sprintf("($%X,PC)", disp)
 		}
 	}
+
+	// push program counter to stack
+	c.A[7] -= 4
+	binary.BigEndian.PutUint32(c.buf[:4], c.PC)
+	_, c.err = c.M.Write(int(c.A[7]), c.buf[:4])
+	if c.err != nil {
+		return
+	}
+	c.PC = jmp
 	return
 }
 
@@ -270,7 +281,10 @@ func opRts(c *Processor) (t *stepTrace) {
 		sz:   noSize,
 		n:    1,
 	}
-	c.PC = c.A[7]
+	c.PC, c.err = c.M.Long(int(c.A[7]))
+	if c.err != nil {
+		return
+	}
 	c.A[7] += 4
 	return
 }
