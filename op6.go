@@ -48,7 +48,7 @@ func opBcc(c *Processor) (t *stepTrace) {
 	case 0xFF: // 32-bit displacement
 		if cc < 2 {
 			// 32-bit displacement is not implemented on the 68000 for bra and bsr
-			c.err = newOpcodeError(c.op)
+			c.err = errBadOpcode
 			return
 		}
 		var n uint32

@@ -21,7 +21,7 @@ func opLea(c *Processor) (t *stepTrace) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		c.err = ErrBadAddress
+		c.err = errBadAddress
 		return
 
 	case 0x02: // memory address
@@ -31,7 +31,7 @@ func opLea(c *Processor) (t *stepTrace) {
 	case 0x07: // other
 		switch reg {
 		default:
-			c.err = ErrBadAddress
+			c.err = errBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -72,7 +72,7 @@ func opMovem(c *Processor) (t *stepTrace) {
 
 	if dir == 0 { // register to memory
 		// TODO: implement movem register to memory
-		c.err = ErrNotImplemented
+		c.err = errNotImplemented
 		return
 	} else { // memory to register
 		t.dst = fmt.Sprintf("$%X", regl)
@@ -182,7 +182,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 	switch mod {
 	// TODO: implement remaining address modes for JSR
 	default:
-		c.err = ErrBadAddress
+		c.err = errBadAddress
 		return
 
 	case 0x02: // address register
@@ -192,7 +192,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 	case 0x07: // other
 		switch reg {
 		default:
-			c.err = ErrBadAddress
+			c.err = errBadAddress
 			return
 
 		case 0x00: // absolute word

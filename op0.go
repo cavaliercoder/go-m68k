@@ -74,7 +74,7 @@ func opOri(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = ErrBadOpSize
+		c.err = errBadOpSize
 		return
 
 	case SizeByte:
@@ -151,7 +151,7 @@ func opAndi(c *Processor) (t *stepTrace) {
 	sr := c.SR & 0xFFFFFFF0
 	switch t.sz {
 	default:
-		c.err = ErrBadOpSize
+		c.err = errBadOpSize
 		return
 
 	case SizeByte:
@@ -238,7 +238,7 @@ func opSubi(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = ErrBadOpSize
+		c.err = errBadOpSize
 		return
 
 	case SizeByte:
@@ -300,7 +300,7 @@ func opAddi(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = ErrBadOpSize
+		c.err = errBadOpSize
 		return
 	case SizeByte:
 		// read immediate byte
@@ -359,7 +359,7 @@ func opEori(c *Processor) (t *stepTrace) {
 	ea := decodeEA(c.op)
 	switch t.sz {
 	default:
-		c.err = ErrBadOpSize
+		c.err = errBadOpSize
 		return
 
 	case SizeByte:

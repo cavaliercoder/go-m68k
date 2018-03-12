@@ -119,10 +119,15 @@ func (c *Processor) Reset() {
 // counter value, running until completion.
 func (c *Processor) Run() error {
 	if c.M == nil {
-		return ErrNoProgram
+		return errNoProgram
 	}
 	for c.err == nil {
 		c.Step()
+	}
+	// TODO: I hate this EOF approach. All programs should loop or be terminated
+	// by external hardware.
+	if c.err.(*traceableError).Err == io.EOF {
+		c.err = io.EOF
 	}
 	return c.err
 }
@@ -130,6 +135,8 @@ func (c *Processor) Run() error {
 // Step executes the single instruction located at the address specified by the
 // program counter register.
 func (c *Processor) Step() error {
+	// Invariant: the returned error must be a traceableError.
+
 	// read from program pointer into op
 	if _, c.err = c.M.Read(int(c.PC), c.buf[0:2]); c.err != nil {
 		return c.err
@@ -138,19 +145,23 @@ func (c *Processor) Step() error {
 	if c.op == 0 {
 		// TODO: this is a valid instruction. Find a way to terminate programs
 		// without buffer overrun.
-		c.err = io.EOF
+		c.err = newTraceableError(c.PC, c.op, io.EOF)
 		return c.err
 	}
 
 	// dispatch opcode to function
 	fn := dispatch(c.op)
 	if fn == nil {
-		c.err = ErrBadAddress
+		c.err = newTraceableError(c.PC, c.op, errBadOpcode)
 		return c.err
 	}
+
+	addr := c.PC // cache PC as it will be mutated by fn()
 	t := fn(c)
 	if c.err == nil {
 		c.trace(t)
+	} else {
+		c.err = newTraceableError(addr, c.op, c.err)
 	}
 	return c.err
 }
@@ -193,7 +204,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadAddress
+		err = errBadAddress
 		return
 
 	case 0x00: // data register
@@ -238,7 +249,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadAddress
+			err = errBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -277,7 +288,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadAddress
+		err = errBadAddress
 		return
 
 	case 0x00: // data register
@@ -316,7 +327,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadAddress
+			err = errBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -353,7 +364,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadAddress
+		err = errBadAddress
 		return
 
 	case 0x00: // data register
@@ -392,7 +403,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadAddress
+			err = errBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -462,7 +473,7 @@ func (c *Processor) writeByte(ea uint16, b byte) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadAddress
+		err = errBadAddress
 		return
 
 	case 0x00: // data register
@@ -503,7 +514,7 @@ func (c *Processor) writeByte(ea uint16, b byte) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadAddress
+			err = errBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -535,7 +546,7 @@ func (c *Processor) writeWord(ea uint16, v uint16) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadAddress
+		err = errBadAddress
 		return
 
 	case 0x00: // data register
@@ -578,7 +589,7 @@ func (c *Processor) writeWord(ea uint16, v uint16) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadAddress
+			err = errBadAddress
 			return
 
 		case 0x00: // absolute word
@@ -612,7 +623,7 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		err = ErrBadAddress
+		err = errBadAddress
 		return
 
 	case 0x00: // data register
@@ -655,7 +666,7 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 	case 0x07: // other
 		switch reg {
 		default:
-			err = ErrBadAddress
+			err = errBadAddress
 			return
 
 		case 0x00: // absolute word

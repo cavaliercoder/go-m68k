@@ -6,20 +6,23 @@ import (
 )
 
 var (
-	ErrNoProgram      = errors.New("no program loaded or memory device attached")
-	ErrBadAddress     = errors.New("illegal effective address")
-	ErrBadOpSize      = errors.New("illegal operand size")
-	ErrNotImplemented = errors.New("opcode not implemented")
+	errNoProgram      = errors.New("no program loaded or memory device attached")
+	errBadAddress     = errors.New("illegal effective address")
+	errBadOpcode      = errors.New("illegal operation code")
+	errBadOpSize      = errors.New("illegal operand size")
+	errNotImplemented = errors.New("operation code not implemented")
 )
 
-type opcodeError struct {
-	op uint16
+type traceableError struct {
+	Addr   uint32
+	Opcode uint16
+	Err    error
 }
 
-func (e *opcodeError) Error() string {
-	return fmt.Sprintf("unrecognized opcode: %04X", e.op)
+func newTraceableError(addr uint32, op uint16, err error) error {
+	return &traceableError{addr, op, err}
 }
 
-func newOpcodeError(op uint16) error {
-	return &opcodeError{op}
+func (e *traceableError) Error() string {
+	return fmt.Sprintf("%s (Op: 0x%04X, PC: 0x%X)", e.Err.Error(), e.Opcode, e.Addr)
 }
