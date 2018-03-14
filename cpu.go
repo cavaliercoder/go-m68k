@@ -81,10 +81,11 @@ type Processor struct {
 	// TraceWriter is nil, no logging is performed.
 	TraceWriter io.Writer
 
-	buf      [64]byte // general purpose buffer
-	op       uint16
-	err      error
-	handlers [256]TrapHandler
+	buf      [64]byte         // general purpose buffer
+	op       uint16           // current opcode
+	stop     bool             // exit run loop if true
+	err      error            // most recent error
+	handlers [256]TrapHandler // registered trap handlers
 }
 
 type TrapHandler interface {
@@ -121,13 +122,17 @@ func (c *Processor) Run() error {
 	if c.M == nil {
 		return errNoProgram
 	}
-	for c.err == nil {
+	for c.err == nil && !c.stop {
 		c.Step()
 	}
+	c.stop = false
+
 	// TODO: I hate this EOF approach. All programs should loop or be terminated
 	// by external hardware.
-	if c.err.(*traceableError).Err == io.EOF {
-		c.err = io.EOF
+	if err, ok := c.err.(*traceableError); ok {
+		if err.Err == io.EOF {
+			c.err = io.EOF
+		}
 	}
 	return c.err
 }
@@ -155,17 +160,17 @@ func (c *Processor) Step() error {
 		c.err = newTraceableError(c.PC, c.op, errBadOpcode)
 		return c.err
 	}
-
-	addr := c.PC // cache PC as it will be mutated by fn()
 	t := fn(c)
-	if c.err == nil {
-		c.trace(t)
-	} else {
-		c.err = newTraceableError(addr, c.op, c.err)
+
+	// BUG: trace data might be corrupted by an execution error.
+	c.trace(t)
+	if c.err != nil {
+		c.err = newTraceableError(t.addr, c.op, c.err)
 	}
 	return c.err
 }
 
+// print a formatted message to the configured TraceWriter.
 func (c *Processor) tracef(format string, a ...interface{}) {
 	if c.TraceWriter == nil {
 		return
@@ -173,6 +178,7 @@ func (c *Processor) tracef(format string, a ...interface{}) {
 	fmt.Fprintf(c.TraceWriter, format, a...)
 }
 
+// print a message to the configured TraceWriter.
 func (c *Processor) trace(v ...interface{}) {
 	if c.TraceWriter == nil {
 		return
@@ -195,10 +201,13 @@ func testCond(c *Processor, cc uint16) bool {
 
 	case CondEqual:
 		return c.SR&StatusZero != 0
+
+		// TODO: implement all evaluation of all condition codes
 	}
 	return false
 }
 
+// readByte reads an 8-bit byte of data from the given effective address.
 func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	mod := ea & 0x38 >> 3
 	reg := ea & 0x07
@@ -283,6 +292,7 @@ func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	return
 }
 
+// readWord reads a 16-bit word of data from the given effective address.
 func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	mod := ea & 0x38 >> 3
 	reg := ea & 0x07
@@ -359,6 +369,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 	return
 }
 
+// readLong reads a 32-bit long-word of data from the given effective address.
 func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	mod := ea & 0x38 >> 3
 	reg := ea & 0x07
@@ -435,6 +446,8 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	return
 }
 
+// readImmByte reads an 8-bit byte of immediate data from the current program
+// counter address and increments the counter by 2 (16-bits) for word alignment.
 func (c *Processor) readImmByte() (b byte, opr string, err error) {
 	var n uint16
 	n, err = c.M.Word(int(c.PC))
@@ -447,7 +460,8 @@ func (c *Processor) readImmByte() (b byte, opr string, err error) {
 	return
 }
 
-// readImmWord reads an immediate word value and increments the program counter.
+// readImmWord reads a 16-bit word of immediate data from the current program
+// counter address and increments the counter by 2 (16-bits).
 func (c *Processor) readImmWord() (n uint16, opr string, err error) {
 	n, err = c.M.Word(int(c.PC))
 	if err != nil {
@@ -458,6 +472,8 @@ func (c *Processor) readImmWord() (n uint16, opr string, err error) {
 	return
 }
 
+// readImmLong reads a 32-bit long-word of immediate data from the current
+// program counter address and increments the counter by 4 (32-bits).
 func (c *Processor) readImmLong() (n uint32, opr string, err error) {
 	n, err = c.M.Long(int(c.PC))
 	if err != nil {
@@ -693,4 +709,31 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 		}
 	}
 	return
+}
+
+func (c *Processor) setStatusForByte(b byte) {
+	if b == 0 {
+		c.SR |= StatusZero
+	}
+	if b&0x80 != 0 {
+		c.SR |= StatusNegative
+	}
+}
+
+func (c *Processor) setStatusForWord(v uint16) {
+	if v == 0 {
+		c.SR |= StatusZero
+	}
+	if v&0x8000 != 0 {
+		c.SR |= StatusNegative
+	}
+}
+
+func (c *Processor) setStatusForLong(v uint32) {
+	if v == 0 {
+		c.SR |= StatusZero
+	}
+	if v&0x80000000 != 0 {
+		c.SR |= StatusNegative
+	}
 }

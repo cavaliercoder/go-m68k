@@ -3,6 +3,7 @@ package m68k
 import "fmt"
 
 // opDBcc implements DBcc (pg. 4-90)
+// Test, decrement and branch.
 func opDBcc(c *Processor) (t *stepTrace) {
 	reg := c.op & 0x07
 	cc := c.op & 0x0F00 >> 8
@@ -21,6 +22,8 @@ func opDBcc(c *Processor) (t *stepTrace) {
 	if c.err != nil {
 		return
 	}
+	disp := wordToInt32(dw)
+	t.dst = fmt.Sprintf("($%X,PC)", disp)
 
 	// test condition and return if true
 	if testCond(c, cc) {
@@ -34,7 +37,6 @@ func opDBcc(c *Processor) (t *stepTrace) {
 
 	// branch if n != -1
 	if n != 0xFFFF {
-		disp := wordToInt32(dw)
 		c.PC = uint32(int32(c.PC) + disp - 2)
 	}
 	return

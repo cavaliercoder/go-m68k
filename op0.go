@@ -1,5 +1,7 @@
 package m68k
 
+import "fmt"
+
 // opMove implements MOVE, MOVEA and MOVEP
 func opMove(c *Processor) (t *stepTrace) {
 	t = &stepTrace{
@@ -148,7 +150,8 @@ func opAndi(c *Processor) (t *stepTrace) {
 	}
 	c.PC += 2
 	ea := decodeEA(c.op)
-	sr := c.SR & 0xFFFFFFF0
+	sr := c.SR         // cache value in case destination is status register
+	c.SR &= 0xFFFFFFF0 // reset last 4 bits only
 	switch t.sz {
 	default:
 		c.err = errBadOpSize
@@ -160,7 +163,7 @@ func opAndi(c *Processor) (t *stepTrace) {
 		src, t.src, c.err = c.readImmByte()
 
 		if ea == 0x3C { // and.b to CCR
-			c.SR |= uint32(src) & StatusMask
+			c.SR = sr | uint32(src)&StatusMask
 			t.sz = noSize
 			t.dst = "CCR"
 			break
@@ -173,9 +176,7 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 		b := dst & src
 		t.dst, c.err = c.writeByte(ea, b)
-		if b == 0 {
-			sr |= StatusZero
-		}
+		c.setStatusForByte(b)
 
 	case SizeWord:
 		// read immediate word
@@ -183,7 +184,7 @@ func opAndi(c *Processor) (t *stepTrace) {
 		src, t.src, c.err = c.readImmWord()
 
 		if ea == 0x3C { // andi.w to SR
-			c.SR |= uint32(src) & StatusMask
+			c.SR = sr | uint32(src)&StatusMask
 			t.sz = noSize
 			t.dst = "SR"
 			break
@@ -196,9 +197,7 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 		v := dst & src
 		t.dst, c.err = c.writeWord(ea, v)
-		if v == 0 {
-			sr |= StatusZero
-		}
+		c.setStatusForWord(v)
 
 	case SizeLong:
 		// read immediate long
@@ -212,15 +211,9 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 		v := dst & src
 		t.dst, c.err = c.writeLong(ea, v)
-		if v == 0 {
-			sr |= StatusZero
-		}
+		c.setStatusForLong(v)
 	}
 
-	// set status register if EA is not SR or CCR
-	if ea != 0x3C {
-		c.SR = sr
-	}
 	return
 }
 
@@ -423,6 +416,48 @@ func opEori(c *Processor) (t *stepTrace) {
 		}
 		v := dst ^ src
 		t.dst, c.err = c.writeLong(ea, v)
+	}
+	return
+}
+
+// opBtst implements BTST (4-61)
+func opBtst(c *Processor) (t *stepTrace) {
+	// TODO: implement bit number as immediate value (4-63)
+	t = &stepTrace{
+		addr: c.PC,
+		op:   "btst",
+		sz:   noSize,
+		n:    1,
+	}
+	c.PC += 2
+
+	// read bit number from data register
+	src := (c.op >> 9) & 0x7
+	t.src = fmt.Sprintf("D%d", src)
+	bit := c.D[src]
+
+	// read destination value
+	mod := c.op & 0x38 >> 3
+	var v, width uint32
+	if mod == 0 { // data register
+		v, t.dst, c.err = c.readLong(c.op)
+		if c.err != nil {
+			return
+		}
+		width = 32
+	} else {
+		var b byte
+		b, t.dst, c.err = c.readByte(c.op)
+		v = uint32(b)
+		width = 8
+	}
+
+	// set status bit
+	bit %= width
+	if v&bit == 0 {
+		c.SR |= StatusZero
+	} else {
+		c.SR &= ^StatusZero
 	}
 	return
 }

@@ -67,3 +67,17 @@ func Memory(w io.Writer, m m68kmem.Memory) {
 		w.Write([]byte("|\n"))
 	}
 }
+
+// FormatConditionCode returns a string indicating each enabled condition code
+// flag for the given Status Register value.
+func FormatConditionCode(v uint32) string {
+	out := []byte{'.', '.', '.', '.', '.'}
+	labels := []byte{'X', 'N', 'Z', 'V', 'C'}
+	for i := uint32(0); i < 5; i++ {
+		flag := uint32(1) << i
+		if v&flag != 0 {
+			out[4-i] = labels[4-i]
+		}
+	}
+	return string(out)
+}

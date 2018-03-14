@@ -10,6 +10,7 @@ type mirror struct {
 // size of the mirrored device, then r is the size of the range across which it
 // is mirrored.
 func Mirror(m Memory, n, r uint32) Memory {
+	// TODO: validate size and range
 	return &mirror{M: m, Size: n, Range: r}
 }
 

@@ -14,6 +14,7 @@ type opcode struct {
 var opcodes = [][]opcode{
 	[]opcode{ /* 0x0... */
 		{0x0000, 0xFF00, opOri},
+		{0x0100, 0xF1C0, opBtst},
 		{0x0200, 0xFF00, opAndi},
 		{0x0400, 0xFF00, opSubi},
 		{0x0600, 0xFF00, opAddi},

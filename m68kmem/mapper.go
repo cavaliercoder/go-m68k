@@ -62,6 +62,10 @@ func insertMapping(root, m *mapping) *mapping {
 }
 
 func (mm *Mapper) Read(addr int, p []byte) (n int, err error) {
+	addr, err = maskAddr(addr)
+	if err != nil {
+		return
+	}
 	if addr >= mm.max {
 		// TODO: deprecate EOF in memory mapper
 		return 0, io.EOF
@@ -90,6 +94,10 @@ func (mm *Mapper) Read(addr int, p []byte) (n int, err error) {
 }
 
 func (mm *Mapper) Write(addr int, p []byte) (n int, err error) {
+	addr, err = maskAddr(addr)
+	if err != nil {
+		return
+	}
 	for m := mm.mappings; m != nil; m = m.next {
 		if m.start <= addr && m.end >= addr {
 			addr -= m.start

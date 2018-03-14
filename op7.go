@@ -10,7 +10,7 @@ func opMoveq(c *Processor) (t *stepTrace) {
 		op:   "moveq",
 		addr: c.PC,
 		n:    1,
-		src:  fmt.Sprintf("#$%d", b),
+		src:  fmt.Sprintf("#$%X", b),
 		dst:  fmt.Sprintf("D%d", reg),
 		sz:   noSize,
 	}

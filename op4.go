@@ -59,7 +59,7 @@ func opLea(c *Processor) (t *stepTrace) {
 	return
 }
 
-// opMovem implementes MOVEM (pg. 4-128)
+// opMovem implements MOVEM (pg. 4-128)
 func opMovem(c *Processor) (t *stepTrace) {
 	t = &stepTrace{
 		addr: c.PC,
@@ -71,33 +71,35 @@ func opMovem(c *Processor) (t *stepTrace) {
 	regl, _, _ := c.readImmWord() // register list
 	dir := c.op & 0x0400 >> 10    // direction
 
-	if dir == 0 { // register to memory
+	if dir == 0 {
+		// register to memory
 		// TODO: implement movem register to memory
 		c.err = errNotImplemented
 		return
-	} else { // memory to register
-		t.dst = fmt.Sprintf("$%X", regl)
-		for i := uint16(0); i < 16; i++ {
-			ok := regl & (1 << i)
-			if ok == 0 {
-				continue // skip unset registers
+	}
+
+	// memory to register
+	t.dst = fmt.Sprintf("$%X", regl)
+	for i := uint16(0); i < 16; i++ {
+		ok := regl & (1 << i)
+		if ok == 0 {
+			continue // skip unset registers
+		}
+		if t.sz == SizeWord { // movem.w <ea>,<list>
+			var n uint16
+			n, t.src, c.err = c.readWord(c.op)
+			if i < 8 {
+				c.D[i] = uint32(wordToInt32(n))
+			} else {
+				c.A[i-8] = uint32(wordToInt32(n))
 			}
-			if t.sz == SizeWord { // movem.w <ea>,<list>
-				var n uint16
-				n, t.src, c.err = c.readWord(c.op)
-				if i < 8 {
-					c.D[i] = uint32(wordToInt32(n))
-				} else {
-					c.A[i-8] = uint32(wordToInt32(n))
-				}
-			} else { // movem.l <ea>,<list>
-				var n uint32
-				n, t.src, c.err = c.readLong(c.op)
-				if i < 8 {
-					c.D[i] = n
-				} else {
-					c.A[i-8] = n
-				}
+		} else { // movem.l <ea>,<list>
+			var n uint32
+			n, t.src, c.err = c.readLong(c.op)
+			if i < 8 {
+				c.D[i] = n
+			} else {
+				c.A[i-8] = n
 			}
 		}
 	}
@@ -165,6 +167,23 @@ func opStop(c *Processor) (t *stepTrace) {
 	if c.SR&0x0700 == 0x0700 {
 		c.err = io.EOF // end program if interrupt mask is maximum
 	}
+	c.stop = true
+	return
+}
+
+// opRts implements RTS (Return from Subroutine) (4-169)
+func opRts(c *Processor) (t *stepTrace) {
+	t = &stepTrace{
+		addr: c.PC,
+		op:   "rts",
+		sz:   noSize,
+		n:    1,
+	}
+	c.PC, c.err = c.M.Long(int(c.A[7]))
+	if c.err != nil {
+		return
+	}
+	c.A[7] += 4
 	return
 }
 
@@ -178,7 +197,8 @@ func opJsr(c *Processor) (t *stepTrace) {
 	}
 	c.PC += 2
 
-	var jmp uint32 // jump address
+	// compute jump address and mutate PC to return address
+	var jmp uint32
 	mod := c.op & 0x38 >> 3
 	reg := c.op & 0x07
 	switch mod {
@@ -187,7 +207,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 		c.err = errBadAddress
 		return
 
-	case 0x02: // address register
+	case 0x02: // address register indirect
 		jmp = c.A[reg]
 		t.src = fmt.Sprintf("(A%d)", reg)
 
@@ -218,13 +238,15 @@ func opJsr(c *Processor) (t *stepTrace) {
 		}
 	}
 
-	// push program counter to stack
+	// push return address (current PC) to stack
 	c.A[7] -= 4
 	binary.BigEndian.PutUint32(c.buf[:4], c.PC)
 	_, c.err = c.M.Write(int(c.A[7]), c.buf[:4])
 	if c.err != nil {
 		return
 	}
+
+	// jump
 	c.PC = jmp
 	return
 }
@@ -238,53 +260,22 @@ func opTst(c *Processor) (t *stepTrace) {
 		n:    1,
 	}
 	c.PC += 2
-	c.SR &= 0xFFF0
+	c.SR &= 0xFFFFFFF0 // reset last 4 bits only
 	switch t.sz {
 	case SizeByte:
 		var b byte
 		b, t.src, c.err = c.readByte(c.op)
-		if b == 0 {
-			c.SR |= StatusZero
-		}
-		if b&0x80 != 0 {
-			c.SR |= StatusNegative
-		}
+		c.setStatusForByte(b)
 
 	case SizeWord:
 		var n uint16
 		n, t.src, c.err = c.readWord(c.op)
-		if n == 0 {
-			c.SR |= StatusZero
-		}
-		if n&0x8000 != 0 {
-			c.SR |= StatusNegative
-		}
+		c.setStatusForWord(n)
 
 	case SizeLong:
 		var n uint32
 		n, t.src, c.err = c.readLong(c.op)
-		if n == 0 {
-			c.SR |= StatusZero
-		}
-		if n&0x8000000 != 0 {
-			c.SR |= StatusNegative
-		}
+		c.setStatusForLong(n)
 	}
-	return
-}
-
-// opRts implements RTS (Return from Subroutine) (4-169)
-func opRts(c *Processor) (t *stepTrace) {
-	t = &stepTrace{
-		addr: c.PC,
-		op:   "rts",
-		sz:   noSize,
-		n:    1,
-	}
-	c.PC, c.err = c.M.Long(int(c.A[7]))
-	if c.err != nil {
-		return
-	}
-	c.A[7] += 4
 	return
 }
