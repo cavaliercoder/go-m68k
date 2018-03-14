@@ -24,6 +24,26 @@ func TestLea(t *testing.T) {
 	})
 }
 
+func TestClr(t *testing.T) {
+	p := LoadBytes(t, []byte{
+		0x42, 0x00, // clr.b D0
+		0x42, 0x41, // clr.w D1
+		0x42, 0x82, // clr.l D2
+		0x00, 0x00, // EOF
+		0xAA, 0xAA, 0xAA, 0xAA, // dc.l $AAAAAAAA
+		0xBB, 0xBB, 0xBB, 0xBB, // dc.l $BBBBBBBB
+		0xCC, 0xCC, 0xCC, 0xCC, // dc.l $CCCCCCCC
+	})
+	p.D[0] = 0xFFFFFFFF
+	p.D[1] = 0xFFFFFFFF
+	p.D[2] = 0xFFFFFFFF
+
+	AssertRun(t, p)
+	AssertDataRegister(t, p, 0, 0xFFFFFF00)
+	AssertDataRegister(t, p, 1, 0xFFFF0000)
+	AssertDataRegister(t, p, 2, 0)
+}
+
 func TestMovem(t *testing.T) {
 	// TODO: improve movem tests
 	p := LoadBytes(t, []byte{

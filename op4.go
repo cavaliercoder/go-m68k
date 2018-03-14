@@ -59,6 +59,38 @@ func opLea(c *Processor) (t *stepTrace) {
 	return
 }
 
+// opClr implements CLR (4-73).
+// Clear operand.
+func opClr(c *Processor) (t *stepTrace) {
+	t = &stepTrace{
+		addr: c.PC,
+		n:    1,
+		op:   "clr",
+		sz:   c.op >> 6 & 0x3,
+	}
+	c.PC += 2
+
+	switch t.sz {
+	default:
+		c.err = errBadOpSize
+
+	case SizeByte:
+		t.dst, c.err = c.writeByte(c.op, 0)
+
+	case SizeWord:
+		t.dst, c.err = c.writeWord(c.op, 0)
+
+	case SizeLong:
+		t.dst, c.err = c.writeLong(c.op, 0)
+	}
+	if c.err != nil {
+		return
+	}
+	c.SR &= 0xFFFFFFF0
+	c.SR |= StatusZero
+	return
+}
+
 // opMovem implements MOVEM (pg. 4-128)
 func opMovem(c *Processor) (t *stepTrace) {
 	t = &stepTrace{
