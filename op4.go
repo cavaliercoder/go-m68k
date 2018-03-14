@@ -1,6 +1,7 @@
 package m68k
 
 import (
+	"bytes"
 	"encoding/binary"
 	"fmt"
 	"io"
@@ -91,6 +92,27 @@ func opClr(c *Processor) (t *stepTrace) {
 	return
 }
 
+// opMoveToSr implements MOVE to SR (6-19).
+func opMoveToSr(c *Processor) (t *stepTrace) {
+	t = &stepTrace{
+		addr: c.PC,
+		n:    1,
+		op:   "move",
+		sz:   noSize,
+		dst:  "SR",
+	}
+	c.PC += 2
+
+	var n uint16
+	n, t.src, c.err = c.readWord(c.op)
+	if c.err != nil {
+		return
+	}
+
+	c.SR = uint32(n & StatusMask)
+	return
+}
+
 // opMovem implements MOVEM (pg. 4-128)
 func opMovem(c *Processor) (t *stepTrace) {
 	t = &stepTrace{
@@ -105,34 +127,76 @@ func opMovem(c *Processor) (t *stepTrace) {
 
 	if dir == 0 {
 		// register to memory
-		// TODO: implement movem register to memory
-		c.err = errNotImplemented
+		t.src = fmt.Sprintf("$%X", regl)
+		b := &bytes.Buffer{}
+		for i := uint16(0); i < 16; i++ {
+			ok := regl & (1 << i)
+			if ok == 0 {
+				continue // skip unset registers
+			}
+
+			// read register value
+			var v uint32
+			if i < 8 {
+				v = c.A[7-i]
+			} else {
+				v = c.D[7-(i-8)]
+			}
+
+			// write value to buffer
+			binary.BigEndian.PutUint32(c.buf[:4], v)
+			if t.sz == SizeWord { // movem.w <list>,<ea>
+				b.Write(c.buf[2:4])
+			} else { // movem.l <list>,<ea>
+				b.Write(c.buf[:4])
+			}
+		}
+
+		// flush buffer to memory
+		t.dst, c.err = c.writeBytes(c.op, b.Bytes())
 		return
 	}
 
 	// memory to register
 	t.dst = fmt.Sprintf("$%X", regl)
+
+	// count registers
+	regc := 0
+	for i := uint16(0); i < 16; i++ {
+		if regl&(1<<i) != 0 {
+			regc++
+		}
+	}
+
+	// read values from memory
+	buflen := regc * 2
+	if t.sz == SizeLong {
+		buflen = regc * 4
+	}
+	t.src, c.err = c.readBytes(c.op, c.buf[:buflen])
+	if c.err != nil {
+		return
+	}
+
+	// set register values
+	x := 0
 	for i := uint16(0); i < 16; i++ {
 		ok := regl & (1 << i)
 		if ok == 0 {
 			continue // skip unset registers
 		}
+		var v uint32
 		if t.sz == SizeWord { // movem.w <ea>,<list>
-			var n uint16
-			n, t.src, c.err = c.readWord(c.op)
-			if i < 8 {
-				c.D[i] = uint32(wordToInt32(n))
-			} else {
-				c.A[i-8] = uint32(wordToInt32(n))
-			}
+			v = uint32(wordToInt32(binary.BigEndian.Uint16(c.buf[x : x+2])))
+			x += 2
 		} else { // movem.l <ea>,<list>
-			var n uint32
-			n, t.src, c.err = c.readLong(c.op)
-			if i < 8 {
-				c.D[i] = n
-			} else {
-				c.A[i-8] = n
-			}
+			v = binary.BigEndian.Uint32(c.buf[x : x+4])
+			x += 4
+		}
+		if i < 8 {
+			c.D[i] = v
+		} else {
+			c.A[i-8] = v
 		}
 	}
 

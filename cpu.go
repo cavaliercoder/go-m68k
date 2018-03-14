@@ -446,6 +446,70 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 	return
 }
 
+// readBytes reads a slice of byte data from the given effective address.
+func (c *Processor) readBytes(ea uint16, b []byte) (opr string, err error) {
+	mod := ea & 0x38 >> 3
+	reg := ea & 0x07
+	switch mod {
+	default:
+		err = errBadAddress
+		return
+
+	case 0x02: // memory address
+		_, c.err = c.M.Read(int(c.A[reg]), b)
+		opr = fmt.Sprintf("(A%d)", reg)
+
+	case 0x03: // memory address with post-increment
+		_, c.err = c.M.Read(int(c.A[reg]), b)
+		c.A[reg] += 4
+		opr = fmt.Sprintf("(A%d)+", reg)
+
+	case 0x04: // memory address with pre-decrement
+		c.A[reg] -= 4
+		_, c.err = c.M.Read(int(c.A[reg]), b)
+		opr = fmt.Sprintf("-(A%d)", reg)
+
+	case 0x05: // memory address with displacement
+		var d int16
+		d, err = c.M.Sword(int(c.PC))
+		if err != nil {
+			break
+		}
+		c.PC += 2
+		addr := int(c.A[reg]) + int(d)
+		_, c.err = c.M.Read(addr, b)
+		opr = fmt.Sprintf("($%X,A%d)", d, reg)
+
+	case 0x07: // other
+		switch reg {
+		default:
+			err = errBadAddress
+			return
+
+		case 0x00: // absolute word
+			var addr uint16
+			addr, err = c.M.Word(int(c.PC))
+			if err != nil {
+				return
+			}
+			c.PC += 2
+			_, c.err = c.M.Read(int(addr), b)
+			opr = fmt.Sprintf("$%X", addr)
+
+		case 0x01: // absolute long
+			var addr uint32
+			addr, err = c.M.Long(int(c.PC))
+			if err != nil {
+				return
+			}
+			c.PC += 4
+			_, c.err = c.M.Read(int(addr), b)
+			opr = fmt.Sprintf("$%X", addr)
+		}
+	}
+	return
+}
+
 // readImmByte reads an 8-bit byte of immediate data from the current program
 // counter address and increments the counter by 2 (16-bits) for word alignment.
 func (c *Processor) readImmByte() (b byte, opr string, err error) {
@@ -705,6 +769,69 @@ func (c *Processor) writeLong(ea uint16, v uint32) (opr string, err error) {
 			c.PC += 4
 			binary.BigEndian.PutUint32(c.buf[:4], v)
 			_, err = c.M.Write(int(addr), c.buf[:4])
+			opr = fmt.Sprintf("$%X", addr)
+		}
+	}
+	return
+}
+
+func (c *Processor) writeBytes(ea uint16, b []byte) (opr string, err error) {
+	mod := ea & 0x38 >> 3
+	reg := ea & 0x07
+	switch mod {
+	default:
+		err = errBadAddress
+		return
+
+	case 0x02: // memory address
+		_, err = c.M.Write(int(c.A[reg]), b)
+		opr = fmt.Sprintf("(A%d)", reg)
+
+	case 0x03: // memory address with post-increment
+		_, err = c.M.Write(int(c.A[reg]), b)
+		c.A[reg] += 4
+		opr = fmt.Sprintf("(A%d)+", reg)
+
+	case 0x04: // memory address with pre-decrement
+		c.A[reg] -= 4
+		_, err = c.M.Write(int(c.A[reg]), b)
+		opr = fmt.Sprintf("-(A%d)", reg)
+
+	case 0x05: // memory address with displacement
+		var d int16
+		d, err = c.M.Sword(int(c.PC))
+		if err != nil {
+			break
+		}
+		c.PC += 2
+		addr := int(c.A[reg]) + int(d)
+		_, err = c.M.Write(addr, b)
+		opr = fmt.Sprintf("(%d,A%d)", d, reg)
+
+	case 0x07: // other
+		switch reg {
+		default:
+			err = errBadAddress
+			return
+
+		case 0x00: // absolute word
+			var addr uint16
+			addr, err = c.M.Word(int(c.PC))
+			if err != nil {
+				return
+			}
+			c.PC += 2
+			_, err = c.M.Write(int(addr), b)
+			opr = fmt.Sprintf("$%X", addr)
+
+		case 0x01: // absolute long
+			var addr uint32
+			addr, err = c.M.Long(int(c.PC))
+			if err != nil {
+				return
+			}
+			c.PC += 4
+			_, err = c.M.Write(int(addr), b)
 			opr = fmt.Sprintf("$%X", addr)
 		}
 	}
