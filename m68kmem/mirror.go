@@ -1,20 +1,20 @@
 package m68kmem
 
-// Mirror expands the address range of a Memory device by mirroring it.
-type Mirror struct {
+// mirror expands the address range of a Memory device by mirroring it.
+type mirror struct {
 	M           Memory
 	Size, Range uint32
 }
 
-// NewMirror returns a new Mirror for the given Memory interface. If n is the
+// Mirror returns a new Mirror for the given Memory interface. If n is the
 // size of the mirrored device, then r is the size of the range across which it
 // is mirrored.
-func NewMirror(m Memory, n, r uint32) *Mirror {
-	return &Mirror{M: m, Size: n, Range: r}
+func Mirror(m Memory, n, r uint32) Memory {
+	return &mirror{M: m, Size: n, Range: r}
 }
 
 // Write writes to the underlying Memory interface.
-func (m *Mirror) Write(addr int, p []byte) (n int, err error) {
+func (m *mirror) Write(addr int, p []byte) (n int, err error) {
 	if addr < 0 || uint32(addr) >= m.Range {
 		return 0, AccessViolationError(uint32(addr))
 	}
@@ -23,7 +23,7 @@ func (m *Mirror) Write(addr int, p []byte) (n int, err error) {
 }
 
 // Read reads from the underlying Memory interface.
-func (m *Mirror) Read(addr int, p []byte) (n int, err error) {
+func (m *mirror) Read(addr int, p []byte) (n int, err error) {
 	if addr < 0 || uint32(addr) >= m.Range {
 		return 0, AccessViolationError(uint32(addr))
 	}

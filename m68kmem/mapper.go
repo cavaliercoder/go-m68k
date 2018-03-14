@@ -1,6 +1,9 @@
 package m68kmem
 
-import "io"
+import (
+	"errors"
+	"io"
+)
 
 // A Mapper allows a Motorola 68000 processor to communicate with external
 // devices using a memory address, mapped into its addressable range.
@@ -15,6 +18,7 @@ type mapping struct {
 	next       *mapping
 }
 
+// NewMapper returns a new MemoryMapper.
 func NewMapper() *Mapper {
 	return &Mapper{}
 }
@@ -24,6 +28,12 @@ func NewMapper() *Mapper {
 // range. If the mapped device returns io.EOF within its mapped range, the
 // behavior is undefined.
 func (mm *Mapper) Map(m Memory, start, end int) (err error) {
+	if uint32(start) < MinAddress || uint32(start) > MaxAddress {
+		return errors.New("start address out of range")
+	}
+	if end < start || uint32(end) < MinAddress || uint32(end) > MaxAddress {
+		return errors.New("end address out of range")
+	}
 	if mm.max < end {
 		mm.max = end
 	}
@@ -53,6 +63,7 @@ func insertMapping(root, m *mapping) *mapping {
 
 func (mm *Mapper) Read(addr int, p []byte) (n int, err error) {
 	if addr >= mm.max {
+		// TODO: deprecate EOF in memory mapper
 		return 0, io.EOF
 	}
 	m := mm.mappings

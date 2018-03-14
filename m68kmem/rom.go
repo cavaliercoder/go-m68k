@@ -9,9 +9,11 @@ type rom struct {
 }
 
 // NewROM returns Read-Only Memory initialized with the given byte data. This
-// memory can be used to load programs and data for a 68000 processor.
+// memory can be used to load programs and data for a 68000 processor. Memory
+// access is protected by an AddressBus.
 func NewROM(b []byte) Memory {
-	return &rom{b}
+	// TODO: check that size is addressable
+	return AttachBus(&rom{b})
 }
 
 func (m *rom) Read(addr int, p []byte) (n int, err error) {

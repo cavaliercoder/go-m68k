@@ -4,6 +4,11 @@ import (
 	"io"
 )
 
+const (
+	MinAddress uint32 = 0
+	MaxAddress uint32 = 0xFFFFFF
+)
+
 // Memory is an interface for any IO device that is addressable via memory
 // mapping. This interface will be satisfied by random access memory, a virtual
 // memory manager, peripheral devices, etc.

@@ -1,17 +1,21 @@
 package m68kmem
 
-import "io"
+import (
+	"io"
+)
 
 type ram struct {
 	b []byte
 }
 
 // NewRAM returns Random Access Memory initialized to the given size. This
-// memory can used to load programs and data for a 68000 processor.
+// memory can used to load programs and data for a 68000 processor. Memory
+// access is protected by an AddressBus.
 func NewRAM(size uint32) Memory {
-	return &ram{
+	// TODO: check size is addressable
+	return AttachBus(&ram{
 		b: make([]byte, size),
-	}
+	})
 }
 
 func (m *ram) Read(addr int, p []byte) (n int, err error) {

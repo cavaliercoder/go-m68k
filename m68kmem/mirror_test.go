@@ -6,7 +6,7 @@ import (
 )
 
 func TestMirror(t *testing.T) {
-	m := NewMirror(NewRAM(0x10), 0x10, 0x40)
+	m := Mirror(NewRAM(0x10), 0x10, 0x40)
 	data := []byte("0123456789ABCDEF")
 
 	t.Run("WriteBefore", func(t *testing.T) {
