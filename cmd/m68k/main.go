@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"os"
 
 	"github.com/cavaliercoder/go-m68k/dump"
@@ -47,7 +46,7 @@ func main() {
 	}
 
 	// run program
-	if err := s.Run(); err != nil && err != io.EOF {
+	if err := s.Run(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
 

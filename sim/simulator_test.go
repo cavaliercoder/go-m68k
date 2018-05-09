@@ -2,7 +2,6 @@ package sim
 
 import (
 	"bytes"
-	"io"
 	"testing"
 
 	"github.com/cavaliercoder/go-m68k/m68ktest"
@@ -34,7 +33,7 @@ func TestStdout(t *testing.T) {
 		Processor: p,
 		Writer:    b,
 	}
-	if err := s.Run(); err != io.EOF {
+	if err := s.Run(); err != nil {
 		t.Fatal(err)
 	}
 	expect := "Hello world!\r\n"

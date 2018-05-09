@@ -69,6 +69,19 @@ var conditionStrings = []string{
 	"le", // less or equal
 }
 
+// RunState specifies the current running state of the Processor.
+type RunState uint32
+
+const (
+	// RunStateStopped indicates that the Processor is no longer incrementing the
+	// program counter and executing instructions.
+	RunStateStopped RunState = iota
+
+	// RunStateRunning indicates that the Processor is currently executing
+	// instructions until interrupted.
+	RunStateRunning
+)
+
 // A Processor emulates the Motorola 68000 microprocessor.
 type Processor struct {
 	D  [8]uint32        // Data registers
@@ -83,7 +96,7 @@ type Processor struct {
 
 	buf      [64]byte         // general purpose buffer
 	op       uint16           // current opcode
-	stop     bool             // exit run loop if true
+	runState RunState         // current state
 	err      error            // most recent error
 	handlers [256]TrapHandler // registered trap handlers
 }
@@ -123,10 +136,11 @@ func (c *Processor) Run() error {
 		return errNoProgram
 	}
 	c.err = nil
-	for c.err == nil && !c.stop {
+	c.runState = RunStateRunning
+	for c.err == nil && c.runState == RunStateRunning {
 		c.Step()
 	}
-	c.stop = false
+	c.runState = RunStateStopped
 
 	// TODO: I hate this EOF approach. All programs should loop or be terminated
 	// by external hardware.
@@ -179,6 +193,11 @@ func (c *Processor) tracef(format string, a ...interface{}) {
 		return
 	}
 	fmt.Fprintf(c.TraceWriter, format, a...)
+}
+
+// RunState returns the current run state of the Processor.
+func (c *Processor) RunState() RunState {
+	return c.runState
 }
 
 // print a message to the configured TraceWriter.
