@@ -216,7 +216,7 @@ func opTrap(c *Processor) (t *stepTrace) {
 	v += 32
 	if c.handlers[v] != nil {
 		// TODO: should trap handlers be executed inline?
-		c.err = c.handlers[v].Exception(c, int(v))
+		c.err = c.handlers[v].Trap(c, int(v))
 	}
 	return
 }

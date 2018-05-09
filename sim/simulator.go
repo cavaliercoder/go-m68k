@@ -87,8 +87,8 @@ func (c *Simulator) read(p []byte) (n int, err error) {
 	return c.Reader.Read(p)
 }
 
-// Exception handles TRAP 15 instructions from the underlying Processor.
-func (c *Simulator) Exception(p *m68k.Processor, v int) (err error) {
+// Trap handles TRAP 15 instructions from the underlying Processor.
+func (c *Simulator) Trap(p *m68k.Processor, v int) (err error) {
 	switch p.D[0] {
 	default:
 		return fmt.Errorf("unrecognized trap task identifier: %d", p.D[0])

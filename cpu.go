@@ -102,11 +102,11 @@ type Processor struct {
 }
 
 type TrapHandler interface {
-	Exception(*Processor, int) error
+	Trap(c *Processor, vector int) error
 }
-type TrapHandlerFunc func(*Processor, int) error
+type TrapHandlerFunc func(c *Processor, vector int) error
 
-func (f TrapHandlerFunc) Exception(p *Processor, v int) error {
+func (f TrapHandlerFunc) HandleTrap(p *Processor, v int) error {
 	return f(p, v)
 }
 
