@@ -120,7 +120,7 @@ func (c *Simulator) Exception(p *m68k.Processor, v int) (err error) {
 
 	case 9:
 		// halt simulator
-		err = io.EOF
+		c.Processor.Stop()
 
 	case 13:
 		// Display the NULL terminated string at (A1) with CR, LF.

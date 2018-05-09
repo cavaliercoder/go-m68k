@@ -1,9 +1,5 @@
 package m68kmem
 
-import (
-	"io"
-)
-
 type rom struct {
 	b []byte
 }
@@ -17,11 +13,8 @@ func NewROM(b []byte) Memory {
 }
 
 func (m *rom) Read(addr int, p []byte) (n int, err error) {
-	if addr < 0 {
+	if addr < 0 || addr >= len(m.b) {
 		return 0, AccessViolationError(uint32(addr))
-	}
-	if addr >= len(m.b) {
-		return 0, io.EOF
 	}
 	n = copy(p, m.b[addr:])
 	return

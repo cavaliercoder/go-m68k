@@ -260,7 +260,7 @@ func opStop(c *Processor) (t *stepTrace) {
 	t.dst = fmt.Sprintf("#$%X", n)
 	c.SR = uint32(n) & StatusMask
 	// TODO: handle case where interrupt mask is maximum (0x0700)
-	c.runState = RunStateStopped
+	c.err = c.Stop()
 	return
 }
 

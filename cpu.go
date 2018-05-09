@@ -141,14 +141,6 @@ func (c *Processor) Run() error {
 		c.Step()
 	}
 	c.runState = RunStateStopped
-
-	// TODO: I hate this EOF approach. All programs should loop or be terminated
-	// by external hardware.
-	if err, ok := c.err.(*traceableError); ok {
-		if err.Err == io.EOF {
-			c.err = io.EOF
-		}
-	}
 	return c.err
 }
 
@@ -164,10 +156,11 @@ func (c *Processor) Step() error {
 		return c.err
 	}
 	c.op = uint16(c.buf[0])<<8 + uint16(c.buf[1])
+
 	if c.op == 0 {
-		// TODO: this is a valid instruction. Find a way to terminate programs
+		// TODO: 0 is a valid instruction. Find a way to terminate programs
 		// without buffer overrun.
-		c.err = newTraceableError(c.PC, c.op, io.EOF)
+		c.runState = RunStateStopped
 		return c.err
 	}
 
@@ -185,6 +178,12 @@ func (c *Processor) Step() error {
 		c.err = newTraceableError(t.addr, c.op, c.err)
 	}
 	return c.err
+}
+
+// Stop instructs the processor to stop processing instructions.
+func (c *Processor) Stop() (err error) {
+	c.runState = RunStateStopped
+	return
 }
 
 // print a formatted message to the configured TraceWriter.

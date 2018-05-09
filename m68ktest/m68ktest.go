@@ -5,7 +5,6 @@ Package m68ktest provides functions for testing Go code against the Motorola
 package m68ktest
 
 import (
-	"io"
 	"os"
 	"testing"
 
@@ -76,9 +75,6 @@ func LoadBytes(t *testing.T, b []byte) *m68k.Processor {
 func AssertRun(t *testing.T, p *m68k.Processor) {
 	p.PC = 0x1000
 	err := p.Run()
-	if err == io.EOF {
-		return
-	}
 	if err != nil {
 		t.Errorf("error running program: %v", err)
 		dump.Memory(p.TraceWriter, p.M)
