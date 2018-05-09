@@ -54,7 +54,9 @@ var opcodes = [][]opcode{
 	[]opcode{ /* 0x8... */ },
 	[]opcode{ /* 0x9... */ },
 	[]opcode{ /* 0xA... */ },
-	[]opcode{ /* 0xB... */ },
+	[]opcode{ /* 0xB... */
+		{0xB000, 0xF100, opCmp},
+	},
 	[]opcode{ /* 0xC... */
 		{0xC100, 0xF1F0, opAbcd},
 	},
