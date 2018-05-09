@@ -227,6 +227,39 @@ func testCond(c *Processor, cc uint16) bool {
 	return false
 }
 
+func (c *Processor) readInt(ea, sz uint16) (i Int, opr string, err error) {
+	switch sz {
+	default:
+		err = errBadOpSize
+		return
+
+	case SizeByte:
+		var n byte
+		n, opr, err = c.readByte(ea)
+		if err != nil {
+			break
+		}
+		i = NewInt(uint32(n), SizeByte)
+
+	case SizeWord:
+		var n uint16
+		n, opr, err = c.readWord(ea)
+		if err != nil {
+			break
+		}
+		i = NewInt(uint32(n), SizeWord)
+
+	case SizeLong:
+		var n uint32
+		n, opr, err = c.readLong(ea)
+		if err != nil {
+			break
+		}
+		i = NewInt(uint32(n), SizeLong)
+	}
+	return
+}
+
 // readByte reads an 8-bit byte of data from the given effective address.
 func (c *Processor) readByte(ea uint16) (b byte, opr string, err error) {
 	mod := ea & 0x38 >> 3
@@ -530,6 +563,31 @@ func (c *Processor) readBytes(ea uint16, b []byte) (opr string, err error) {
 	return
 }
 
+func (c *Processor) readImmInt(sz uint16) (i Int, opr string, err error) {
+	var n uint32
+	switch sz {
+	default:
+		err = errBadOpSize
+		return
+
+	case SizeByte:
+		var b byte
+		b, opr, err = c.readImmByte()
+		n = uint32(b)
+
+	case SizeWord:
+		var w uint16
+		w, opr, err = c.readImmWord()
+		n = uint32(w)
+
+	case SizeLong:
+		n, opr, err = c.readImmLong()
+	}
+
+	i = NewInt(n, int(sz))
+	return
+}
+
 // readImmByte reads an 8-bit byte of immediate data from the current program
 // counter address and increments the counter by 2 (16-bits) for word alignment.
 func (c *Processor) readImmByte() (b byte, opr string, err error) {
@@ -565,6 +623,24 @@ func (c *Processor) readImmLong() (n uint32, opr string, err error) {
 	}
 	c.PC += 4
 	opr = fmt.Sprintf("#$%X", int32(n))
+	return
+}
+
+func (c *Processor) writeInt(ea uint16, v Int) (opr string, err error) {
+	switch v.Size() {
+	default:
+		err = errBadOpSize
+		return
+
+	case SizeByte:
+		opr, err = c.writeByte(ea, v.Byte())
+
+	case SizeWord:
+		opr, err = c.writeWord(ea, v.Word())
+
+	case SizeLong:
+		opr, err = c.writeLong(ea, v.Long())
+	}
 	return
 }
 

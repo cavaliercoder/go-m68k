@@ -1,6 +1,8 @@
 package m68k
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // opMove implements MOVE, MOVEA and MOVEP
 func opMove(c *Processor) (t *stepTrace) {
@@ -229,53 +231,17 @@ func opSubi(c *Processor) (t *stepTrace) {
 	c.PC += 2
 	ea := decodeEA(c.op)
 
-	switch t.sz {
-	default:
-		t.err = errBadOpSize
+	var a, b Int
+	a, t.src, t.err = c.readImmInt(t.sz)
+	if t.err != nil {
 		return
-
-	case SizeByte:
-		// read immediate byte
-		var src, dst byte
-		src, t.src, t.err = c.readImmByte()
-		if t.err != nil {
-			break
-		}
-		dst, _, t.err = c.readByte(ea)
-		if t.err != nil {
-			break
-		}
-		dst -= src
-		t.dst, t.err = c.writeByte(ea, dst)
-
-	case SizeWord:
-		// read immediate word
-		var src, dst uint16
-		src, t.src, t.err = c.readImmWord()
-		if t.err != nil {
-			break
-		}
-		dst, _, t.err = c.readWord(ea)
-		if t.err != nil {
-			break
-		}
-		dst -= src
-		t.dst, t.err = c.writeWord(ea, dst)
-
-	case SizeLong:
-		// read immediate long
-		var src, dst uint32
-		src, t.src, t.err = c.readImmLong()
-		if t.err != nil {
-			break
-		}
-		dst, _, t.err = c.readLong(ea)
-		if t.err != nil {
-			break
-		}
-		dst -= src
-		t.dst, t.err = c.writeLong(ea, dst)
 	}
+	b, t.dst, t.err = c.readInt(ea, t.sz)
+	if t.err != nil {
+		return
+	}
+	b = b.Sub(a)
+	t.dst, t.err = c.writeInt(ea, b)
 	return
 }
 
@@ -291,52 +257,11 @@ func opAddi(c *Processor) (t *stepTrace) {
 	c.PC += 2
 	ea := decodeEA(c.op)
 
-	switch t.sz {
-	default:
-		t.err = errBadOpSize
-		return
-	case SizeByte:
-		// read immediate byte
-		var src, dst byte
-		src, t.src, t.err = c.readImmByte()
-		if t.err != nil {
-			break
-		}
-		dst, _, t.err = c.readByte(ea)
-		if t.err != nil {
-			break
-		}
-		b := dst + src
-		t.dst, t.err = c.writeByte(ea, b)
-
-	case SizeWord:
-		// read immediate word
-		var src, dst uint16
-		src, t.src, t.err = c.readImmWord()
-		if t.err != nil {
-			break
-		}
-		dst, _, t.err = c.readWord(ea)
-		if t.err != nil {
-			break
-		}
-		v := dst + src
-		t.dst, t.err = c.writeWord(ea, v)
-
-	case SizeLong:
-		// read immediate long
-		var src, dst uint32
-		src, t.src, t.err = c.readImmLong()
-		if t.err != nil {
-			break
-		}
-		dst, _, t.err = c.readLong(ea)
-		if t.err != nil {
-			break
-		}
-		v := dst + src
-		t.dst, t.err = c.writeLong(ea, v)
-	}
+	var a, b Int
+	a, t.src, t.err = c.readImmInt(t.sz)
+	b, _, t.err = c.readInt(ea, t.sz)
+	b = b.Add(a)
+	t.dst, t.err = c.writeInt(ea, b)
 	return
 }
 

@@ -1,23 +1,13 @@
 package m68k
 
-import "unsafe"
-
 // byteToInt32 sign extends the given byte to an Int32.
 func byteToInt32(b byte) int32 {
-	if b&0x80 == 0 {
-		return int32(b)
-	}
-	v := 0xFFFFFF00 | uint32(b)
-	return *(*int32)(unsafe.Pointer(&v))
+	return NewInt(uint32(b), SizeByte).SignedLong()
 }
 
 // wordToInt32 sign extends the given word to an Int32.
 func wordToInt32(n uint16) int32 {
-	if n&0x8000 == 0 {
-		return int32(n)
-	}
-	v := 0xFFFF0000 | uint32(n)
-	return *(*int32)(unsafe.Pointer(&v))
+	return NewInt(uint32(n), SizeWord).SignedLong()
 }
 
 // longToInt32 decodes the given long as a signed Int32.
