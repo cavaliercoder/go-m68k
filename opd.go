@@ -24,32 +24,32 @@ func opAdd(c *Processor) (t *stepTrace) {
 		case SizeByte:
 			var src, dst, v byte
 			src = byte(c.D[reg])
-			dst, t.dst, c.err = c.readByte(c.op)
-			if c.err != nil {
+			dst, t.dst, t.err = c.readByte(c.op)
+			if t.err != nil {
 				return
 			}
 			v = dst + src
-			_, c.err = c.writeByte(c.op, v)
+			_, t.err = c.writeByte(c.op, v)
 
 		case SizeWord:
 			var src, dst, v uint16
 			src = uint16(c.D[reg])
-			dst, t.dst, c.err = c.readWord(c.op)
-			if c.err != nil {
+			dst, t.dst, t.err = c.readWord(c.op)
+			if t.err != nil {
 				return
 			}
 			v = dst + src
-			_, c.err = c.writeWord(c.op, v)
+			_, t.err = c.writeWord(c.op, v)
 
 		case SizeLong:
 			var src, dst, v uint32
 			src = c.D[reg]
-			dst, t.dst, c.err = c.readLong(c.op)
-			if c.err != nil {
+			dst, t.dst, t.err = c.readLong(c.op)
+			if t.err != nil {
 				return
 			}
 			v = dst + src
-			_, c.err = c.writeLong(c.op, v)
+			_, t.err = c.writeLong(c.op, v)
 		}
 	} else { // ea to register
 		t.dst = fmt.Sprintf("D%d", reg)
@@ -57,8 +57,8 @@ func opAdd(c *Processor) (t *stepTrace) {
 		case SizeByte:
 			var src, dst, v byte
 			dst = byte(c.D[reg])
-			src, t.src, c.err = c.readByte(c.op)
-			if c.err != nil {
+			src, t.src, t.err = c.readByte(c.op)
+			if t.err != nil {
 				return
 			}
 			v = dst + src
@@ -67,8 +67,8 @@ func opAdd(c *Processor) (t *stepTrace) {
 		case SizeWord:
 			var src, dst, v uint16
 			dst = uint16(c.D[reg])
-			src, t.src, c.err = c.readWord(c.op)
-			if c.err != nil {
+			src, t.src, t.err = c.readWord(c.op)
+			if t.err != nil {
 				return
 			}
 			v = dst + src
@@ -76,8 +76,8 @@ func opAdd(c *Processor) (t *stepTrace) {
 
 		case SizeLong:
 			var src uint32
-			src, t.src, c.err = c.readLong(c.op)
-			if c.err != nil {
+			src, t.src, t.err = c.readLong(c.op)
+			if t.err != nil {
 				return
 			}
 			c.D[reg] += src
@@ -103,16 +103,16 @@ func opAdda(c *Processor) (t *stepTrace) {
 	case SizeWord:
 		var src, dst uint16
 		dst = uint16(c.A[reg])
-		src, t.src, c.err = c.readWord(c.op)
-		if c.err != nil {
+		src, t.src, t.err = c.readWord(c.op)
+		if t.err != nil {
 			return
 		}
 		c.A[reg] = uint32(wordToInt32(dst + src))
 
 	case SizeLong:
 		var src uint32
-		src, t.src, c.err = c.readLong(c.op)
-		if c.err != nil {
+		src, t.src, t.err = c.readLong(c.op)
+		if t.err != nil {
 			return
 		}
 		c.A[reg] += src

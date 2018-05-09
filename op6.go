@@ -42,20 +42,20 @@ func opBcc(c *Processor) (t *stepTrace) {
 
 	case 0: // 16-bit displacement
 		var n uint16
-		n, _, c.err = c.readImmWord()
+		n, _, t.err = c.readImmWord()
 		disp = wordToInt32(n)
 
 	case 0xFF: // 32-bit displacement
 		if cc < 2 {
 			// 32-bit displacement is not implemented on the 68000 for bra and bsr
-			c.err = errBadOpcode
+			t.err = errBadOpcode
 			return
 		}
 		var n uint32
-		n, _, c.err = c.readImmLong()
+		n, _, t.err = c.readImmLong()
 		disp = longToInt32(n)
 	}
-	if c.err != nil {
+	if t.err != nil {
 		return
 	}
 	t.src = fmt.Sprintf("($%X,PC)", disp)

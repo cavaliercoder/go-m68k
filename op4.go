@@ -22,7 +22,7 @@ func opLea(c *Processor) (t *stepTrace) {
 	reg := ea & 0x07
 	switch mod {
 	default:
-		c.err = errBadAddress
+		t.err = errBadAddress
 		return
 
 	case 0x02: // memory address
@@ -32,24 +32,24 @@ func opLea(c *Processor) (t *stepTrace) {
 	case 0x07: // other
 		switch reg {
 		default:
-			c.err = errBadAddress
+			t.err = errBadAddress
 			return
 
 		case 0x00: // absolute word
 			var n uint16
-			n, _, c.err = c.readImmWord()
+			n, _, t.err = c.readImmWord()
 			c.A[an] = uint32(wordToInt32(n))
 			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x01: // absolute long
 			var n uint32
-			n, _, c.err = c.readImmLong()
+			n, _, t.err = c.readImmLong()
 			c.A[an] = n
 			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x02: // program counter with displacement
 			var n uint16
-			n, _, c.err = c.readImmWord()
+			n, _, t.err = c.readImmWord()
 			disp := wordToInt32(n)
 			c.A[an] = uint32(int32(c.PC) + disp - 2)
 			t.src = fmt.Sprintf("($%X,PC)", disp)
@@ -72,18 +72,18 @@ func opClr(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = errBadOpSize
+		t.err = errBadOpSize
 
 	case SizeByte:
-		t.dst, c.err = c.writeByte(c.op, 0)
+		t.dst, t.err = c.writeByte(c.op, 0)
 
 	case SizeWord:
-		t.dst, c.err = c.writeWord(c.op, 0)
+		t.dst, t.err = c.writeWord(c.op, 0)
 
 	case SizeLong:
-		t.dst, c.err = c.writeLong(c.op, 0)
+		t.dst, t.err = c.writeLong(c.op, 0)
 	}
-	if c.err != nil {
+	if t.err != nil {
 		return
 	}
 	c.SR &= 0xFFFFFFF0
@@ -103,8 +103,8 @@ func opMoveToSr(c *Processor) (t *stepTrace) {
 	c.PC += 2
 
 	var n uint16
-	n, t.src, c.err = c.readWord(c.op)
-	if c.err != nil {
+	n, t.src, t.err = c.readWord(c.op)
+	if t.err != nil {
 		return
 	}
 
@@ -152,7 +152,7 @@ func opMovem(c *Processor) (t *stepTrace) {
 		}
 
 		// flush buffer to memory
-		t.dst, c.err = c.writeBytes(c.op, b.Bytes())
+		t.dst, t.err = c.writeBytes(c.op, b.Bytes())
 		return
 	}
 
@@ -172,8 +172,8 @@ func opMovem(c *Processor) (t *stepTrace) {
 	if t.sz == SizeLong {
 		buflen = regc * 4
 	}
-	t.src, c.err = c.readBytes(c.op, c.buf[:buflen])
-	if c.err != nil {
+	t.src, t.err = c.readBytes(c.op, c.buf[:buflen])
+	if t.err != nil {
 		return
 	}
 
@@ -216,7 +216,7 @@ func opTrap(c *Processor) (t *stepTrace) {
 	v += 32
 	if c.handlers[v] != nil {
 		// TODO: should trap handlers be executed inline?
-		c.err = c.handlers[v].Trap(c, int(v))
+		t.err = c.handlers[v].Trap(c, int(v))
 	}
 	return
 }
@@ -252,15 +252,15 @@ func opStop(c *Processor) (t *stepTrace) {
 	c.PC += 2
 
 	var n uint16
-	n, c.err = c.M.Word(int(c.PC))
-	if c.err != nil {
+	n, t.err = c.M.Word(int(c.PC))
+	if t.err != nil {
 		return
 	}
 	c.PC += 2
 	t.dst = fmt.Sprintf("#$%X", n)
 	c.SR = uint32(n) & StatusMask
 	// TODO: handle case where interrupt mask is maximum (0x0700)
-	c.err = c.Stop()
+	t.err = c.Stop()
 	return
 }
 
@@ -272,8 +272,8 @@ func opRts(c *Processor) (t *stepTrace) {
 		sz:   noSize,
 		n:    1,
 	}
-	c.PC, c.err = c.M.Long(int(c.A[7]))
-	if c.err != nil {
+	c.PC, t.err = c.M.Long(int(c.A[7]))
+	if t.err != nil {
 		return
 	}
 	c.A[7] += 4
@@ -297,7 +297,7 @@ func opJsr(c *Processor) (t *stepTrace) {
 	switch mod {
 	// TODO: implement remaining address modes for JSR
 	default:
-		c.err = errBadAddress
+		t.err = errBadAddress
 		return
 
 	case 0x02: // address register indirect
@@ -307,24 +307,24 @@ func opJsr(c *Processor) (t *stepTrace) {
 	case 0x07: // other
 		switch reg {
 		default:
-			c.err = errBadAddress
+			t.err = errBadAddress
 			return
 
 		case 0x00: // absolute word
 			var n uint16
-			n, _, c.err = c.readImmWord()
+			n, _, t.err = c.readImmWord()
 			jmp = uint32(wordToInt32(n))
 			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x01: // absolute long
 			var n uint32
-			n, _, c.err = c.readImmLong()
+			n, _, t.err = c.readImmLong()
 			jmp = n
 			t.src = fmt.Sprintf("$%X", int32(n))
 
 		case 0x02: // program counter with displacement
 			var n uint16
-			n, _, c.err = c.readImmWord()
+			n, _, t.err = c.readImmWord()
 			disp := wordToInt32(n)
 			jmp = uint32(int32(c.PC) + disp - 2)
 			t.src = fmt.Sprintf("($%X,PC)", disp)
@@ -334,8 +334,8 @@ func opJsr(c *Processor) (t *stepTrace) {
 	// push return address (current PC) to stack
 	c.A[7] -= 4
 	binary.BigEndian.PutUint32(c.buf[:4], c.PC)
-	_, c.err = c.M.Write(int(c.A[7]), c.buf[:4])
-	if c.err != nil {
+	_, t.err = c.M.Write(int(c.A[7]), c.buf[:4])
+	if t.err != nil {
 		return
 	}
 
@@ -357,17 +357,17 @@ func opTst(c *Processor) (t *stepTrace) {
 	switch t.sz {
 	case SizeByte:
 		var b byte
-		b, t.src, c.err = c.readByte(c.op)
+		b, t.src, t.err = c.readByte(c.op)
 		c.setStatusForByte(b)
 
 	case SizeWord:
 		var n uint16
-		n, t.src, c.err = c.readWord(c.op)
+		n, t.src, t.err = c.readWord(c.op)
 		c.setStatusForWord(n)
 
 	case SizeLong:
 		var n uint32
-		n, t.src, c.err = c.readLong(c.op)
+		n, t.src, t.err = c.readLong(c.op)
 		c.setStatusForLong(n)
 	}
 	return

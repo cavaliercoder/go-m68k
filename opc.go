@@ -28,12 +28,12 @@ func opAbcd(c *Processor) (t *stepTrace) {
 		t.src = fmt.Sprintf("-(A%d)", ry)
 		c.A[rx]--
 		c.A[ry]--
-		vx, c.err = c.M.Byte(int(c.A[rx]))
-		if c.err != nil {
+		vx, t.err = c.M.Byte(int(c.A[rx]))
+		if t.err != nil {
 			return
 		}
-		vy, c.err = c.M.Byte(int(c.A[ry]))
-		if c.err != nil {
+		vy, t.err = c.M.Byte(int(c.A[ry]))
+		if t.err != nil {
 			return
 		}
 	}
@@ -60,7 +60,7 @@ func opAbcd(c *Processor) (t *stepTrace) {
 	if mod == 0 {
 		c.D[rx] = (c.D[rx] & 0xFFFFFF00) | uint32(v&0xFF)
 	} else {
-		_, c.err = c.M.Write(int(c.A[rx]), []byte{byte(v)})
+		_, t.err = c.M.Write(int(c.A[rx]), []byte{byte(v)})
 	}
 
 	return

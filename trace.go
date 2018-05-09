@@ -11,6 +11,7 @@ type stepTrace struct {
 	op, src, dst string
 	sz           uint16
 	n            int // cycle count
+	err          error
 }
 
 func (c *stepTrace) String() string {

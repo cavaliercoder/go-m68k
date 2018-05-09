@@ -28,33 +28,33 @@ func opMove(c *Processor) (t *stepTrace) {
 	switch t.sz {
 	case SizeByte:
 		var b byte
-		b, t.src, c.err = c.readByte(src)
-		if c.err != nil {
+		b, t.src, t.err = c.readByte(src)
+		if t.err != nil {
 			break
 		}
-		t.dst, c.err = c.writeByte(dst, b)
+		t.dst, t.err = c.writeByte(dst, b)
 		if b == 0 {
 			c.SR |= StatusZero
 		}
 
 	case SizeWord:
 		var v uint16
-		v, t.src, c.err = c.readWord(src)
-		if c.err != nil {
+		v, t.src, t.err = c.readWord(src)
+		if t.err != nil {
 			break
 		}
-		t.dst, c.err = c.writeWord(dst, v)
+		t.dst, t.err = c.writeWord(dst, v)
 		if v == 0 {
 			c.SR |= StatusZero
 		}
 
 	case SizeLong:
 		var v uint32
-		v, t.src, c.err = c.readLong(src)
-		if c.err != nil {
+		v, t.src, t.err = c.readLong(src)
+		if t.err != nil {
 			break
 		}
-		t.dst, c.err = c.writeLong(dst, v)
+		t.dst, t.err = c.writeLong(dst, v)
 		if v == 0 {
 			c.SR |= StatusZero
 		}
@@ -76,14 +76,14 @@ func opOri(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = errBadOpSize
+		t.err = errBadOpSize
 		return
 
 	case SizeByte:
 		// read immediate byte
 		var src, dst byte
-		src, t.src, c.err = c.readImmByte()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmByte()
+		if t.err != nil {
 			break
 		}
 		if ea == 0x3C { // ori.b to CCR
@@ -94,18 +94,18 @@ func opOri(c *Processor) (t *stepTrace) {
 		}
 
 		// ori.b
-		dst, _, c.err = c.readByte(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readByte(ea)
+		if t.err != nil {
 			break
 		}
 		b := dst | src
-		t.dst, c.err = c.writeByte(ea, b)
+		t.dst, t.err = c.writeByte(ea, b)
 
 	case SizeWord:
 		// read immediate word
 		var src, dst uint16
-		src, t.src, c.err = c.readImmWord()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmWord()
+		if t.err != nil {
 			break
 		}
 		if ea == 0x3C { // ori.w to SR
@@ -116,26 +116,26 @@ func opOri(c *Processor) (t *stepTrace) {
 		}
 
 		// ori.w
-		dst, _, c.err = c.readWord(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readWord(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst | src
-		t.dst, c.err = c.writeWord(ea, v)
+		t.dst, t.err = c.writeWord(ea, v)
 
 	case SizeLong:
 		// read immediate long
 		var src, dst uint32
-		src, t.src, c.err = c.readImmLong()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmLong()
+		if t.err != nil {
 			break
 		}
-		dst, _, c.err = c.readLong(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readLong(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst | src
-		t.dst, c.err = c.writeLong(ea, v)
+		t.dst, t.err = c.writeLong(ea, v)
 	}
 	return
 }
@@ -154,13 +154,13 @@ func opAndi(c *Processor) (t *stepTrace) {
 	c.SR &= 0xFFFFFFF0 // reset last 4 bits only
 	switch t.sz {
 	default:
-		c.err = errBadOpSize
+		t.err = errBadOpSize
 		return
 
 	case SizeByte:
 		// read immediate byte
 		var src, dst byte
-		src, t.src, c.err = c.readImmByte()
+		src, t.src, t.err = c.readImmByte()
 
 		if ea == 0x3C { // and.b to CCR
 			c.SR = sr | uint32(src)&StatusMask
@@ -170,18 +170,18 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 
 		// and.b
-		dst, _, c.err = c.readByte(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readByte(ea)
+		if t.err != nil {
 			break
 		}
 		b := dst & src
-		t.dst, c.err = c.writeByte(ea, b)
+		t.dst, t.err = c.writeByte(ea, b)
 		c.setStatusForByte(b)
 
 	case SizeWord:
 		// read immediate word
 		var src, dst uint16
-		src, t.src, c.err = c.readImmWord()
+		src, t.src, t.err = c.readImmWord()
 
 		if ea == 0x3C { // andi.w to SR
 			c.SR = sr | uint32(src)&StatusMask
@@ -191,26 +191,26 @@ func opAndi(c *Processor) (t *stepTrace) {
 		}
 
 		// ori.w
-		dst, _, c.err = c.readWord(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readWord(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst & src
-		t.dst, c.err = c.writeWord(ea, v)
+		t.dst, t.err = c.writeWord(ea, v)
 		c.setStatusForWord(v)
 
 	case SizeLong:
 		// read immediate long
 		var src, dst uint32
-		src, t.src, c.err = c.readImmLong()
+		src, t.src, t.err = c.readImmLong()
 
 		// andi.l
-		dst, _, c.err = c.readLong(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readLong(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst & src
-		t.dst, c.err = c.writeLong(ea, v)
+		t.dst, t.err = c.writeLong(ea, v)
 		c.setStatusForLong(v)
 	}
 
@@ -231,50 +231,50 @@ func opSubi(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = errBadOpSize
+		t.err = errBadOpSize
 		return
 
 	case SizeByte:
 		// read immediate byte
 		var src, dst byte
-		src, t.src, c.err = c.readImmByte()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmByte()
+		if t.err != nil {
 			break
 		}
-		dst, _, c.err = c.readByte(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readByte(ea)
+		if t.err != nil {
 			break
 		}
 		dst -= src
-		t.dst, c.err = c.writeByte(ea, dst)
+		t.dst, t.err = c.writeByte(ea, dst)
 
 	case SizeWord:
 		// read immediate word
 		var src, dst uint16
-		src, t.src, c.err = c.readImmWord()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmWord()
+		if t.err != nil {
 			break
 		}
-		dst, _, c.err = c.readWord(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readWord(ea)
+		if t.err != nil {
 			break
 		}
 		dst -= src
-		t.dst, c.err = c.writeWord(ea, dst)
+		t.dst, t.err = c.writeWord(ea, dst)
 
 	case SizeLong:
 		// read immediate long
 		var src, dst uint32
-		src, t.src, c.err = c.readImmLong()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmLong()
+		if t.err != nil {
 			break
 		}
-		dst, _, c.err = c.readLong(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readLong(ea)
+		if t.err != nil {
 			break
 		}
 		dst -= src
-		t.dst, c.err = c.writeLong(ea, dst)
+		t.dst, t.err = c.writeLong(ea, dst)
 	}
 	return
 }
@@ -293,49 +293,49 @@ func opAddi(c *Processor) (t *stepTrace) {
 
 	switch t.sz {
 	default:
-		c.err = errBadOpSize
+		t.err = errBadOpSize
 		return
 	case SizeByte:
 		// read immediate byte
 		var src, dst byte
-		src, t.src, c.err = c.readImmByte()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmByte()
+		if t.err != nil {
 			break
 		}
-		dst, _, c.err = c.readByte(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readByte(ea)
+		if t.err != nil {
 			break
 		}
 		b := dst + src
-		t.dst, c.err = c.writeByte(ea, b)
+		t.dst, t.err = c.writeByte(ea, b)
 
 	case SizeWord:
 		// read immediate word
 		var src, dst uint16
-		src, t.src, c.err = c.readImmWord()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmWord()
+		if t.err != nil {
 			break
 		}
-		dst, _, c.err = c.readWord(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readWord(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst + src
-		t.dst, c.err = c.writeWord(ea, v)
+		t.dst, t.err = c.writeWord(ea, v)
 
 	case SizeLong:
 		// read immediate long
 		var src, dst uint32
-		src, t.src, c.err = c.readImmLong()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmLong()
+		if t.err != nil {
 			break
 		}
-		dst, _, c.err = c.readLong(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readLong(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst + src
-		t.dst, c.err = c.writeLong(ea, v)
+		t.dst, t.err = c.writeLong(ea, v)
 	}
 	return
 }
@@ -352,14 +352,14 @@ func opEori(c *Processor) (t *stepTrace) {
 	ea := decodeEA(c.op)
 	switch t.sz {
 	default:
-		c.err = errBadOpSize
+		t.err = errBadOpSize
 		return
 
 	case SizeByte:
 		// read immediate byte
 		var src, dst byte
-		src, t.src, c.err = c.readImmByte()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmByte()
+		if t.err != nil {
 			break
 		}
 
@@ -371,18 +371,18 @@ func opEori(c *Processor) (t *stepTrace) {
 		}
 
 		// eori.b
-		dst, _, c.err = c.readByte(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readByte(ea)
+		if t.err != nil {
 			break
 		}
 		b := dst ^ src
-		t.dst, c.err = c.writeByte(ea, b)
+		t.dst, t.err = c.writeByte(ea, b)
 
 	case SizeWord:
 		// read immediate word
 		var src, dst uint16
-		src, t.src, c.err = c.readImmWord()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmWord()
+		if t.err != nil {
 			break
 		}
 
@@ -394,28 +394,28 @@ func opEori(c *Processor) (t *stepTrace) {
 		}
 
 		// eori.w
-		dst, _, c.err = c.readWord(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readWord(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst ^ src
-		t.dst, c.err = c.writeWord(ea, v)
+		t.dst, t.err = c.writeWord(ea, v)
 
 	case SizeLong:
 		// read immediate long
 		var src, dst uint32
-		src, t.src, c.err = c.readImmLong()
-		if c.err != nil {
+		src, t.src, t.err = c.readImmLong()
+		if t.err != nil {
 			break
 		}
 
 		// eori.l
-		dst, _, c.err = c.readLong(ea)
-		if c.err != nil {
+		dst, _, t.err = c.readLong(ea)
+		if t.err != nil {
 			break
 		}
 		v := dst ^ src
-		t.dst, c.err = c.writeLong(ea, v)
+		t.dst, t.err = c.writeLong(ea, v)
 	}
 	return
 }
@@ -440,14 +440,14 @@ func opBtst(c *Processor) (t *stepTrace) {
 	mod := c.op & 0x38 >> 3
 	var v, width uint32
 	if mod == 0 { // data register
-		v, t.dst, c.err = c.readLong(c.op)
-		if c.err != nil {
+		v, t.dst, t.err = c.readLong(c.op)
+		if t.err != nil {
 			return
 		}
 		width = 32
 	} else {
 		var b byte
-		b, t.dst, c.err = c.readByte(c.op)
+		b, t.dst, t.err = c.readByte(c.op)
 		v = uint32(b)
 		width = 8
 	}

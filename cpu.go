@@ -97,7 +97,6 @@ type Processor struct {
 	buf      [64]byte         // general purpose buffer
 	op       uint16           // current opcode
 	runState RunState         // current state
-	err      error            // most recent error
 	handlers [256]TrapHandler // registered trap handlers
 }
 
@@ -131,29 +130,26 @@ func (c *Processor) Reset() {
 
 // Run executes any program loaded into memory, starting from the program
 // counter value, running until completion.
-func (c *Processor) Run() error {
+func (c *Processor) Run() (err error) {
 	if c.M == nil {
 		return errNoProgram
 	}
-	c.err = nil
 	c.runState = RunStateRunning
-	for c.err == nil && c.runState == RunStateRunning {
-		c.Step()
+	for err == nil && c.runState == RunStateRunning {
+		err = c.Step()
 	}
 	c.runState = RunStateStopped
-	return c.err
+	return
 }
 
 // Step executes the single instruction located at the address specified by the
 // program counter register.
-func (c *Processor) Step() error {
-	// TODO: the returned error must be a traceableError.
-
+func (c *Processor) Step() (err error) {
 	// TODO: consider prefetching a whole page of instructions and measure
 
 	// read from program pointer into op
-	if _, c.err = c.M.Read(int(c.PC), c.buf[0:2]); c.err != nil {
-		return c.err
+	if _, err = c.M.Read(int(c.PC), c.buf[0:2]); err != nil {
+		return
 	}
 	c.op = uint16(c.buf[0])<<8 + uint16(c.buf[1])
 
@@ -161,23 +157,23 @@ func (c *Processor) Step() error {
 		// TODO: 0 is a valid instruction. Find a way to terminate programs
 		// without buffer overrun.
 		c.runState = RunStateStopped
-		return c.err
+		return
 	}
 
 	// dispatch opcode to function
 	fn := dispatch(c.op)
 	if fn == nil {
-		c.err = newTraceableError(c.PC, c.op, errBadOpcode)
-		return c.err
+		err = newTraceableError(c.PC, c.op, errBadOpcode)
+		return
 	}
 	t := fn(c)
 
 	// BUG: trace data might be corrupted by an execution error.
 	c.trace(t)
-	if c.err != nil {
-		c.err = newTraceableError(t.addr, c.op, c.err)
+	if t.err != nil {
+		err = newTraceableError(t.addr, c.op, t.err)
 	}
-	return c.err
+	return
 }
 
 // Stop instructs the processor to stop processing instructions.
@@ -382,7 +378,7 @@ func (c *Processor) readWord(ea uint16) (n uint16, opr string, err error) {
 			opr = fmt.Sprintf("$%X", addr)
 
 		case 0x04: // immediate word
-			n, c.err = c.M.Word(int(c.PC))
+			n, err = c.M.Word(int(c.PC))
 			c.PC += 2
 			opr = fmt.Sprintf("#$%X", wordToInt32(n))
 		}
@@ -459,7 +455,7 @@ func (c *Processor) readLong(ea uint16) (n uint32, opr string, err error) {
 			opr = fmt.Sprintf("$%X", addr)
 
 		case 0x04: // immediate long
-			n, c.err = c.M.Long(int(c.PC))
+			n, err = c.M.Long(int(c.PC))
 			c.PC += 4
 			opr = fmt.Sprintf("#$%X", int32(n))
 		}
@@ -477,17 +473,17 @@ func (c *Processor) readBytes(ea uint16, b []byte) (opr string, err error) {
 		return
 
 	case 0x02: // memory address
-		_, c.err = c.M.Read(int(c.A[reg]), b)
+		_, err = c.M.Read(int(c.A[reg]), b)
 		opr = fmt.Sprintf("(A%d)", reg)
 
 	case 0x03: // memory address with post-increment
-		_, c.err = c.M.Read(int(c.A[reg]), b)
+		_, err = c.M.Read(int(c.A[reg]), b)
 		c.A[reg] += 4
 		opr = fmt.Sprintf("(A%d)+", reg)
 
 	case 0x04: // memory address with pre-decrement
 		c.A[reg] -= 4
-		_, c.err = c.M.Read(int(c.A[reg]), b)
+		_, err = c.M.Read(int(c.A[reg]), b)
 		opr = fmt.Sprintf("-(A%d)", reg)
 
 	case 0x05: // memory address with displacement
@@ -498,7 +494,7 @@ func (c *Processor) readBytes(ea uint16, b []byte) (opr string, err error) {
 		}
 		c.PC += 2
 		addr := int(c.A[reg]) + int(d)
-		_, c.err = c.M.Read(addr, b)
+		_, err = c.M.Read(addr, b)
 		opr = fmt.Sprintf("($%X,A%d)", d, reg)
 
 	case 0x07: // other
@@ -514,7 +510,7 @@ func (c *Processor) readBytes(ea uint16, b []byte) (opr string, err error) {
 				return
 			}
 			c.PC += 2
-			_, c.err = c.M.Read(int(addr), b)
+			_, err = c.M.Read(int(addr), b)
 			opr = fmt.Sprintf("$%X", addr)
 
 		case 0x01: // absolute long
@@ -524,7 +520,7 @@ func (c *Processor) readBytes(ea uint16, b []byte) (opr string, err error) {
 				return
 			}
 			c.PC += 4
-			_, c.err = c.M.Read(int(addr), b)
+			_, err = c.M.Read(int(addr), b)
 			opr = fmt.Sprintf("$%X", addr)
 		}
 	}

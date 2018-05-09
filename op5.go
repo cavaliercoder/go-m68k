@@ -18,8 +18,8 @@ func opDBcc(c *Processor) (t *stepTrace) {
 
 	// compute displacement
 	var dw uint16
-	dw, _, c.err = c.readImmWord()
-	if c.err != nil {
+	dw, _, t.err = c.readImmWord()
+	if t.err != nil {
 		return
 	}
 	disp := wordToInt32(dw)
