@@ -31,3 +31,8 @@ func (m *mirror) Read(addr int, p []byte) (n int, err error) {
 	addr = int(uint32(addr) % m.Size)
 	return m.M.Read(addr, p)
 }
+
+// Reset resets the underlying Memory interface.
+func (m *mirror) Reset() (err error) {
+	return m.M.Reset()
+}

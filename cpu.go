@@ -113,8 +113,7 @@ func (c *Processor) Reset() {
 		TraceWriter: c.TraceWriter,
 		handlers:    c.handlers,
 	}
-	// TODO: Clear only system memory on reset
-	m68kmem.Clear(c.M)
+	c.M.Reset()
 }
 
 // Run executes any program loaded into memory, starting from the program

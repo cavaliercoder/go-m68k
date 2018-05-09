@@ -37,3 +37,7 @@ func (c *tracer) Write(addr int, p []byte) (n int, err error) {
 	fmt.Fprintf(c.w, "%08X [%s] wrote %d bytes: %s\n", addr, c.s, n, hex.EncodeToString(p))
 	return
 }
+
+func (c *tracer) Reset() (err error) {
+	return c.m.Reset()
+}

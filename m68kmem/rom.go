@@ -30,3 +30,10 @@ func (m *rom) Read(addr int, p []byte) (n int, err error) {
 func (m *rom) Write(addr int, p []byte) (n int, err error) {
 	return 0, accessViolationError(addr)
 }
+
+func (m *rom) Reset() (err error) {
+	for i := 0; i < len(m.b); i++ {
+		m.b[i] = 0
+	}
+	return
+}

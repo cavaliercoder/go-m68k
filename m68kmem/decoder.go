@@ -24,6 +24,11 @@ func (m *Decoder) Read(addr int, p []byte) (n int, err error) {
 	return m.M.Read(addr, p)
 }
 
+// Reset resets the underlying Memory interface.
+func (m *Decoder) Reset() (err error) {
+	return m.M.Reset()
+}
+
 // Byte reads a single byte from the underlying Memory interface.
 func (m *Decoder) Byte(addr int) (b byte, err error) {
 	_, err = m.M.Read(addr, m.buf[:1])

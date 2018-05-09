@@ -37,3 +37,11 @@ func (m *ram) Write(addr int, p []byte) (n int, err error) {
 	}
 	return
 }
+
+// Reset resets all memory pages to zero.
+func (m *ram) Reset() (err error) {
+	for i := 0; i < len(m.b); i++ {
+		m.b[i] = 0
+	}
+	return
+}

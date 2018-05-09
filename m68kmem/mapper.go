@@ -67,7 +67,6 @@ func (mm *Mapper) Read(addr int, p []byte) (n int, err error) {
 		return
 	}
 	if addr >= mm.max {
-		// TODO: deprecate EOF in memory mapper
 		return 0, io.EOF
 	}
 	m := mm.mappings
@@ -105,4 +104,15 @@ func (mm *Mapper) Write(addr int, p []byte) (n int, err error) {
 		}
 	}
 	return 0, accessViolationError(addr)
+}
+
+// Reset calls Reset on all mapped Memory devices. Mappings are preserved.
+func (mm *Mapper) Reset() (err error) {
+	for m := mm.mappings; m != nil; m = m.next {
+		err = m.m.Reset()
+		if err != nil {
+			return
+		}
+	}
+	return
 }

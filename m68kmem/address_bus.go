@@ -27,6 +27,10 @@ func (m *addressBus) Write(addr int, p []byte) (n int, err error) {
 	return m.M.Write(addr, p)
 }
 
+func (m *addressBus) Reset() (err error) {
+	return m.M.Reset()
+}
+
 func maskAddr(addr int) (n int, err error) {
 	if addr < 0 {
 		err = AccessViolationError(uint32(addr))

@@ -20,3 +20,7 @@ func (c *nop) Write(addr int, p []byte) (n int, err error) {
 	n = len(p)
 	return
 }
+
+func (c *nop) Reset() (err error) {
+	return
+}
