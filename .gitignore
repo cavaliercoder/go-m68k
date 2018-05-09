@@ -1,4 +1,6 @@
 .vscode/
-debug.test
+*.prof
+*.test
 cmd/m68k/m68k
 cmd/m68kgen/m68kgen
+debug.test

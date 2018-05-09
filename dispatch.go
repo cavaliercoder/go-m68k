@@ -66,11 +66,10 @@ var opcodes = [][]opcode{
 }
 
 func dispatch(op uint16) stepFunc {
-	o := op >> 12
-	// TODO: switch to faster binary search
-	for i := 0; i < len(opcodes[o]); i++ {
-		if op&opcodes[o][i].mask == opcodes[o][i].base {
-			return opcodes[o][i].f
+	g := op >> 12
+	for i := 0; i < len(opcodes[g]); i++ {
+		if op&opcodes[g][i].mask == opcodes[g][i].base {
+			return opcodes[g][i].f
 		}
 	}
 	return nil

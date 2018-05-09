@@ -113,6 +113,7 @@ func (c *Processor) Reset() {
 		TraceWriter: c.TraceWriter,
 		handlers:    c.handlers,
 	}
+	// TODO: Clear only system memory on reset
 	m68kmem.Clear(c.M)
 }
 
@@ -122,6 +123,7 @@ func (c *Processor) Run() error {
 	if c.M == nil {
 		return errNoProgram
 	}
+	c.err = nil
 	for c.err == nil && !c.stop {
 		c.Step()
 	}
@@ -140,7 +142,9 @@ func (c *Processor) Run() error {
 // Step executes the single instruction located at the address specified by the
 // program counter register.
 func (c *Processor) Step() error {
-	// Invariant: the returned error must be a traceableError.
+	// TODO: the returned error must be a traceableError.
+
+	// TODO: consider prefetching a whole page of instructions and measure
 
 	// read from program pointer into op
 	if _, c.err = c.M.Read(int(c.PC), c.buf[0:2]); c.err != nil {
