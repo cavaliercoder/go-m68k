@@ -1,6 +1,7 @@
 package m68k
 
 import (
+	"bytes"
 	"fmt"
 )
 
@@ -15,15 +16,21 @@ type stepTrace struct {
 }
 
 func (c *stepTrace) String() string {
+	b := &bytes.Buffer{}
+	fmt.Fprintf(b, "%08X %s", c.addr, c.op)
+	if c.sz != noSize {
+		b.WriteByte('.')
+		b.WriteByte([]byte{'b', 'w', 'l'}[c.sz])
+	}
 	operands := c.dst
 	if c.dst == "" {
 		operands = c.src
 	} else if c.src != "" {
 		operands = fmt.Sprintf("%s,%s", c.src, c.dst)
 	}
-	if c.sz == noSize {
-		return fmt.Sprintf("%08X %s %s", c.addr, c.op, operands)
+	if operands != "" {
+		b.WriteByte(' ')
+		b.WriteString(operands)
 	}
-	sz := []string{"b", "w", "l"}[c.sz]
-	return fmt.Sprintf("%08X %s.%s %s", c.addr, c.op, sz, operands)
+	return b.String()
 }
