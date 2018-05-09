@@ -89,7 +89,8 @@ func (mm *Mapper) Write(addr int, p []byte) (n int, err error) {
 	for m := mm.mappings; m != nil; m = m.next {
 		if m.start <= addr && m.end >= addr {
 			addr -= m.start
-			return m.m.Write(addr, p)
+			n, err = m.m.Write(addr, p)
+			return
 		}
 	}
 	return 0, accessViolationError(addr)

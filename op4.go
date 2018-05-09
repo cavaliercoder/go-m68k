@@ -118,7 +118,7 @@ func opMovem(c *Processor) (t *stepTrace) {
 		addr: c.PC,
 		n:    1,
 		op:   "movem",
-		sz:   []uint16{SizeWord, SizeLong}[c.op&0x0040>>6],
+		sz:   []uint16{SizeWord, SizeLong}[c.op&0x40>>6],
 	}
 	c.PC += 2
 	regl, _, _ := c.readImmWord() // register list
@@ -272,10 +272,12 @@ func opRts(c *Processor) (t *stepTrace) {
 		sz:   noSize,
 		n:    1,
 	}
+	// move program counter to the address at the top of the stack
 	c.PC, t.err = c.M.Long(int(c.A[7]))
 	if t.err != nil {
 		return
 	}
+	// increment stack pointer
 	c.A[7] += 4
 	return
 }

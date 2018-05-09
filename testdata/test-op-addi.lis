@@ -17,6 +17,8 @@
 0000101C  0603 00FF                         17  		addi.b	#$FF,D3					; add 0xFF to D3
 00001020  0643 FF00                         18  		addi.w	#$FF00,D3				; add 0xFF00 to D3
 00001024  0683 FFFF0000                     19  		addi.l	#$FFFF0000,D3		; add 0xFFFF0000
+0000102A                                    20  
+0000102A  4E72 2700                         21  		stop #$2700
 
 No errors detected
 No warnings generated

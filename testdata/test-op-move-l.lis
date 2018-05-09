@@ -65,6 +65,7 @@
 000010B6                                    65  
 000010B6  23FC 49334933 0000F00C            66  		move.l #$49334933,$F00C		* immediate to absolute short
 000010C0  23FC 49334933 0001F000            67  		move.l #$49334933,$1F000	* immediate to absolute long
-
+000010CA                                    68  
+000010CA  4E72 2700                         69  		stop #$2700
 No errors detected
 No warnings generated

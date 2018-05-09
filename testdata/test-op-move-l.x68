@@ -65,3 +65,5 @@
 
 		move.l #$49334933,$F00C		* immediate to absolute short
 		move.l #$49334933,$1F000	* immediate to absolute long
+
+		stop #$2700

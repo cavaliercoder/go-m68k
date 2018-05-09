@@ -134,28 +134,31 @@ func (c *Processor) Run() (err error) {
 	if c.M == nil {
 		return errNoProgram
 	}
-	c.runState = RunStateRunning
-	for err == nil && c.runState == RunStateRunning {
+	for {
 		err = c.Step()
+		if err != nil || c.runState == RunStateStopped {
+			break
+		}
 	}
-	c.runState = RunStateStopped
 	return
 }
 
 // Step executes the single instruction located at the address specified by the
 // program counter register.
 func (c *Processor) Step() (err error) {
-	// TODO: consider prefetching a whole page of instructions and measure
+	c.runState = RunStateRunning
 
 	// read from program pointer into op
+	// TODO: consider prefetching a whole page of instructions and measure
 	if _, err = c.M.Read(int(c.PC), c.buf[0:2]); err != nil {
 		return
 	}
 	c.op = uint16(c.buf[0])<<8 + uint16(c.buf[1])
-
 	if c.op == 0 {
-		// TODO: 0 is a valid instruction. Find a way to terminate programs
-		// without buffer overrun.
+		// 0x0000 is a valid instruction (ori.b #$0,D0), but is commonly found when
+		// a program fails to terminate gracefully and we start reading zeroed
+		// memory. Since this instruction has no practical use, for now, we treat it
+		// as an indicator that a program has finished and stop the processor.
 		c.runState = RunStateStopped
 		return
 	}

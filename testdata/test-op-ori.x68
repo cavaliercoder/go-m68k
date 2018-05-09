@@ -49,3 +49,6 @@
 
     * assuming D4 = $22222222
     ori.l #$11111111,D4
+
+forever:
+    bra forever

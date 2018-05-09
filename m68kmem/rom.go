@@ -20,13 +20,14 @@ func (m *rom) Read(addr int, p []byte) (n int, err error) {
 	return
 }
 
+// Write always returns an AccessViolationError.
 func (m *rom) Write(addr int, p []byte) (n int, err error) {
-	return 0, accessViolationError(addr)
+	err = accessViolationError(addr)
+	return
 }
 
+// Reset does nothing, but is required to implement the Memory interface.
 func (m *rom) Reset() (err error) {
-	for i := 0; i < len(m.b); i++ {
-		m.b[i] = 0
-	}
+	// no-op
 	return
 }

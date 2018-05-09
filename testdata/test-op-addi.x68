@@ -17,3 +17,5 @@
 		addi.b	#$FF,D3					; add 0xFF to D3
 		addi.w	#$FF00,D3				; add 0xFF00 to D3
 		addi.l	#$FFFF0000,D3		; add 0xFFFF0000
+
+		stop #$2700

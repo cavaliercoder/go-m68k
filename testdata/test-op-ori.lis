@@ -49,6 +49,9 @@
 000010B2                                    49  
 000010B2                                    50      * assuming D4 = $22222222
 000010B2  0084 11111111                     51      ori.l #$11111111,D4
+000010B8                                    52  
+000010B8                                    53  forever:
+000010B8  60FE                              54      bra forever
 
 No errors detected
 No warnings generated
