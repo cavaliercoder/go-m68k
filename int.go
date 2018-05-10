@@ -24,8 +24,8 @@ var (
 	}
 )
 
-// Int represents M68000 internal encoding of an integer and provides methods
-// for emulating the its arithmetic behaviors.
+// Int represents the M68000 internal encoding of an integer and provides
+// methods for emulating the its arithmetic behaviors.
 type Int struct {
 	value, flags uint32
 }
